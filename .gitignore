@@ -1,0 +1,10 @@
+docs/overall_design.pdf
+CMakePresets.json
+CMakeLists.txt.*
+
+build/
+out/
+.cache/
+
+.vscode/
+.idea/
