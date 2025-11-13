@@ -81,126 +81,38 @@ struct Registrar
     };
 };
 
-// 以下写派生类
+// 派生类构造函数实现
 
-// 猫 - Tier 1：基础宠物
-class Cat : public Pet
-{
-private:
-    static Registrar<Cat> _registrar;
+Cat::Cat(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("猫", hp, attack, ownerPlayer, tier) {}
 
-public:
-    Cat(int hp = 4, int attack = 3, int ownerPlayer = 0, int tier = 1) 
-        : Pet("猫", hp, attack, ownerPlayer, tier) {};
-    ~Cat() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
+Ant::Ant(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("蚂蚁", hp, attack, ownerPlayer, tier) {}
 
-// 蚂蚁 - Tier 1：死亡时给随机友方宠物+2/+1
-class Ant : public Pet
-{
-private:
-    static Registrar<Ant> _registrar;
+Fish::Fish(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("鱼", hp, attack, ownerPlayer, tier) {}
 
-public:
-    Ant(int hp = 2, int attack = 1, int ownerPlayer = 0, int tier = 1)
-        : Pet("蚂蚁", hp, attack, ownerPlayer, tier) {};
-    ~Ant() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
+Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("蟋蟀", hp, attack, ownerPlayer, tier) {}
 
-// 鱼 - Tier 1：升级时给随机两个友方宠物+1/+1
-class Fish : public Pet
-{
-private:
-    static Registrar<Fish> _registrar;
+Swan::Swan(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("天鹅", hp, attack, ownerPlayer, tier) {}
 
-public:
-    Fish(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 1)
-        : Pet("鱼", hp, attack, ownerPlayer, tier) {};
-    ~Fish() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
+Flamingo::Flamingo(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("火烈鸟", hp, attack, ownerPlayer, tier) {}
 
-// 蟋蟀 - Tier 1：死亡时召唤一只蜜蜂
-class Cricket : public Pet
-{
-private:
-    static Registrar<Cricket> _registrar;
+Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("刺猬", hp, attack, ownerPlayer, tier) {}
 
-public:
-    Cricket(int hp = 1, int attack = 2, int ownerPlayer = 0, int tier = 1)
-        : Pet("蟋蟀", hp, attack, ownerPlayer, tier) {};
-    ~Cricket() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
-
-// 天鹅 - Tier 2：回合开始时获得1金币
-class Swan : public Pet
-{
-private:
-    static Registrar<Swan> _registrar;
-
-public:
-    Swan(int hp = 3, int attack = 1, int ownerPlayer = 0, int tier = 2)
-        : Pet("天鹅", hp, attack, ownerPlayer, tier) {};
-    ~Swan() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
-
-// 火烈鸟 - Tier 2：战斗结束时如果存活获得+2攻击
-class Flamingo : public Pet
-{
-private:
-    static Registrar<Flamingo> _registrar;
-
-public:
-    Flamingo(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 2)
-        : Pet("火烈鸟", hp, attack, ownerPlayer, tier) {};
-    ~Flamingo() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
-
-// 刺猬 - Tier 2：受到伤害时对敌人造成等量伤害
-class Hedgehog : public Pet
-{
-private:
-    static Registrar<Hedgehog> _registrar;
-
-public:
-    Hedgehog(int hp = 3, int attack = 1, int ownerPlayer = 0, int tier = 2)
-        : Pet("刺猬", hp, attack, ownerPlayer, tier) {};
-    ~Hedgehog() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
-
-// 孔雀 - Tier 3：受到攻击前获得50%伤害减免
-class Peacock : public Pet
-{
-private:
-    static Registrar<Peacock> _registrar;
-
-public:
-    Peacock(int hp = 2, int attack = 5, int ownerPlayer = 0, int tier = 3)
-        : Pet("孔雀", hp, attack, ownerPlayer, tier) {};
-    ~Peacock() = default;
-    void triggerPreBattleSkill() override {};
-    void triggerPostBattleSkill() override {};
-};
+Peacock::Peacock(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("孔雀", hp, attack, ownerPlayer, tier) {}
 
 // 所有 Pet 派生类全部在这里手动注册一次
-Registrar<Cat> Cat::_registrar;
-Registrar<Ant> Ant::_registrar;
-Registrar<Fish> Fish::_registrar;
-Registrar<Cricket> Cricket::_registrar;
-Registrar<Swan> Swan::_registrar;
-Registrar<Flamingo> Flamingo::_registrar;
-Registrar<Hedgehog> Hedgehog::_registrar;
-Registrar<Peacock> Peacock::_registrar;
+static Registrar<Cat> catRegistrar;
+static Registrar<Ant> antRegistrar;
+static Registrar<Fish> fishRegistrar;
+static Registrar<Cricket> cricketRegistrar;
+static Registrar<Swan> swanRegistrar;
+static Registrar<Flamingo> flamingoRegistrar;
+static Registrar<Hedgehog> hedgehogRegistrar;
+static Registrar<Peacock> peacockRegistrar;

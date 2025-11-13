@@ -32,8 +32,11 @@ set(SOURCES
     src/model/Shop.cpp
     src/model/Food.cpp
     src/model/Skill.cpp
+    src/ui/StartView.cpp
     src/ui/ShopView.cpp
     src/ui/BattleView.cpp
+    src/ui/PetEncyclopediaView.cpp
+    src/ui/RecordsView.cpp
     src/engine/BattleEngine.cpp
 )
 
@@ -44,15 +47,24 @@ set(HEADERS
     src/model/Shop.hpp
     src/model/Food.hpp
     src/model/Skill.hpp
+    src/ui/StartView.hpp
     src/ui/ShopView.hpp
     src/ui/BattleView.hpp
+    src/ui/PetEncyclopediaView.hpp
+    src/ui/RecordsView.hpp
     src/engine/BattleEngine.hpp
+)
+
+# 收集UI文件
+set(UI_FILES
+    src/ui/StartView.ui
 )
 
 add_executable(${PROJECT_NAME}
     WIN32 # If you need a terminal for debug, please comment this statement
     ${SOURCES}
     ${HEADERS}
+    ${UI_FILES}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

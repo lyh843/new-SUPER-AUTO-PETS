@@ -46,12 +46,12 @@ public:
         , _canRevive(false)
         , _hasMelonShield(false) {};
     ~Pet() = default;
-    std::string getName() { return _name; };
-    int getHP() { return _hp; };
+    std::string getName() const { return _name; };
+    int getHP() const { return _hp; };
     void setHP(int hp) { _hp = hp; };
-    int getAttack() { return _damage; };
+    int getAttack() const { return _damage; };
     void setAttack(int attack) { _damage = attack; };
-    bool isDead() { return _hp <= 0; };
+    bool isDead() const { return _hp <= 0; };
     void attack(Pet& other) { other.receiveDamage(_damage); };
     bool receiveDamage(int damage)
     {
@@ -92,4 +92,70 @@ inline std::vector<Creator>& getAllPets()
 {
     static std::vector<Creator> pets;
     return pets;
+};
+
+// 宠物派生类声明
+
+// 猫 - Tier 1：基础宠物
+class Cat : public Pet
+{
+public:
+    Cat(int hp = 4, int attack = 3, int ownerPlayer = 0, int tier = 1);
+    ~Cat() = default;
+};
+
+// 蚂蚁 - Tier 1：死亡时给随机友方宠物+2/+1
+class Ant : public Pet
+{
+public:
+    Ant(int hp = 2, int attack = 1, int ownerPlayer = 0, int tier = 1);
+    ~Ant() = default;
+};
+
+// 鱼 - Tier 1：升级时给随机两个友方宠物+1/+1
+class Fish : public Pet
+{
+public:
+    Fish(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 1);
+    ~Fish() = default;
+};
+
+// 蟋蟀 - Tier 1：死亡时召唤一只蜜蜂
+class Cricket : public Pet
+{
+public:
+    Cricket(int hp = 1, int attack = 2, int ownerPlayer = 0, int tier = 1);
+    ~Cricket() = default;
+};
+
+// 天鹅 - Tier 2：回合开始时获得1金币
+class Swan : public Pet
+{
+public:
+    Swan(int hp = 3, int attack = 1, int ownerPlayer = 0, int tier = 2);
+    ~Swan() = default;
+};
+
+// 火烈鸟 - Tier 2：战斗结束时如果存活获得+2攻击
+class Flamingo : public Pet
+{
+public:
+    Flamingo(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 2);
+    ~Flamingo() = default;
+};
+
+// 刺猬 - Tier 2：受到伤害时对敌人造成等量伤害
+class Hedgehog : public Pet
+{
+public:
+    Hedgehog(int hp = 3, int attack = 1, int ownerPlayer = 0, int tier = 2);
+    ~Hedgehog() = default;
+};
+
+// 孔雀 - Tier 3：受到攻击前获得50%伤害减免
+class Peacock : public Pet
+{
+public:
+    Peacock(int hp = 2, int attack = 5, int ownerPlayer = 0, int tier = 3);
+    ~Peacock() = default;
 };
