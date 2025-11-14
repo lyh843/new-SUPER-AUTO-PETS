@@ -129,3 +129,12 @@ void StartView::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
 }
 
+void StartView::on_playButton_clicked()
+{
+    // 满足 Qt Designer 自动连接的 slot（由 moc 生成）
+    // 转发到我们的业务信号
+    emit playClicked();
+}
+
+
+
