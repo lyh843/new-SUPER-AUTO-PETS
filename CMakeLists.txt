@@ -38,6 +38,7 @@ set(SOURCES
     src/ui/PetEncyclopediaView.cpp
     src/ui/RecordsView.cpp
     src/engine/BattleEngine.cpp
+    src/resources.qrc
 )
 
 # 收集头文件

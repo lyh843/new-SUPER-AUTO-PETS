@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+    <!-- 注册项目根目录下的图片为资源，alias 用来生成 :/pictures/startview_bg.png 路径 -->
+    <file alias="pictures/startview_bg.png">../docs/pictures/startview_bg.png</file>
+    <!-- 保留原始占位 SVG 作为备用资源 -->
+    <file alias="images/start_bg.svg">resources/images/start_bg.svg</file>
+</qresource>
+</RCC>
