@@ -38,6 +38,7 @@ set(SOURCES
     src/ui/PetEncyclopediaView.cpp
     src/ui/RecordsView.cpp
     src/engine/BattleEngine.cpp
+    src/ui/qtshopview.cpp
 )
 
 # 收集头文件
@@ -53,11 +54,13 @@ set(HEADERS
     src/ui/PetEncyclopediaView.hpp
     src/ui/RecordsView.hpp
     src/engine/BattleEngine.hpp
+    src/ui/qtshopview.h
 )
 
 # 收集UI文件
 set(UI_FILES
     src/ui/StartView.ui
+    src/ui/qtshopview.ui
 )
 
 add_executable(${PROJECT_NAME}
