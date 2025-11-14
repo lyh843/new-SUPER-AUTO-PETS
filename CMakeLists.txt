@@ -38,7 +38,6 @@ set(SOURCES
     src/ui/PetEncyclopediaView.cpp
     src/ui/RecordsView.cpp
     src/engine/BattleEngine.cpp
-    src/resources.qrc
     src/ui/qtshopview.cpp
 )
 
@@ -69,6 +68,7 @@ add_executable(${PROJECT_NAME}
     ${SOURCES}
     ${HEADERS}
     ${UI_FILES}
+    src/ui/qtstartview.h src/ui/qtstartview.cpp src/ui/qtstartview.ui
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

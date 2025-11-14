@@ -32,5 +32,7 @@ signals:
     void playClicked();           // 开始游戏
     void encyclopediaClicked();   // 打开宠物图鉴
     void recordsClicked();        // 查看战绩
+private slots:
+    void on_playButton_clicked();
 };
 

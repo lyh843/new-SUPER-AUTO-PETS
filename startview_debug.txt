@@ -1,0 +1,8 @@
+ResourceExists(:/pictures/startview_bg.png): false
+LoadedPixmapIsNull: true
+UsedFallbackPath: false
+---
+ResourceExists(:/pictures/startview_bg.png): false
+LoadedPixmapIsNull: true
+UsedFallbackPath: false
+---
