@@ -97,7 +97,7 @@ background-position: center;</string>
     <enum>Qt::TextFormat::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap>../photo/Play.png</pixmap>
+    <pixmap resource="resource.qrc">:/else/photo/Play.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -119,7 +119,7 @@ background-position: center;</string>
     <enum>Qt::TextFormat::MarkdownText</enum>
    </property>
    <property name="pixmap">
-    <pixmap>../photo/Refresh.png</pixmap>
+    <pixmap resource="resource.qrc">:/else/photo/Refresh.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -155,7 +155,7 @@ background-position: center;</string>
     <enum>Qt::TextFormat::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap>../photo/FastForward.png</pixmap>
+    <pixmap resource="resource.qrc">:/else/photo/Skip.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -267,7 +267,7 @@ background-position: center;</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../photo/FieldBattleView.png</pixmap>
+    <pixmap resource="resource.qrc">:/else/photo/FieldBattleView.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -294,6 +294,81 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
     <string/>
    </property>
   </widget>
+  <widget class="QPushButton" name="start_button_3">
+   <property name="geometry">
+    <rect>
+     <x>1121</x>
+     <y>732</y>
+     <width>262</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(0, 0, 0, 0.3);
+border-radius: 12px;
+border: 1px solid rgba(100, 100, 100, 0.5);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>735</y>
+     <width>48</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Hourglass_2x.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>740</y>
+     <width>48</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Heart.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>740</y>
+     <width>48</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Trophy.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>start_button</zorder>
   <zorder>auto_play_button</zorder>
@@ -305,7 +380,13 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
   <zorder>auto_play_font</zorder>
   <zorder>forward_font</zorder>
   <zorder>start_button_2</zorder>
+  <zorder>start_button_3</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

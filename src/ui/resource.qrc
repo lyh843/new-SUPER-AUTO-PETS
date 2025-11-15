@@ -111,6 +111,7 @@
         <file>photo/refreshButton.png</file>
         <file>photo/petBook.png</file>
         <file>photo/settingButton.png</file>
+        <file>photo/NewTrophy.png</file>
     </qresource>
     <qresource prefix="/Food">
         <file>photo/Food/Apple.png</file>
