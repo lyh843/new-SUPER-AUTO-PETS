@@ -416,7 +416,7 @@ void QtShopview::onPetBookClicked(){
 }
 
 void QtShopview::onSettingsClicked(){
-    // TODO: Implement settings
+    emit settingsClicked();
 }
 
 

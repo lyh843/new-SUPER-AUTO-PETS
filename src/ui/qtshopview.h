@@ -89,6 +89,7 @@ private slots:
 signals:
     void endTurn();
     void encyclopediaClicked();
+    void settingsClicked();
 
 
 public:

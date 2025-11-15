@@ -66,6 +66,7 @@ public:
         // 连接商店视图信号
         connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn);
         connect(_shopView, &QtShopview::encyclopediaClicked, this, &MainWindow::onEncyclopediaClicked);
+        connect(_shopView, &QtShopview::settingsClicked, this, &MainWindow::onSettingsClicked);
 
         // 连接战斗视图信号
         connect(_battleView, &BattleView::battleFinished, this, &MainWindow::onBattleFinished, Qt::UniqueConnection);
@@ -113,6 +114,7 @@ private slots:
         _stackedWidget->insertWidget(1, _shopView);
         connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn, Qt::UniqueConnection);
         connect(_shopView, &QtShopview::encyclopediaClicked, this, &MainWindow::onEncyclopediaClicked, Qt::UniqueConnection);
+        connect(_shopView, &QtShopview::settingsClicked, this, &MainWindow::onSettingsClicked, Qt::UniqueConnection);
 
         // 重新创建战斗视图（因为它持有player指针）
         if (_battleView)
@@ -156,7 +158,7 @@ private slots:
             "游戏规则：\n"
             "1. 使用金币购买宠物和食物\n"
             "2. 合理搭配宠物阵容\n"
-            "3. 相同宠物会合并升级\n"
+            "3. 相同宠物能够合并升级\n"
             "4. 刷新商店需要 1 金币\n"
             "5. 出售宠物获得 1 金币\n\n"
             "祝你游戏愉快！");
@@ -194,6 +196,40 @@ private slots:
             // 如果商店视图不存在，返回主菜单
             onBackToStart();
         }
+    }
+
+    void onSettingsClicked()
+    {
+        // 显示设置对话框，提供返回主菜单和退出游戏选项
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle("⚙️ 设置");
+        msgBox.setText("请选择操作：");
+        msgBox.setIcon(QMessageBox::Question);
+
+        QPushButton* backToStartBtn = msgBox.addButton("🏠 返回主菜单", QMessageBox::ActionRole);
+        QPushButton* exitGameBtn = msgBox.addButton("🚪 退出游戏", QMessageBox::DestructiveRole);
+        QPushButton* cancelBtn = msgBox.addButton("取消", QMessageBox::RejectRole);
+
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == backToStartBtn)
+        {
+            // 返回主菜单
+            onBackToStart();
+        }
+        else if (msgBox.clickedButton() == exitGameBtn)
+        {
+            // 退出游戏
+            auto reply = QMessageBox::question(this, "确认退出", 
+                                              "确定要退出游戏吗？\n当前的游戏进度将不会保存。",
+                                              QMessageBox::Yes | QMessageBox::No,
+                                              QMessageBox::No);
+            if (reply == QMessageBox::Yes)
+            {
+                QApplication::quit();
+            }
+        }
+        // 如果点击取消，什么都不做
     }
 
     void onEndTurn()
