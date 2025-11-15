@@ -52,7 +52,7 @@ int Player::getPetCount() const
     int count = 0;
     for (const auto& pet : _pets)
     {
-        if (pet)
+        if (pet->getName() != "")
             count++;
     }
     return count;

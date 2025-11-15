@@ -1,11 +1,13 @@
 #include "qtshopview.h"
 #include <qcontainerfwd.h>
+#include <qdebug.h>
 #include <qicon.h>
 #include <qmessagebox.h>
 #include <qnamespace.h>
 #include <qobject.h>
 #include <qpushbutton.h>
 #include <qsize.h>
+#include <cstdio>
 #include <memory>
 #include "model/Pet.hpp"
 #include "model/Player.hpp"
@@ -189,7 +191,7 @@ void QtShopview::onShopPetClicked(int index, bool isPlayerPet){
     }
     int emptySlot = -1;
     for(int i = 0; i < 5; i++){
-        if(_player->getPetAt(i) == nullptr){
+        if(_player->getPetAt(i)->getName() == ""){
             emptySlot = i;
             break;
         }
@@ -245,6 +247,7 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet){
 
         if (targetIndex != -1 && targetIndex != index) {
             _shop->swapPets(index, targetIndex);
+            updateUI();
         }
         else if(targetIndex == index){
             QMessageBox::warning(this, "错误", "不能选择宠物自己！");
