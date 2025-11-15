@@ -67,5 +67,7 @@ public:
     // 检查食物是否被冻结
     bool isFoodFrozen(int index) const;
 
+    void swapPets(int index, int targetIndex);
+
     ~Shop() = default;
 };

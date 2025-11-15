@@ -69,6 +69,7 @@ add_executable(${PROJECT_NAME}
     ${HEADERS}
     ${UI_FILES}
     src/ui/qtstartview.h src/ui/qtstartview.cpp src/ui/qtstartview.ui
+    src/ui/resource.qrc
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

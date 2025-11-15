@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include "ui/StartView.hpp"
-#include "ui/ShopView.hpp"
+#include "ui/QtShopview.h"
 #include "ui/BattleView.hpp"
 #include "ui/PetEncyclopediaView.hpp"
 #include "ui/RecordsView.hpp"
@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
 private:
     QStackedWidget* _stackedWidget;
     StartView* _startView;
-    ShopView* _shopView;
+    QtShopview* _shopView;
     BattleView* _battleView;
     PetEncyclopediaView* _encyclopediaView;
     RecordsView* _recordsView;
@@ -43,7 +43,7 @@ public:
         _stackedWidget->addWidget(_startView);
 
         // 创建商店视图
-        _shopView = new ShopView(_player, this);
+        _shopView = new QtShopview(_player, this);
         _stackedWidget->addWidget(_shopView);
 
         // 创建战斗视图
@@ -64,7 +64,7 @@ public:
         connect(_startView, &StartView::recordsClicked, this, &MainWindow::onRecordsClicked);
 
         // 连接商店视图信号
-        connect(_shopView, &ShopView::endTurn, this, &MainWindow::onEndTurn);
+        connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn);
 
         // 连接战斗视图信号
         connect(_battleView, &BattleView::battleFinished, this, &MainWindow::onBattleFinished);
@@ -101,9 +101,9 @@ private slots:
         // 重新创建商店视图
         _stackedWidget->removeWidget(_shopView);
         delete _shopView;
-        _shopView = new ShopView(_player, this);
+        _shopView = new QtShopview(_player, this);
         _stackedWidget->insertWidget(1, _shopView);
-        connect(_shopView, &ShopView::endTurn, this, &MainWindow::onEndTurn);
+        connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn);
 
         // 重新创建战斗视图（因为它持有player指针）
         _stackedWidget->removeWidget(_battleView);
