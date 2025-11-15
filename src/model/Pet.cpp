@@ -84,28 +84,28 @@ struct Registrar
 // 派生类构造函数实现
 
 Cat::Cat(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("猫", hp, attack, ownerPlayer, tier) {}
+    : Pet("Cat", hp, attack, ownerPlayer, tier) {}
 
 Ant::Ant(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("蚂蚁", hp, attack, ownerPlayer, tier) {}
+    : Pet("Ant", hp, attack, ownerPlayer, tier) {}
 
 Fish::Fish(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("鱼", hp, attack, ownerPlayer, tier) {}
+    : Pet("Fish", hp, attack, ownerPlayer, tier) {}
 
 Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("蟋蟀", hp, attack, ownerPlayer, tier) {}
+    : Pet("Cricket", hp, attack, ownerPlayer, tier) {}
 
 Swan::Swan(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("天鹅", hp, attack, ownerPlayer, tier) {}
+    : Pet("Swan", hp, attack, ownerPlayer, tier) {}
 
 Flamingo::Flamingo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("火烈鸟", hp, attack, ownerPlayer, tier) {}
+    : Pet("Flamingo", hp, attack, ownerPlayer, tier) {}
 
 Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("刺猬", hp, attack, ownerPlayer, tier) {}
+    : Pet("Hedgehog", hp, attack, ownerPlayer, tier) {}
 
 Peacock::Peacock(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("孔雀", hp, attack, ownerPlayer, tier) {}
+    : Pet("Peacock", hp, attack, ownerPlayer, tier) {}
 
 // 所有 Pet 派生类全部在这里手动注册一次
 static Registrar<Cat> catRegistrar;

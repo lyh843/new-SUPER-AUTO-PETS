@@ -88,6 +88,12 @@ public:
             return false;
     };
 
+    void setCoin(int coin) { _coin = coin; }
+    void setLives(int lives) { _lives = lives; }
+    void setRound(int round) { _round = round; }
+    void setPrize(int prize) { _prize = prize; }
+
+
     // 宠物管理
     const std::vector<std::unique_ptr<Pet>>& getPets() const { return _pets; }
     std::vector<std::unique_ptr<Pet>>& getPets() { return _pets; }
@@ -103,4 +109,7 @@ public:
     
     // 获取宠物数量
     int getPetCount() const;
+
+    // 调换宠物位置
+    void swapPets(int index, int targetIndex);
 };

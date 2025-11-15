@@ -65,6 +65,7 @@ private:
     bool _battleStarted;
     bool _autoBattle;
     QTimer* _autoTimer;
+    bool _pendingDisplayUpdate;
 
     void setupUI();
     void updateBattleDisplay();

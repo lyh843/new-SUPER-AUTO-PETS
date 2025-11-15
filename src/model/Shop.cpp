@@ -202,3 +202,7 @@ bool Shop::isFoodFrozen(int index) const
     return _foodFrozen[index];
 }
 
+void Shop::swapPets(int index, int targetIndex)
+{ 
+    std::swap(_petShopList[index], _petShopList[targetIndex]);
+}
