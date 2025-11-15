@@ -88,7 +88,7 @@ StartView::StartView(QWidget* parent)
     }
 
     // 连接信号
-    connect(_ui->playButton, &QPushButton::clicked, this, &StartView::playClicked);
+    // playButton 使用自动连接机制（on_playButton_clicked()），不需要手动连接
     connect(_ui->encyclopediaButton, &QPushButton::clicked, this, &StartView::encyclopediaClicked);
     connect(_ui->recordsButton, &QPushButton::clicked, this, &StartView::recordsClicked);
 

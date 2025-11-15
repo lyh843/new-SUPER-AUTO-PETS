@@ -73,6 +73,7 @@ public:
 
         // 连接图鉴视图信号
         connect(_encyclopediaView, &PetEncyclopediaView::backClicked, this, &MainWindow::onBackToStart, Qt::UniqueConnection);
+        connect(_encyclopediaView, &PetEncyclopediaView::backToShopClicked, this, &MainWindow::onBackToShopFromEncyclopedia, Qt::UniqueConnection);
 
         // 连接战绩视图信号
         connect(_recordsView, &RecordsView::backClicked, this, &MainWindow::onBackToStart, Qt::UniqueConnection);
@@ -102,18 +103,25 @@ private slots:
         // 重新创建商店视图
         if (_shopView)
         {
+            // 断开所有信号连接，避免旧信号触发
+            disconnect(_shopView, nullptr, this, nullptr);
             _stackedWidget->removeWidget(_shopView);
             delete _shopView;
+            _shopView = nullptr;
         }
         _shopView = new QtShopview(_player, this);
         _stackedWidget->insertWidget(1, _shopView);
         connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn, Qt::UniqueConnection);
+        connect(_shopView, &QtShopview::encyclopediaClicked, this, &MainWindow::onEncyclopediaClicked, Qt::UniqueConnection);
 
         // 重新创建战斗视图（因为它持有player指针）
         if (_battleView)
         {
+            // 断开所有信号连接，避免旧信号触发
+            disconnect(_battleView, nullptr, this, nullptr);
             _stackedWidget->removeWidget(_battleView);
             delete _battleView;
+            _battleView = nullptr;
         }
         _battleView = new BattleView(_player, this);
         _stackedWidget->insertWidget(2, _battleView);
@@ -130,18 +138,7 @@ private slots:
             _stackedWidget->addWidget(_battleView);
         }
         
-        // 显示欢迎消息
-        QMessageBox::information(this, "欢迎", 
-            "欢迎来到 Super Auto Pets！\n\n"
-            "游戏规则：\n"
-            "1. 使用金币购买宠物和食物\n"
-            "2. 合理搭配宠物阵容\n"
-            "3. 相同宠物会合并升级\n"
-            "4. 刷新商店需要 1 金币\n"
-            "5. 出售宠物获得 1 金币\n\n"
-            "祝你游戏愉快！");
-
-        // 确保切换到商店界面
+        // 先切换到商店界面，避免在显示对话框时触发其他信号
         int shopIndex = _stackedWidget->indexOf(_shopView);
         if (shopIndex >= 0)
         {
@@ -152,6 +149,17 @@ private slots:
             _stackedWidget->setCurrentWidget(_shopView);
         }
         setWindowTitle("Super Auto Pets - 商店");
+        
+        // 显示欢迎消息（在切换视图后显示，避免触发异常信号）
+        QMessageBox::information(this, "欢迎", 
+            "欢迎来到 Super Auto Pets！\n\n"
+            "游戏规则：\n"
+            "1. 使用金币购买宠物和食物\n"
+            "2. 合理搭配宠物阵容\n"
+            "3. 相同宠物会合并升级\n"
+            "4. 刷新商店需要 1 金币\n"
+            "5. 出售宠物获得 1 金币\n\n"
+            "祝你游戏愉快！");
     }
 
     void onEncyclopediaClicked()
@@ -170,6 +178,22 @@ private slots:
     {
         _stackedWidget->setCurrentWidget(_startView);
         setWindowTitle("Super Auto Pets");
+    }
+
+    void onBackToShopFromEncyclopedia()
+    {
+        // 从宠物图鉴返回商店
+        if (_shopView && _stackedWidget->indexOf(_shopView) >= 0)
+        {
+            int shopIndex = _stackedWidget->indexOf(_shopView);
+            _stackedWidget->setCurrentIndex(shopIndex);
+            setWindowTitle("Super Auto Pets - 商店");
+        }
+        else
+        {
+            // 如果商店视图不存在，返回主菜单
+            onBackToStart();
+        }
     }
 
     void onEndTurn()

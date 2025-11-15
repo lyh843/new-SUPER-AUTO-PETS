@@ -107,9 +107,31 @@ void PetEncyclopediaView::setupUI()
     _scrollArea->setWidget(_contentWidget);
     _mainLayout->addWidget(_scrollArea);
 
-    // 返回按钮
-    _backButton = new QPushButton("⬅️ 返回主菜单", this);
-    _backButton->setStyleSheet(
+    // 按钮布局
+    auto* buttonLayout = new QHBoxLayout();
+    buttonLayout->setSpacing(10);
+    
+    // 返回商店按钮
+    _backToShopButton = new QPushButton("⬅️ 返回商店", this);
+    _backToShopButton->setStyleSheet(
+        "QPushButton {"
+        "    font-size: 18px; "
+        "    font-weight: bold; "
+        "    background-color: #4CAF50; "
+        "    color: white; "
+        "    border: none; "
+        "    border-radius: 5px; "
+        "    padding: 10px 20px;"
+        "}"
+        "QPushButton:hover {"
+        "    background-color: #45a049; "
+        "}"
+    );
+    buttonLayout->addWidget(_backToShopButton);
+
+    // 返回主菜单按钮
+    _backToStartButton = new QPushButton("🏠 返回主菜单", this);
+    _backToStartButton->setStyleSheet(
         "QPushButton {"
         "    font-size: 18px; "
         "    font-weight: bold; "
@@ -117,15 +139,20 @@ void PetEncyclopediaView::setupUI()
         "    color: white; "
         "    border: none; "
         "    border-radius: 5px; "
-        "    padding: 10px;"
+        "    padding: 10px 20px;"
         "}"
         "QPushButton:hover {"
         "    background-color: #0b7dda; "
         "}"
     );
-    _mainLayout->addWidget(_backButton);
+    buttonLayout->addWidget(_backToStartButton);
+    
+    buttonLayout->addStretch();
+    
+    _mainLayout->addLayout(buttonLayout);
 
-    connect(_backButton, &QPushButton::clicked, this, &PetEncyclopediaView::backClicked);
+    connect(_backToShopButton, &QPushButton::clicked, this, &PetEncyclopediaView::backToShopClicked);
+    connect(_backToStartButton, &QPushButton::clicked, this, &PetEncyclopediaView::backClicked);
 
     setStyleSheet("background-color: #f0f0f0;");
 }

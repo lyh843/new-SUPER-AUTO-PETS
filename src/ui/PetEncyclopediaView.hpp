@@ -17,7 +17,8 @@ private:
     QScrollArea* _scrollArea;
     QWidget* _contentWidget;
     QVBoxLayout* _mainLayout;
-    QPushButton* _backButton;
+    QPushButton* _backToStartButton;
+    QPushButton* _backToShopButton;
 
     void setupUI();
     QWidget* createPetCard(const QString& name, const QString& tier, int attack, int health, const QString& ability);
@@ -28,6 +29,7 @@ public:
     ~PetEncyclopediaView() = default;
 
 signals:
-    void backClicked();  // 返回主菜单
+    void backClicked();      // 返回主菜单
+    void backToShopClicked(); // 返回商店
 };
 
