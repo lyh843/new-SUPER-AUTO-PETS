@@ -96,7 +96,7 @@ std::unique_ptr<Food> Food::createHoney()
 
 std::unique_ptr<Food> Food::createMeatBone()
 {
-    return std::make_unique<Food>("Meat Bone", 1, 3, FoodPerkType::MeatBone, 0, 3);
+    return std::make_unique<Food>("MeatBone", 1, 3, FoodPerkType::MeatBone, 0, 3);
 }
 
 std::unique_ptr<Food> Food::createGarlic()
@@ -111,20 +111,20 @@ std::unique_ptr<Food> Food::createSalad()
 
 std::unique_ptr<Food> Food::createCannedFood()
 {
-    return std::make_unique<Food>("罐头", 2, 6, FoodPerkType::CannedFood, 2, 2);
+    return std::make_unique<Food>("CannedFood", 2, 6, FoodPerkType::CannedFood, 2, 2);
 }
 
 std::unique_ptr<Food> Food::createMelon()
 {
-    return std::make_unique<Food>("西瓜", 3, 9, FoodPerkType::Melon);
+    return std::make_unique<Food>("Melon", 3, 9, FoodPerkType::Melon);
 }
 
 std::unique_ptr<Food> Food::createMushroom()
 {
-    return std::make_unique<Food>("蘑菇", 3, 9, FoodPerkType::Mushroom);
+    return std::make_unique<Food>("Mushroom", 3, 9, FoodPerkType::Mushroom);
 }
 
 std::unique_ptr<Food> Food::createPear()
 {
-    return std::make_unique<Food>("梨子", 1, 3, FoodPerkType::Pear, 1, 2);
+    return std::make_unique<Food>("Pear", 1, 3, FoodPerkType::Pear, 1, 2);
 }

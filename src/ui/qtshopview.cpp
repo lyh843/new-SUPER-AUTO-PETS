@@ -1,13 +1,13 @@
 #include "qtshopview.h"
 #include <qcontainerfwd.h>
 #include <qdebug.h>
+#include <qfont.h>
 #include <qicon.h>
 #include <qmessagebox.h>
 #include <qnamespace.h>
 #include <qobject.h>
 #include <qpushbutton.h>
 #include <qsize.h>
-#include <cstdio>
 #include <memory>
 #include "model/Pet.hpp"
 #include "model/Player.hpp"
@@ -44,7 +44,7 @@ QtFood::QtFood(QPushButton* foodPushButton, int index)
 
 void QtFood::updateFood(Food* food){
     if(food){
-        _foodPushButton->setIcon(QIcon(QString("../photo/%1.png").arg(food->getName())));
+        _foodPushButton->setIcon(QIcon(QString(":/Food/photo/Food/%1.png").arg(food->getName())));
         _foodPushButton->setIconSize(QSize(100, 100));
     }
     else{
@@ -78,6 +78,7 @@ void QtShopview::setupUI(){
     ui->roundIndex->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ui->prizeIndex->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
+
     QtPet* playerPet1 = new QtPet(ui->playAnimals1, 1, true);
     QtPet* playerPet2 = new QtPet(ui->playAnimals2, 2, true);
     QtPet* playerPet3 = new QtPet(ui->playAnimals3, 2, true);
@@ -109,6 +110,9 @@ void QtShopview::setupUI(){
 
     connect(ui->refreshButton, &QPushButton::clicked, this, &QtShopview::onRefreshClicked);
     connect(ui->frightButton, &QPushButton::clicked, this, &QtShopview::onEndTurnClicked);
+    connect(ui->petBookButton, &QPushButton::clicked, this, &QtShopview::onPetBookClicked);
+    connect(ui->settingsButton, &QPushButton::clicked, this, &QtShopview::onSettingsClicked);
+
     for(int i = 0; i < 5; i++){
         QPushButton* btn = _playerPets[i]->getPushButton();
         connect(btn, &QPushButton::clicked, this, [this, i](){
@@ -136,16 +140,34 @@ void QtShopview::updatePlayerInfo(){
     ui->heartIndex->setText(QString::number(_player->getLives()));
     ui->roundIndex->setText(QString::number(_player->getRound()));
     ui->prizeIndex->setText(QString::number(_player->getPrize()));
+    ui->coinIndex->setStyleSheet("color: black;");
+    ui->heartIndex->setStyleSheet("color: black;");
+    ui->roundIndex->setStyleSheet("color: black;");
+    ui->prizeIndex->setStyleSheet("color: black;");
+    QFont font = ui->coinIndex->font();
+    font.setBold(true);
+    font.setPointSize(14);
+    font = ui->heartIndex->font();
+    font.setBold(true);
+    font.setPointSize(14);
+    font = ui->roundIndex->font();
+    font.setBold(true);
+    font.setPointSize(14);
+    font = ui->prizeIndex->font();
+    font.setBold(true);
+    font.setPointSize(14);
+    ui->coinIndex->show();
     ui->coinIndex->raise();
-    ui->heartIndex->raise();
-    ui->roundIndex->raise();
-    ui->prizeIndex->raise();
+    ui->heartIndex->show();
+    ui->roundIndex->show();
+    ui->prizeIndex->show();
 }
 
 void QtShopview::updatePlayerPets(){
     for(int i = 0; i < 5; i++){
         Pet* pet = _player->getPetAt(i);
         _playerPets[i]->updatePet(pet);
+        _playerPets[i]->getPushButton()->setEnabled(pet != nullptr);
     }
 }
 
@@ -153,6 +175,7 @@ void QtShopview::updateShopPets(){
     for(int i = 0; i < 6; i++){
         Pet* pet = _shop->getPet(i);
         _shopPets[i]->updatePet(pet);
+        _shopPets[i]->getPushButton()->setEnabled(pet != nullptr);
     }
 }
 
@@ -191,12 +214,12 @@ void QtShopview::onShopPetClicked(int index, bool isPlayerPet){
     }
     int emptySlot = -1;
     for(int i = 0; i < 5; i++){
-        if(_player->getPetAt(i)->getName() == ""){
+        if(_player->getPetAt(i) == nullptr){
             emptySlot = i;
             break;
         }
     }
-    if(emptySlot != -1){
+    if(emptySlot == -1){
         QMessageBox::warning(this, "阵容已满", "你的宠物阵容已满！");
         return;
     }
@@ -226,38 +249,51 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet){
     msgBox.exec();
 
     if (msgBox.clickedButton() == moveBtn) {
-        QMessageBox msgBox(this);
-        msgBox.setWindowTitle("选择位置");
-        msgBox.setText("请选择要交换的位置：");
+        QMessageBox posBox(this);
+        posBox.setWindowTitle("选择宠物");
+        posBox.setText("请选择要与之交换的宠物：");
 
-        QPushButton* b1 = msgBox.addButton("位置 1", QMessageBox::ActionRole);
-        QPushButton* b2 = msgBox.addButton("位置 2", QMessageBox::ActionRole);
-        QPushButton* b3 = msgBox.addButton("位置 3", QMessageBox::ActionRole);
-        QPushButton* b4 = msgBox.addButton("位置 4", QMessageBox::ActionRole);
-        QPushButton* b5 = msgBox.addButton("位置 5", QMessageBox::ActionRole);
+        struct ButtonItem {
+            QPushButton* btn;
+            int index;
+        };
+        QVector<ButtonItem> items;
+        for (int i = 0; i < 5; ++i)
+        {
+            if (i == index) continue;
+            Pet* p = _player->getPetAt(i);
+            if (p) {
+                QString name = QString::fromStdString(p->getName());
+                auto* btn = posBox.addButton(name, QMessageBox::ActionRole);
 
-        msgBox.exec();
-
+                items.append({btn, i});
+            }
+        }
+        if (items.isEmpty()) {
+            QMessageBox::information(this, "提示", "没有可交换的宠物。");
+            return;
+        }
+        posBox.exec();
         int targetIndex = -1;
-        if (msgBox.clickedButton() == b1) targetIndex = 0;
-        else if (msgBox.clickedButton() == b2) targetIndex = 1;
-        else if (msgBox.clickedButton() == b3) targetIndex = 2;
-        else if (msgBox.clickedButton() == b4) targetIndex = 3;
-        else if (msgBox.clickedButton() == b5) targetIndex = 4;
-
-        if (targetIndex != -1 && targetIndex != index) {
-            _shop->swapPets(index, targetIndex);
-            updateUI();
+        for (const auto& item : items)
+        {
+            if (posBox.clickedButton() == item.btn) {
+                targetIndex = item.index;
+                break;
+            }
         }
-        else if(targetIndex == index){
-            QMessageBox::warning(this, "错误", "不能选择宠物自己！");
-        }
-    } else if (msgBox.clickedButton() == sellBtn) {
-        if(_shop->sell(index)){
+        if (targetIndex == -1)
+            return;
+        _player->swapPets(index, targetIndex);
+        updateUI();
+    }
+    else if (msgBox.clickedButton() == sellBtn) {
+        if (_shop->sell(index)) {
             updateUI();
             QMessageBox::information(this, "出售成功", "宠物已出售，获得 1 金币！");
         }
-    } else {
+    }
+    else {
         return;
     }
 }
@@ -340,6 +376,15 @@ void QtShopview::resetShop()
     _shop = std::make_unique<Shop>(_player);
     updateUI();
 }
+
+void QtShopview::onPetBookClicked(){
+    emit encyclopediaClicked();
+}
+
+void QtShopview::onSettingsClicked(){
+    // TODO: Implement settings
+}
+
 
 QtShopview::~QtShopview()
 {

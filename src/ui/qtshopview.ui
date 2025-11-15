@@ -314,7 +314,7 @@
    </property>
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/else/photo/ButtonFlatOrange.png</normaloff>:/else/photo/ButtonFlatOrange.png</iconset>
+     <normaloff>:/else/photo/petBook.png</normaloff>:/else/photo/petBook.png</iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -337,7 +337,7 @@
    </property>
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/else/photo/ButtonFlatOrange.png</normaloff>:/else/photo/ButtonFlatOrange.png</iconset>
+     <normaloff>:/else/photo/settingButton.png</normaloff>:/else/photo/settingButton.png</iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -690,44 +690,6 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="petBookIcon">
-   <property name="geometry">
-    <rect>
-     <x>1275</x>
-     <y>15</y>
-     <width>40</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="resource.qrc">:/else/photo/Paw.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="settingsIcon">
-   <property name="geometry">
-    <rect>
-     <x>1335</x>
-     <y>15</y>
-     <width>40</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="resource.qrc">:/else/photo/Bars.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="playerSpace1">
    <property name="geometry">
     <rect>
@@ -861,80 +823,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="frightPhoto">
-   <property name="geometry">
-    <rect>
-     <x>1290</x>
-     <y>700</y>
-     <width>60</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="resource.qrc">:/else/photo/Swords.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelFont3">
-   <property name="geometry">
-    <rect>
-     <x>1030</x>
-     <y>700</y>
-     <width>261</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>36</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>结束回合</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="refreshPhoto">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>700</y>
-     <width>60</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="resource.qrc">:/else/photo/Refresh.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelFont4">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>700</y>
-     <width>141</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>36</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>刷新</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="coinIndex">
    <property name="geometry">
     <rect>
@@ -946,7 +834,8 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -962,6 +851,12 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -975,6 +870,12 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -987,6 +888,12 @@
      <width>35</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string/>
@@ -1013,7 +920,7 @@
    </property>
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/else/photo/LongButtonFlatOrange.png</normaloff>:/else/photo/LongButtonFlatOrange.png</iconset>
+     <normaloff>:/else/photo/refreshButton.png</normaloff>:/else/photo/refreshButton.png</iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -1043,13 +950,222 @@
    </property>
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/else/photo/LongLongButtonFlatOrange.png</normaloff>:/else/photo/LongLongButtonFlatOrange.png</iconset>
+     <normaloff>:/else/photo/endTurnButton.png</normaloff>:/else/photo/endTurnButton.png</iconset>
    </property>
    <property name="iconSize">
     <size>
      <width>400</width>
      <height>120</height>
     </size>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>360</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>360</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>360</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>360</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>360</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>590</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>590</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>590</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>590</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>590</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>590</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <zorder>background</zorder>
@@ -1075,8 +1191,6 @@
   <zorder>shopSpace4</zorder>
   <zorder>shopSpace5</zorder>
   <zorder>shopSpace6</zorder>
-  <zorder>petBookIcon</zorder>
-  <zorder>settingsIcon</zorder>
   <zorder>playerSpace1</zorder>
   <zorder>labelFont1</zorder>
   <zorder>labelFont2</zorder>
@@ -1087,11 +1201,7 @@
   <zorder>roundIndex</zorder>
   <zorder>prizeIndex</zorder>
   <zorder>refreshButton</zorder>
-  <zorder>refreshPhoto</zorder>
-  <zorder>labelFont4</zorder>
   <zorder>frightButton</zorder>
-  <zorder>frightPhoto</zorder>
-  <zorder>labelFont3</zorder>
   <zorder>playAnimals1</zorder>
   <zorder>playAnimals2</zorder>
   <zorder>playAnimals3</zorder>
@@ -1105,6 +1215,17 @@
   <zorder>shopAnimals5</zorder>
   <zorder>shopAnimals4</zorder>
   <zorder>shopFood2</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_7</zorder>
+  <zorder>label_8</zorder>
+  <zorder>label_9</zorder>
+  <zorder>label_10</zorder>
+  <zorder>label_11</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>

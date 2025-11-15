@@ -3,6 +3,7 @@
 
 #include "../model/Player.hpp"
 #include "../model/Shop.hpp"
+#include "model/Pet.hpp"
 
 #include <QPushButton>
 #include <QWidget>
@@ -31,7 +32,7 @@ public:
     void freeze();
     void clicked();
     QPushButton* getPushButton();
-
+    Pet* getPet(){ return _pet; };
 };
 
 class QtFood
@@ -82,9 +83,12 @@ private slots:
     void onFoodClicked(int index);
     void onPetFreezeClicked(int index);
     void onFoodFreezeClicked(int index);
+    void onPetBookClicked();
+    void onSettingsClicked();
 
 signals:
     void endTurn();
+    void encyclopediaClicked();
 
 
 public:

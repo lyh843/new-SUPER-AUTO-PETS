@@ -52,8 +52,16 @@ int Player::getPetCount() const
     int count = 0;
     for (const auto& pet : _pets)
     {
-        if (pet->getName() != "")
+        if (pet)
             count++;
     }
     return count;
+}
+
+void Player::swapPets(int index, int targetIndex)
+{
+    if (index < 0 || index >= _pets.size() || targetIndex < 0 || targetIndex >= _pets.size())
+        return;
+
+    std::swap(_pets[index], _pets[targetIndex]);
 }

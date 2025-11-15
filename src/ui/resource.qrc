@@ -107,5 +107,49 @@
         <file>photo/FieldBattleView.png</file>
         <file>photo/Play.png</file>
         <file>photo/Skip.png</file>
+        <file>photo/endTurnButton.png</file>
+        <file>photo/refreshButton.png</file>
+        <file>photo/petBook.png</file>
+        <file>photo/settingButton.png</file>
+    </qresource>
+    <qresource prefix="/Food">
+        <file>photo/Food/Apple.png</file>
+        <file>photo/Food/Bacon.png</file>
+        <file>photo/Food/Baguette.png</file>
+        <file>photo/Food/BirthdayCake.png</file>
+        <file>photo/Food/Bread.png</file>
+        <file>photo/Food/Burger.png</file>
+        <file>photo/Food/Burn.png</file>
+        <file>photo/Food/CannedFood.png</file>
+        <file>photo/Food/CannedFood_2x.png</file>
+        <file>photo/Food/Carrot.png</file>
+        <file>photo/Food/Cheese.png</file>
+        <file>photo/Food/Cherries.png</file>
+        <file>photo/Food/ChickenLeg.png</file>
+        <file>photo/Food/Chili.png</file>
+        <file>photo/Food/Chocolate.png</file>
+        <file>photo/Food/Confused.png</file>
+        <file>photo/Food/Cookie.png</file>
+        <file>photo/Food/Corn.png</file>
+        <file>photo/Food/Egg.png</file>
+        <file>photo/Food/EggPlant.png</file>
+        <file>photo/Food/Garlic.png</file>
+        <file>photo/Food/GoldenEgg.png</file>
+        <file>photo/Food/Honey.png</file>
+        <file>photo/Food/Lollipop.png</file>
+        <file>photo/Food/MeatBone.png</file>
+        <file>photo/Food/Melon.png</file>
+        <file>photo/Food/Milk.png</file>
+        <file>photo/Food/Muffin.png</file>
+        <file>photo/Food/Mushroom.png</file>
+        <file>photo/Food/Nachos.png</file>
+        <file>photo/Food/Pear.png</file>
+        <file>photo/Food/Pill.png</file>
+        <file>photo/Food/Pizza.png</file>
+        <file>photo/Food/Salad.png</file>
+        <file>photo/Food/SaladBowl.png</file>
+        <file>photo/Food/SoftIce.png</file>
+        <file>photo/Food/Steak.png</file>
+        <file>photo/Food/Strawberry.png</file>
     </qresource>
 </RCC>

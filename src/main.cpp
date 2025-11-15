@@ -65,6 +65,7 @@ public:
 
         // 连接商店视图信号
         connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn);
+        connect(_shopView, &QtShopview::encyclopediaClicked, this, &MainWindow::onEncyclopediaClicked);
 
         // 连接战斗视图信号
         connect(_battleView, &BattleView::battleFinished, this, &MainWindow::onBattleFinished);
@@ -255,7 +256,7 @@ private slots:
     {
         // 新回合开始
         _player->addRound();
-        _player->addCoin(10);  // 新回合开始，获得 10 金币
+        _player->setCoin(10);  // 新回合开始，获得 10 金币
 
         // 重置商店
         _shopView->resetShop();

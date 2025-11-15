@@ -93,7 +93,7 @@ Fish::Fish(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Fish", hp, attack, ownerPlayer, tier) {}
 
 Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("CricketTok", hp, attack, ownerPlayer, tier) {}
+    : Pet("Cricket", hp, attack, ownerPlayer, tier) {}
 
 Swan::Swan(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Swan", hp, attack, ownerPlayer, tier) {}
