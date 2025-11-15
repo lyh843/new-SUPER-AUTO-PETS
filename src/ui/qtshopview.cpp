@@ -79,23 +79,24 @@ void QtShopview::setupUI(){
     ui->prizeIndex->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
 
-    QtPet* playerPet1 = new QtPet(ui->playAnimals1, 1, true);
-    QtPet* playerPet2 = new QtPet(ui->playAnimals2, 2, true);
+
+    QtPet* playerPet1 = new QtPet(ui->playAnimals1, 0, true);
+    QtPet* playerPet2 = new QtPet(ui->playAnimals2, 1, true);
     QtPet* playerPet3 = new QtPet(ui->playAnimals3, 2, true);
-    QtPet* playerPet4 = new QtPet(ui->playAnimals4, 2, true);
-    QtPet* playerPet5 = new QtPet(ui->playAnimals5, 2, true);
+    QtPet* playerPet4 = new QtPet(ui->playAnimals4, 3, true);
+    QtPet* playerPet5 = new QtPet(ui->playAnimals5, 4, true);
     _playerPets.push_back(playerPet1);
     _playerPets.push_back(playerPet2);
     _playerPets.push_back(playerPet3);
     _playerPets.push_back(playerPet4);
     _playerPets.push_back(playerPet5);
 
-    QtPet* shopPet1 = new QtPet(ui->shopAnimals1, 1, false); 
-    QtPet* shopPet2 = new QtPet(ui->shopAnimals2, 2, false); 
-    QtPet* shopPet3 = new QtPet(ui->shopAnimals3, 3, false); 
-    QtPet* shopPet4 = new QtPet(ui->shopAnimals4, 4, false); 
-    QtPet* shopPet5 = new QtPet(ui->shopAnimals5, 5, false); 
-    QtPet* shopPet6 = new QtPet(ui->shopAnimals6, 6, false); 
+    QtPet* shopPet1 = new QtPet(ui->shopAnimals1, 0, false); 
+    QtPet* shopPet2 = new QtPet(ui->shopAnimals2, 1, false); 
+    QtPet* shopPet3 = new QtPet(ui->shopAnimals3, 2, false); 
+    QtPet* shopPet4 = new QtPet(ui->shopAnimals4, 3, false); 
+    QtPet* shopPet5 = new QtPet(ui->shopAnimals5, 4, false); 
+    QtPet* shopPet6 = new QtPet(ui->shopAnimals6, 5, false); 
     _shopPets.push_back(shopPet1);
     _shopPets.push_back(shopPet2);
     _shopPets.push_back(shopPet3);
@@ -103,8 +104,8 @@ void QtShopview::setupUI(){
     _shopPets.push_back(shopPet5);
     _shopPets.push_back(shopPet6);
 
-    QtFood* shopFood1 = new QtFood(ui->shopFood1, 1);
-    QtFood* shopFood2 = new QtFood(ui->shopFood2, 2);
+    QtFood* shopFood1 = new QtFood(ui->shopFood1, 0);
+    QtFood* shopFood2 = new QtFood(ui->shopFood2, 1);
     _shopFoods.push_back(shopFood1);
     _shopFoods.push_back(shopFood2);
 
@@ -119,7 +120,8 @@ void QtShopview::setupUI(){
             onPlayerPetClicked(i, true);
         });
     }
-    for(int i = 0; i < 6; i++){
+    // 只连接前3个商店宠物槽位（商店只有3个槽位）
+    for(int i = 0; i < 3 && i < static_cast<int>(_shopPets.size()); i++){
         QPushButton* btn = _shopPets[i]->getPushButton();
         connect(btn, &QPushButton::clicked, [this, i](){
             onShopPetClicked(i, false);
@@ -172,10 +174,15 @@ void QtShopview::updatePlayerPets(){
 }
 
 void QtShopview::updateShopPets(){ 
-    for(int i = 0; i < 6; i++){
+    // 商店只有3个宠物槽位（PET_SHOP_SIZE = 3）
+    for(int i = 0; i < 3 && i < static_cast<int>(_shopPets.size()); i++){
         Pet* pet = _shop->getPet(i);
         _shopPets[i]->updatePet(pet);
         _shopPets[i]->getPushButton()->setEnabled(pet != nullptr);
+    }
+    // 隐藏多余的宠物槽位
+    for(int i = 3; i < static_cast<int>(_shopPets.size()); i++){
+        _shopPets[i]->clear();
     }
 }
 
@@ -208,10 +215,18 @@ void QtShopview::onEndTurnClicked(){
 }
 
 void QtShopview::onShopPetClicked(int index, bool isPlayerPet){ 
+    // 检查索引有效性（商店只有3个宠物槽位）
+    if (index < 0 || index >= 3)
+    {
+        return;
+    }
+    
     if(_player->getPetCount() >= 5){
         QMessageBox::warning(this, "阵容已满", "你的宠物阵容已满！请先出售一只宠物。");
         return;
     }
+    
+    // 寻找空位 - 修复空指针访问问题
     int emptySlot = -1;
     for(int i = 0; i < 5; i++){
         if(_player->getPetAt(i) == nullptr){
@@ -223,6 +238,7 @@ void QtShopview::onShopPetClicked(int index, bool isPlayerPet){
         QMessageBox::warning(this, "阵容已满", "你的宠物阵容已满！");
         return;
     }
+    
     if(_shop->buyPet(index, emptySlot)){
         updateUI();
         QMessageBox::information(this, "购买成功", "宠物已加入你的阵容！");
@@ -233,6 +249,12 @@ void QtShopview::onShopPetClicked(int index, bool isPlayerPet){
 }
 
 void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet){ 
+    // 检查索引有效性
+    if (index < 0 || index >= 5)
+    {
+        return;
+    }
+    
     Pet* pet = _player->getPetAt(index);
     if(!pet){
         return;
@@ -299,6 +321,12 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet){
 }
 
 void QtShopview::onFoodClicked(int index){ 
+    // 检查索引有效性
+    if (index < 0 || index >= 2)
+    {
+        return;
+    }
+    
     // 购买食物：需要选择目标宠物
     if (_player->getPetCount() == 0)
     {
@@ -307,7 +335,7 @@ void QtShopview::onFoodClicked(int index){
     }
 
     // 让用户选择目标宠物
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setWindowTitle("选择目标宠物");
     msgBox.setText("请选择要喂食的宠物：");
 
@@ -322,11 +350,17 @@ void QtShopview::onFoodClicked(int index){
         }
     }
 
+    if (petButtons.isEmpty())
+    {
+        QMessageBox::warning(this, "没有宠物", "你需要先购买宠物才能使用食物！");
+        return;
+    }
+
     auto* cancelBtn = msgBox.addButton("取消", QMessageBox::RejectRole);
     msgBox.exec();
 
     auto* clickedBtn = msgBox.clickedButton();
-    if (clickedBtn == cancelBtn)
+    if (!clickedBtn || clickedBtn == cancelBtn)
         return;
 
     // 找到选择的宠物索引
@@ -337,7 +371,7 @@ void QtShopview::onFoodClicked(int index){
         Pet* pet = _player->getPetAt(i);
         if (pet)
         {
-            if (clickedBtn == petButtons[buttonIndex])
+            if (buttonIndex < petButtons.size() && clickedBtn == petButtons[buttonIndex])
             {
                 targetPetIndex = i;
                 break;
