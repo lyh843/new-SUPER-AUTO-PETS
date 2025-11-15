@@ -2,6 +2,7 @@
 #include "../model/Pet.hpp"
 #include <QMessageBox>
 #include <QScrollBar>
+#include <QTextCursor>
 #include <random>
 
 // ============= BattlePetCard 实现 =============
@@ -99,6 +100,7 @@ BattleView::BattleView(Player* player, QWidget* parent)
     , _player(player)
     , _battleStarted(false)
     , _autoBattle(false)
+    , _pendingDisplayUpdate(false)
 {
     _autoTimer = new QTimer(this);
     connect(_autoTimer, &QTimer::timeout, this, &BattleView::onAutoStep);
@@ -260,6 +262,7 @@ void BattleView::startNewBattle()
 {
     _battleStarted = false;
     _autoBattle = false;
+    _pendingDisplayUpdate = false;
     _autoTimer->stop();
     
     _battleLog->clear();
@@ -268,7 +271,10 @@ void BattleView::startNewBattle()
     // 生成AI对手
     generateAITeam(_player->getRound());
     
-    updateBattleDisplay();
+    // 延迟更新显示
+    QTimer::singleShot(0, this, [this]() {
+        updateBattleDisplay();
+    });
     
     _startButton->setEnabled(true);
     _autoButton->setEnabled(false);
@@ -318,12 +324,27 @@ void BattleView::generateAITeam(int difficulty)
 
 void BattleView::updateBattleDisplay()
 {
+    // 检查指针有效性
+    if (!_player)
+        return;
+    
+    // 使用setUpdatesEnabled优化，减少重绘
+    setUpdatesEnabled(false);
+    
     // 更新玩家队伍显示
     for (int i = 0; i < 5; ++i)
     {
         if (i < _player->getPetCount())
         {
-            _playerPetCards[i]->updatePet(_player->getPetAt(i));
+            Pet* pet = _player->getPetAt(i);
+            if (pet)
+            {
+                _playerPetCards[i]->updatePet(pet);
+            }
+            else
+            {
+                _playerPetCards[i]->clear();
+            }
         }
         else
         {
@@ -334,7 +355,7 @@ void BattleView::updateBattleDisplay()
     // 更新AI队伍显示
     for (int i = 0; i < 5; ++i)
     {
-        if (i < static_cast<int>(_aiTeam.size()))
+        if (i < static_cast<int>(_aiTeam.size()) && _aiTeam[i])
         {
             _aiPetCards[i]->updatePet(_aiTeam[i].get());
         }
@@ -343,13 +364,29 @@ void BattleView::updateBattleDisplay()
             _aiPetCards[i]->clear();
         }
     }
+    
+    setUpdatesEnabled(true);
+    update();  // 只更新一次
 }
 
 void BattleView::appendLog(const QString& message)
 {
+    // 限制日志长度，避免内存占用过大
+    if (_battleLog->document()->blockCount() > 500)
+    {
+        QTextCursor cursor = _battleLog->textCursor();
+        cursor.movePosition(QTextCursor::Start);
+        cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, 100);
+        cursor.movePosition(QTextCursor::StartOfBlock);
+        cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+        cursor.removeSelectedText();
+    }
+    
     _battleLog->append(message);
-    // 自动滚动到底部
-    _battleLog->verticalScrollBar()->setValue(_battleLog->verticalScrollBar()->maximum());
+    // 自动滚动到底部（延迟执行，避免频繁滚动）
+    QTimer::singleShot(0, this, [this]() {
+        _battleLog->verticalScrollBar()->setValue(_battleLog->verticalScrollBar()->maximum());
+    });
 }
 
 void BattleView::clearHighlights()
@@ -427,6 +464,7 @@ void BattleView::onAutoClicked()
 
 void BattleView::onStepClicked()
 {
+    // 直接执行战斗步骤
     bool hasMore = _battleEngine.executeSingleStep();
     
     if (!hasMore)
@@ -439,7 +477,10 @@ void BattleView::onStepClicked()
         _stepButton->setEnabled(false);
     }
     
-    updateBattleDisplay();
+    // 延迟更新显示，避免阻塞
+    QTimer::singleShot(10, this, [this]() {
+        updateBattleDisplay();
+    });
 }
 
 void BattleView::onAutoStep()
@@ -476,6 +517,7 @@ void BattleView::onBackClicked()
 
 void BattleView::onBattleEvent(const BattleEvent& event)
 {
+    // 直接处理事件，但标记需要更新显示
     switch (event.type)
     {
     case BattleEventType::BattleStart:
@@ -486,6 +528,7 @@ void BattleView::onBattleEvent(const BattleEvent& event)
         appendLog(event.message);
         highlightAttacker(event.attackerIndex, event.isPlayer1);
         highlightDefender(event.defenderIndex, !event.isPlayer1);
+        _pendingDisplayUpdate = true;
         break;
         
     case BattleEventType::Attack:
@@ -494,22 +537,32 @@ void BattleView::onBattleEvent(const BattleEvent& event)
         
     case BattleEventType::TakeDamage:
         appendLog("    " + event.message);
-        updateBattleDisplay();
+        _pendingDisplayUpdate = true;
         break;
         
     case BattleEventType::PetDeath:
         appendLog("  💀 " + event.message);
+        _pendingDisplayUpdate = true;
         break;
         
     case BattleEventType::SkillTrigger:
         appendLog("  ✨ " + event.message);
+        _pendingDisplayUpdate = true;
         break;
         
     case BattleEventType::BattleEnd:
         appendLog("=== " + event.message + " ===");
         clearHighlights();
+        _pendingDisplayUpdate = true;
         break;
     }
     
-    updateBattleDisplay();
+    // 延迟更新显示，避免频繁重绘导致卡顿
+    if (_pendingDisplayUpdate)
+    {
+        _pendingDisplayUpdate = false;
+        QTimer::singleShot(10, this, [this]() {
+            updateBattleDisplay();
+        });
+    }
 }

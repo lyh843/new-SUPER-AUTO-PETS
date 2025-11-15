@@ -52,7 +52,7 @@ int Player::getPetCount() const
     int count = 0;
     for (const auto& pet : _pets)
     {
-        if (pet->getName() != "")
+        if (pet != nullptr)  // 修复空指针检查
             count++;
     }
     return count;
