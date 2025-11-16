@@ -68,7 +68,7 @@ add_executable(${PROJECT_NAME}
     ${SOURCES}
     ${HEADERS}
     ${UI_FILES}
-    src/ui/qtstartview.h src/ui/qtstartview.cpp src/ui/qtstartview.ui
+    # src/ui/qtstartview.h src/ui/qtstartview.cpp src/ui/qtstartview.ui
     src/ui/qtbattleview.h src/ui/qtbattleview.cpp src/ui/qtbattleview.ui
     src/ui/resource.qrc
 )
