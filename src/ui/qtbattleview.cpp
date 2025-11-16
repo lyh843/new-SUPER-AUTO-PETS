@@ -10,3 +10,21 @@ QtBattleView::~QtBattleView()
 {
     delete ui;
 }
+
+void QtBattleView::on_start_button_clicked()
+{
+
+}
+
+
+void QtBattleView::on_auto_play_button_clicked()
+{
+
+}
+
+
+void QtBattleView::on_forward_button_clicked()
+{
+
+}
+
