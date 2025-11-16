@@ -24,7 +24,6 @@ class QtBattleView : public QWidget
     Q_OBJECT
 
 public:
-    explicit QtBattleView(QWidget* parent = nullptr);
     ~QtBattleView();
     QtBattleView(Player* player, QWidget* parent = nullptr);
 
@@ -33,10 +32,10 @@ public:
 
 private slots:
     void on_start_button_clicked();
-
     void on_auto_play_button_clicked();
-
     void on_forward_button_clicked();
+    void onAutoStep();
+    void onBattleEvent(const BattleEvent& event);
 
 private:
     Ui::QtBattleView* ui;
@@ -46,6 +45,10 @@ private:
     // AI对手的队伍
     std::vector<std::unique_ptr<Pet>> _aiTeam;
 
+    // 宠物显示组件 - 存储指向UI中QLabel的指针
+    QVector<QLabel*> _playerPetLabels;    // 玩家宠物显示标签
+    QVector<QLabel*> _aiPetLabels;        // AI宠物显示标签
+
     // 状态
     bool _battleStarted;
     bool _autoBattle;
@@ -53,6 +56,7 @@ private:
     bool _pendingDisplayUpdate;
 
     void updateBattleDisplay();
+    void updatePetDisplay(int index, bool isPlayer, const Pet* pet);
     void highlightAttacker(int index, bool isPlayer);
     void highlightDefender(int index, bool isPlayer);
     void clearHighlights();
@@ -63,9 +67,17 @@ private:
     void playDamageEffect(int targetIdx, bool isPlayer, int damage); // 伤害效果
     void playDeathAnimation(int petIdx, bool isPlayer);              // 死亡动画
 
+    QPixmap getPetPixmap(const Pet* pet);                            // 获取宠物图片
+
     // 生成AI对手
     void generateAITeam(int difficulty);
 
+    //AI用来debug的
+    QPixmap createColoredPixmap(const QString& petName);
+
+signals:
+    void battleFinished(BattleResult result);
+    void backToShop();
 };
 
 #endif  // QTBATTLEVIEW_H

@@ -492,6 +492,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    <property name="text">
     <string/>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="your_pet_2">
    <property name="geometry">
@@ -504,6 +507,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="your_pet_3">
@@ -518,6 +524,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    <property name="text">
     <string/>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="your_pet_4">
    <property name="geometry">
@@ -530,6 +539,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="your_pet_5">
@@ -544,6 +556,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    <property name="text">
     <string/>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="opponents_pet_1">
    <property name="geometry">
@@ -556,6 +571,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="opponents_pet_2">
@@ -570,6 +588,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    <property name="text">
     <string/>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="opponents_pet_3">
    <property name="geometry">
@@ -582,6 +603,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="opponents_pet_4">
@@ -596,6 +620,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    <property name="text">
     <string/>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="opponents_pet_5">
    <property name="geometry">
@@ -608,6 +635,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="settingsButton">
@@ -683,15 +713,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
    </property>
   </widget>
   <zorder>background</zorder>
-  <zorder>start_button</zorder>
   <zorder>auto_play_button</zorder>
-  <zorder>forward_button</zorder>
-  <zorder>start</zorder>
   <zorder>auto_play</zorder>
-  <zorder>forward</zorder>
-  <zorder>start_font</zorder>
   <zorder>auto_play_font</zorder>
-  <zorder>forward_font</zorder>
   <zorder>mask_right</zorder>
   <zorder>mask_left</zorder>
   <zorder>heart_left</zorder>
@@ -714,6 +738,12 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
   <zorder>opponents_pet_5</zorder>
   <zorder>label</zorder>
   <zorder>settingsButton</zorder>
+  <zorder>forward_button</zorder>
+  <zorder>forward_font</zorder>
+  <zorder>forward</zorder>
+  <zorder>start_button</zorder>
+  <zorder>start</zorder>
+  <zorder>start_font</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>
