@@ -254,7 +254,7 @@ background-position: center;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="background">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -276,68 +276,32 @@ background-position: center;</string>
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="start_button_2">
-   <property name="geometry">
-    <rect>
-     <x>14</x>
-     <y>732</y>
-     <width>262</width>
-     <height>56</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgba(0, 0, 0, 0.3);
-border-radius: 12px;
-border: 1px solid rgba(100, 100, 100, 0.5);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="start_button_3">
-   <property name="geometry">
-    <rect>
-     <x>1121</x>
-     <y>732</y>
-     <width>262</width>
-     <height>56</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgba(0, 0, 0, 0.3);
-border-radius: 12px;
-border: 1px solid rgba(100, 100, 100, 0.5);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="hourglass_left">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>735</y>
-     <width>48</width>
-     <height>48</height>
+     <y>737</y>
+     <width>45</width>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="resource.qrc">:/else/photo/Hourglass_2x.png</pixmap>
+    <pixmap resource="resource.qrc">:/else/photo/NewHourglass.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="heart_left">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>740</y>
-     <width>48</width>
-     <height>48</height>
+     <x>110</x>
+     <y>737</y>
+     <width>45</width>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -350,40 +314,436 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="trophy_left">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>740</y>
-     <width>48</width>
-     <height>48</height>
+     <x>64</x>
+     <y>737</y>
+     <width>45</width>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="resource.qrc">:/else/photo/Trophy.png</pixmap>
+    <pixmap resource="resource.qrc">:/else/photo/NewTrophy.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
    </property>
   </widget>
-  <zorder>label</zorder>
-  <zorder>start_button</zorder>
+  <widget class="QLabel" name="You">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>730</y>
+     <width>111</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white;
+font-weight: 600;
+font-size: 24px;</string>
+   </property>
+   <property name="text">
+    <string>You</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hourglass_right">
+   <property name="geometry">
+    <rect>
+     <x>1240</x>
+     <y>737</y>
+     <width>45</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/NewHourglass.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="trophy_right">
+   <property name="geometry">
+    <rect>
+     <x>1284</x>
+     <y>737</y>
+     <width>45</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/NewTrophy.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="heart_right">
+   <property name="geometry">
+    <rect>
+     <x>1330</x>
+     <y>737</y>
+     <width>45</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Heart.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Opponent">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>730</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white;
+font-weight: 600;
+font-size: 24px;</string>
+   </property>
+   <property name="text">
+    <string>Opponent</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mask_right">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>732</y>
+     <width>297</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(0, 0, 0, 0.3);
+border-radius: 12px;
+border: 1px solid rgba(100, 100, 100, 0.5);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mask_left">
+   <property name="geometry">
+    <rect>
+     <x>14</x>
+     <y>732</y>
+     <width>221</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(0, 0, 0, 0.3);
+border-radius: 12px;
+border: 1px solid rgba(100, 100, 100, 0.5);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_1">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_2">
+   <property name="geometry">
+    <rect>
+     <x>147</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_3">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_4">
+   <property name="geometry">
+    <rect>
+     <x>411</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_5">
+   <property name="geometry">
+    <rect>
+     <x>543</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_1">
+   <property name="geometry">
+    <rect>
+     <x>727</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_2">
+   <property name="geometry">
+    <rect>
+     <x>859</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_3">
+   <property name="geometry">
+    <rect>
+     <x>991</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_4">
+   <property name="geometry">
+    <rect>
+     <x>1123</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_5">
+   <property name="geometry">
+    <rect>
+     <x>1255</x>
+     <y>440</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="settingsButton">
+   <property name="geometry">
+    <rect>
+     <x>1325</x>
+     <y>15</y>
+     <width>60</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: transparent;
+    border: none;
+    border: none;
+    min-width: 40px;
+    min-height: 40px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/else/photo/Bars.png</normaloff>:/else/photo/Bars.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>40</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="autoRepeat">
+    <bool>false</bool>
+   </property>
+   <property name="autoExclusive">
+    <bool>false</bool>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>1325</x>
+     <y>15</y>
+     <width>60</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/ButtonFlatOrange.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>background</zorder>
   <zorder>auto_play_button</zorder>
-  <zorder>forward_button</zorder>
-  <zorder>start</zorder>
   <zorder>auto_play</zorder>
-  <zorder>forward</zorder>
-  <zorder>start_font</zorder>
   <zorder>auto_play_font</zorder>
+  <zorder>mask_right</zorder>
+  <zorder>mask_left</zorder>
+  <zorder>heart_left</zorder>
+  <zorder>heart_right</zorder>
+  <zorder>hourglass_left</zorder>
+  <zorder>hourglass_right</zorder>
+  <zorder>Opponent</zorder>
+  <zorder>trophy_left</zorder>
+  <zorder>trophy_right</zorder>
+  <zorder>You</zorder>
+  <zorder>your_pet_1</zorder>
+  <zorder>your_pet_2</zorder>
+  <zorder>your_pet_3</zorder>
+  <zorder>your_pet_4</zorder>
+  <zorder>your_pet_5</zorder>
+  <zorder>opponents_pet_1</zorder>
+  <zorder>opponents_pet_2</zorder>
+  <zorder>opponents_pet_3</zorder>
+  <zorder>opponents_pet_4</zorder>
+  <zorder>opponents_pet_5</zorder>
+  <zorder>label</zorder>
+  <zorder>settingsButton</zorder>
+  <zorder>forward_button</zorder>
   <zorder>forward_font</zorder>
-  <zorder>start_button_2</zorder>
-  <zorder>start_button_3</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
+  <zorder>forward</zorder>
+  <zorder>start_button</zorder>
+  <zorder>start</zorder>
+  <zorder>start_font</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>

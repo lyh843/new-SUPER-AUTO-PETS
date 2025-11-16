@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include "ui/StartView.hpp"
 #include "ui/QtShopview.h"
-#include "ui/BattleView.hpp"
+#include "ui/qtbattleview.h"
 #include "ui/PetEncyclopediaView.hpp"
 #include "ui/RecordsView.hpp"
 #include "model/Player.hpp"
@@ -22,7 +22,7 @@ private:
     QStackedWidget* _stackedWidget;
     StartView* _startView;
     QtShopview* _shopView;
-    BattleView* _battleView;
+    QtBattleView* _battleView;
     PetEncyclopediaView* _encyclopediaView;
     RecordsView* _recordsView;
     Player* _player;
@@ -47,7 +47,7 @@ public:
         _stackedWidget->addWidget(_shopView);
 
         // 创建战斗视图
-        _battleView = new BattleView(_player, this);
+        _battleView = new QtBattleView(_player, this);
         _stackedWidget->addWidget(_battleView);
 
         // 创建宠物图鉴视图
@@ -69,8 +69,8 @@ public:
         connect(_shopView, &QtShopview::settingsClicked, this, &MainWindow::onSettingsClicked);
 
         // 连接战斗视图信号
-        connect(_battleView, &BattleView::battleFinished, this, &MainWindow::onBattleFinished, Qt::UniqueConnection);
-        connect(_battleView, &BattleView::backToShop, this, &MainWindow::onBackToShop, Qt::UniqueConnection);
+        connect(_battleView, &QtBattleView::battleFinished, this, &MainWindow::onBattleFinished, Qt::UniqueConnection);
+        connect(_battleView, &QtBattleView::backToShop, this, &MainWindow::onBackToShop, Qt::UniqueConnection);
 
         // 连接图鉴视图信号
         connect(_encyclopediaView, &PetEncyclopediaView::backClicked, this, &MainWindow::onBackToStart, Qt::UniqueConnection);
@@ -125,10 +125,10 @@ private slots:
             delete _battleView;
             _battleView = nullptr;
         }
-        _battleView = new BattleView(_player, this);
+        _battleView = new QtBattleView(_player, this);
         _stackedWidget->insertWidget(2, _battleView);
-        connect(_battleView, &BattleView::battleFinished, this, &MainWindow::onBattleFinished, Qt::UniqueConnection);
-        connect(_battleView, &BattleView::backToShop, this, &MainWindow::onBackToShop, Qt::UniqueConnection);
+        connect(_battleView, &QtBattleView::battleFinished, this, &MainWindow::onBattleFinished, Qt::UniqueConnection);
+        connect(_battleView, &QtBattleView::backToShop, this, &MainWindow::onBackToShop, Qt::UniqueConnection);
 
         // 确保widget已正确添加到stackedWidget
         if (_stackedWidget->indexOf(_shopView) == -1)
