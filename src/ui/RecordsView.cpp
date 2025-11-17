@@ -1,11 +1,26 @@
 #include "RecordsView.hpp"
 #include <QHeaderView>
 #include <QMessageBox>
+#include <QPainter>
+#include <QDir>
+#include <QCoreApplication>
 
 RecordsView::RecordsView(QWidget* parent)
     : QWidget(parent)
 {
     setupUI();
+
+    // 加载背景图资源到成员变量（使用 qrc 资源）
+    _bgPixmap = QPixmap(":/else/photo/backgroundStartview.png");
+    // 如果资源未打包到 qrc，也尝试从相对路径加载（可选）
+    if (_bgPixmap.isNull()) {
+        QString fallback = QCoreApplication::applicationDirPath() + QDir::separator() + QLatin1String("..") + QDir::separator() + QLatin1String("src") + QDir::separator() + QLatin1String("ui") + QDir::separator() + QLatin1String("photo") + QDir::separator() + QLatin1String("backgroundStartview.png");
+        _bgPixmap.load(fallback);
+    }
+
+    // 让 paintEvent 负责绘制背景
+    setAutoFillBackground(false);
+
     loadRecords();
 }
 
@@ -105,8 +120,6 @@ void RecordsView::setupUI()
 
     connect(_backButton, &QPushButton::clicked, this, &RecordsView::backClicked);
     connect(_clearButton, &QPushButton::clicked, this, &RecordsView::onClearClicked);
-
-    setStyleSheet("background-color: #f0f0f0;");
 }
 
 void RecordsView::loadRecords()
@@ -183,5 +196,19 @@ void RecordsView::onClearClicked()
         updateStats();
         QMessageBox::information(this, "提示", "战绩记录已清空！");
     }
+}
+
+void RecordsView::paintEvent(QPaintEvent* event)
+{
+    if (!_bgPixmap.isNull()) {
+        QPainter p(this);
+        QSize targetSize = size();
+        QPixmap scaled = _bgPixmap.scaled(targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        int x = (targetSize.width() - scaled.width()) / 2;
+        int y = (targetSize.height() - scaled.height()) / 2;
+        p.drawPixmap(x, y, scaled);
+    }
+
+    QWidget::paintEvent(event);
 }
 
