@@ -8,6 +8,7 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QPixmap>
 
 class PetEncyclopediaView : public QWidget
 {
@@ -19,6 +20,7 @@ private:
     QVBoxLayout* _mainLayout;
     QPushButton* _backToStartButton;
     QPushButton* _backToShopButton;
+    QPixmap _bgPixmap;
 
     void setupUI();
     QWidget* createPetCard(const QString& name, const QString& tier, int attack, int health, const QString& ability);
@@ -27,6 +29,9 @@ private:
 public:
     explicit PetEncyclopediaView(QWidget* parent = nullptr);
     ~PetEncyclopediaView() = default;
+
+protected:
+    void paintEvent(QPaintEvent* event) override;
 
 signals:
     void backClicked();      // 返回主菜单

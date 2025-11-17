@@ -1,9 +1,21 @@
 #include "PetEncyclopediaView.hpp"
+#include <QPainter>
+#include <QDir>
+#include <QCoreApplication>
 
 PetEncyclopediaView::PetEncyclopediaView(QWidget* parent)
     : QWidget(parent)
 {
     setupUI();
+
+    // 加载背景图资源（优先使用 qrc）
+    _bgPixmap = QPixmap(":/else/photo/backgroundStartview.png");
+    if (_bgPixmap.isNull()) {
+        QString fallback = QCoreApplication::applicationDirPath() + QDir::separator() + QLatin1String("..") + QDir::separator() + QLatin1String("src") + QDir::separator() + QLatin1String("ui") + QDir::separator() + QLatin1String("photo") + QDir::separator() + QLatin1String("backgroundStartview.png");
+        _bgPixmap.load(fallback);
+    }
+
+    setAutoFillBackground(false);
 }
 
 void PetEncyclopediaView::setupUI()
@@ -16,17 +28,23 @@ void PetEncyclopediaView::setupUI()
     titleLabel->setStyleSheet(
         "font-size: 36px; "
         "font-weight: bold; "
-        "color: #4CAF50; "
+        "color: #000000; "  /* 黑色文字 */
+        "background: transparent; "
         "padding: 20px;"
     );
+    // 确保标题位于顶层，避免被其他控件遮挡
+    titleLabel->raise();
     _mainLayout->addWidget(titleLabel);
 
     // 滚动区域
     _scrollArea = new QScrollArea(this);
     _scrollArea->setWidgetResizable(true);
-    _scrollArea->setStyleSheet("background-color: white; border: 2px solid #ddd; border-radius: 5px;");
+    // 让滚动区背景透明，以便底层背景图可见；保留边框样式
+    _scrollArea->setStyleSheet("QScrollArea { background: transparent; border: 2px solid #ddd; border-radius: 5px; } QScrollArea > QWidget { background: transparent; }");
 
     _contentWidget = new QWidget();
+    // 内容容器透明，卡片/GroupBox 使用半透明白背景，从而能看到底层背景图
+    _contentWidget->setStyleSheet("background: transparent;");
     auto* contentLayout = new QVBoxLayout(_contentWidget);
     contentLayout->setSpacing(15);
 
@@ -154,7 +172,7 @@ void PetEncyclopediaView::setupUI()
     connect(_backToShopButton, &QPushButton::clicked, this, &PetEncyclopediaView::backToShopClicked);
     connect(_backToStartButton, &QPushButton::clicked, this, &PetEncyclopediaView::backClicked);
 
-    setStyleSheet("background-color: #f0f0f0;");
+    // 不使用全局样式背景，让 paintEvent 绘制背景图片
 }
 
 QWidget* PetEncyclopediaView::createPetCard(const QString& name, const QString& tier, 
@@ -163,7 +181,7 @@ QWidget* PetEncyclopediaView::createPetCard(const QString& name, const QString& 
     auto* petCard = new QWidget();
     petCard->setStyleSheet(
         "QWidget {"
-        "    background-color: white; "
+        "    background-color: rgba(255,255,255,220); " /* 半透明白 */
         "    border: 2px solid #ddd; "
         "    border-radius: 8px; "
         "    padding: 10px;"
@@ -194,7 +212,7 @@ QWidget* PetEncyclopediaView::createFoodCard(const QString& name, const QString&
     auto* foodCard = new QWidget();
     foodCard->setStyleSheet(
         "QWidget {"
-        "    background-color: white; "
+        "    background-color: rgba(255,255,255,220); " /* 半透明白 */
         "    border: 2px solid #ddd; "
         "    border-radius: 8px; "
         "    padding: 10px;"
@@ -217,5 +235,19 @@ QWidget* PetEncyclopediaView::createFoodCard(const QString& name, const QString&
     layout->addWidget(effectLabel);
 
     return foodCard;
+}
+
+void PetEncyclopediaView::paintEvent(QPaintEvent* event)
+{
+    if (!_bgPixmap.isNull()) {
+        QPainter p(this);
+        QSize targetSize = size();
+        QPixmap scaled = _bgPixmap.scaled(targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        int x = (targetSize.width() - scaled.width()) / 2;
+        int y = (targetSize.height() - scaled.height()) / 2;
+        p.drawPixmap(x, y, scaled);
+    }
+
+    QWidget::paintEvent(event);
 }
 

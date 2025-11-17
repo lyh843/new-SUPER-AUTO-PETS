@@ -1,0 +1,24 @@
+# ninja log v6
+3	1063	7850159546981525	SuperAutoPets_autogen/timestamp	2e2a3409f690c8a2
+3	1063	7850159546981525	SuperAutoPets_autogen/mocs_compilation.cpp	2e2a3409f690c8a2
+3	1063	7850159546981525	D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/timestamp	2e2a3409f690c8a2
+3	1063	7850159546981525	D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/mocs_compilation.cpp	2e2a3409f690c8a2
+1070	1392	7850159549930767	SuperAutoPets_autogen/YPKJ5OE7LN/qrc_resource.cpp	726227e5c7f78f4b
+1070	1392	7850159549930767	D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/YPKJ5OE7LN/qrc_resource.cpp	726227e5c7f78f4b
+1414	2337	7850159550809001	CMakeFiles/SuperAutoPets.dir/src/model/Skill.cpp.obj	10888a6e0bc4ed21
+1411	2452	7850159550768998	CMakeFiles/SuperAutoPets.dir/src/model/Food.cpp.obj	f81251f325bc465c
+1404	2483	7850159550699016	CMakeFiles/SuperAutoPets.dir/src/model/Player.cpp.obj	faf1cb59629a6dd1
+1401	2902	7850159550679005	CMakeFiles/SuperAutoPets.dir/src/model/Pet.cpp.obj	ba3a6351ac78d4ee
+1408	3997	7850159550749001	CMakeFiles/SuperAutoPets.dir/src/model/Shop.cpp.obj	9798ee7ac4392d5a
+1433	4999	7850159550998999	CMakeFiles/SuperAutoPets.dir/src/engine/BattleEngine.cpp.obj	fa30b5f0d7397a3c
+1417	5489	7850159550829004	CMakeFiles/SuperAutoPets.dir/src/ui/StartView.cpp.obj	b283bbff932486e8
+1426	5491	7850159550919002	CMakeFiles/SuperAutoPets.dir/src/ui/PetEncyclopediaView.cpp.obj	c9d07c7074dd5e51
+1430	5792	7850159550969001	CMakeFiles/SuperAutoPets.dir/src/ui/RecordsView.cpp.obj	2d540e8a5cf04eb1
+1420	5996	7850159550859009	CMakeFiles/SuperAutoPets.dir/src/ui/ShopView.cpp.obj	fb40f332a98e329a
+1398	6160	7850159550649002	CMakeFiles/SuperAutoPets.dir/src/main.cpp.obj	237cd4c8e6c25a43
+1435	6219	7850159551019009	CMakeFiles/SuperAutoPets.dir/src/ui/qtshopview.cpp.obj	ad1ac22650293809
+1392	6232	7850159550587895	CMakeFiles/SuperAutoPets.dir/SuperAutoPets_autogen/mocs_compilation.cpp.obj	b0d1f589400b2ca2
+1422	6308	7850159550889006	CMakeFiles/SuperAutoPets.dir/src/ui/BattleView.cpp.obj	6dc945516cd2b3f8
+1438	6404	7850159551049003	CMakeFiles/SuperAutoPets.dir/src/ui/qtbattleview.cpp.obj	455886c29ef2b96e
+1441	7435	7850159551079011	CMakeFiles/SuperAutoPets.dir/SuperAutoPets_autogen/YPKJ5OE7LN/qrc_resource.cpp.obj	fac013544f00a0b3
+7435	8586	7850159611019275	SuperAutoPets.exe	daa12f1a161b97aa

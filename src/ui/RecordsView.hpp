@@ -6,6 +6,7 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QPixmap>
 
 class RecordsView : public QWidget
 {
@@ -16,6 +17,7 @@ private:
     QPushButton* _backButton;
     QPushButton* _clearButton;
     QLabel* _statsLabel;
+    QPixmap _bgPixmap;
 
     void setupUI();
     void loadRecords();
@@ -32,5 +34,7 @@ signals:
 
 private slots:
     void onClearClicked();
+protected:
+    void paintEvent(QPaintEvent* event) override;
 };
 

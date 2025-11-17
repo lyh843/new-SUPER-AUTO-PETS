@@ -165,7 +165,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="shopAnimals3">
+  <widget class="QPushButton" name="shopAnimals4">
    <property name="geometry">
     <rect>
      <x>530</x>
@@ -185,7 +185,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="shopAnimals4">
+  <widget class="QPushButton" name="shopAnimals3">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -1207,13 +1207,13 @@
   <zorder>playAnimals3</zorder>
   <zorder>playAnimals4</zorder>
   <zorder>playAnimals5</zorder>
-  <zorder>shopAnimals3</zorder>
+  <zorder>shopAnimals4</zorder>
   <zorder>shopAnimals6</zorder>
   <zorder>shopFood1</zorder>
   <zorder>shopAnimals1</zorder>
   <zorder>shopAnimals2</zorder>
   <zorder>shopAnimals5</zorder>
-  <zorder>shopAnimals4</zorder>
+  <zorder>shopAnimals3</zorder>
   <zorder>shopFood2</zorder>
   <zorder>label</zorder>
   <zorder>label_2</zorder>

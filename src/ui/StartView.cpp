@@ -13,10 +13,8 @@ StartView::StartView(QWidget* parent)
     _ui->petsLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
     _ui->historyLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    // 连接信号槽，处理按钮点击
-    connect(_ui->playButton, &QPushButton::clicked, this, &StartView::on_playButton_clicked);
-    connect(_ui->encyclopediaButton, &QPushButton::clicked, this, &StartView::on_encyclopediaButton_clicked);
-    connect(_ui->recordsButton, &QPushButton::clicked, this, &StartView::on_recordsButton_clicked);
+    // 注意：不需要手动连接信号，Qt会通过命名规范自动连接
+    // on_<对象名>_<信号名> 格式的槽函数会被 setupUi() 自动连接
 }
 
 StartView::~StartView()

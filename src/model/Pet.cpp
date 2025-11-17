@@ -101,6 +101,9 @@ Fish::Fish(int hp, int attack, int ownerPlayer, int tier)
 Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Cricket", hp, attack, ownerPlayer, tier) {}
 
+Duck::Duck(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Duck", hp, attack, ownerPlayer, tier) {}
+
 Swan::Swan(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Swan", hp, attack, ownerPlayer, tier) {}
 
@@ -110,9 +113,23 @@ Flamingo::Flamingo(int hp, int attack, int ownerPlayer, int tier)
 Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Hedgehog", hp, attack, ownerPlayer, tier) {}
 
+Kangaroo::Kangaroo(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Kangaroo", hp, attack, ownerPlayer, tier) {}
+
 Peacock::Peacock(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Peacock", hp, attack, ownerPlayer, tier) {}
 
+Camel::Camel(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Camel", hp, attack, ownerPlayer, tier) {}
+
+Dodo::Dodo(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Dodo", hp, attack, ownerPlayer, tier) {}
+
+Blowfish::Blowfish(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Blowfish", hp, attack, ownerPlayer, tier) {}
+
+Skunk::Skunk(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Skunk", hp, attack, ownerPlayer, tier) {}
 
 // 实现派生类的拷贝构造函数
 Cat::Cat(const Cat& other) : Pet(other) {}
@@ -148,7 +165,13 @@ static Registrar<Cat> catRegistrar;
 static Registrar<Ant> antRegistrar;
 static Registrar<Fish> fishRegistrar;
 static Registrar<Cricket> cricketRegistrar;
+static Registrar<Duck> duckRegistrar;
 static Registrar<Swan> swanRegistrar;
 static Registrar<Flamingo> flamingoRegistrar;
 static Registrar<Hedgehog> hedgehogRegistrar;
+static Registrar<Kangaroo> kangarooRegistrar;
 static Registrar<Peacock> peacockRegistrar;
+static Registrar<Camel> camelRegistrar;
+static Registrar<Dodo> dodoRegistrar;
+static Registrar<Blowfish> BlowfishRegistrar;
+static Registrar<Skunk> skunkRegistrar;

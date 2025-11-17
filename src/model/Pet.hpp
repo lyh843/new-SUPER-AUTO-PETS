@@ -19,6 +19,7 @@ private:
     int _tier;
 
     // 基础属性（用于计算升级后的值）
+
     int _baseHP;
     int _baseAttack;
 
@@ -28,7 +29,7 @@ private:
     bool _canRevive;         // 是否有复活效果
     bool _hasMelonShield;    // 是否有西瓜护盾（50%减伤）
 
-    void levelUp();
+    virtual void levelUp();
 
 public:
     Pet(std::string name, int hp, int attack, int ownerPlayer, int tier = 1)
@@ -45,7 +46,6 @@ public:
         , _hasArmor(false)
         , _canRevive(false)
         , _hasMelonShield(false) {};
-    Pet(const Pet& other);                                      // 拷贝构造函数
     ~Pet() = default;
     std::string getName() const { return _name; };
     int getHP() const { return _hp; };
@@ -133,6 +133,14 @@ public:
     ~Cricket() = default;
 };
 
+// 鸭 - Tier 1：出售给商店宠物+1生命值
+class Duck : public Pet
+{
+public:
+    Duck(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 1);
+    ~Duck() = default;
+};
+
 // 天鹅 - Tier 2：回合开始时获得1金币
 class Swan : public Pet
 {
@@ -160,6 +168,14 @@ public:
     ~Hedgehog() = default;
 };
 
+// 袋鼠 - Tier 2：前方的友方+1攻击/+1生命
+class Kangaroo : public Pet
+{
+public:
+    Kangaroo(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 2);
+    ~Kangaroo() = default;
+};
+
 // 孔雀 - Tier 3：受到攻击前获得50%伤害减免
 class Peacock : public Pet
 {
@@ -167,4 +183,36 @@ public:
     Peacock(int hp = 2, int attack = 5, int ownerPlayer = 0, int tier = 3);
     Peacock(const Peacock& other);                          // 新增拷贝构造函数
     ~Peacock() = default;
+};
+
+// 骆驼 - Tier 3：受到攻击给后面最近的朋友+2攻击/+2生命
+class Camel : public Pet
+{
+public:
+    Camel(int hp = 4, int attack = 2, int ownerPlayer = 0, int tier = 3);
+    ~Camel() = default;
+};
+
+// 渡渡鸟 - Tier 3：战斗开始前给予前方最近队友50%攻击力
+class Dodo : public Pet
+{
+public:
+    Dodo(int hp = 2, int attack = 4, int ownerPlayer = 0, int tier = 3);
+    ~Dodo() = default;
+};
+
+// 河豚 - Tier 4：受到伤害对一个随机敌人造成3伤害
+class Blowfish : public Pet
+{
+public:
+    Blowfish(int hp = 6, int attack = 3, int ownerPlayer = 0, int tier = 4);
+    ~Blowfish() = default;
+};
+
+// 臭鼬 - Tier 4：战斗开始前将最高血量的敌人减少1/3血量
+class Skunk : public Pet
+{
+public:
+    Skunk(int hp = 5, int attack = 3, int ownerPlayer = 0, int tier = 4);
+    ~Skunk() = default;
 };

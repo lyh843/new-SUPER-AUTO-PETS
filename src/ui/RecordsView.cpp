@@ -1,11 +1,27 @@
 #include "RecordsView.hpp"
 #include <QHeaderView>
 #include <QMessageBox>
+#include <QPainter>
+#include <QDir>
+#include <QCoreApplication>
+#include <QBrush>
 
 RecordsView::RecordsView(QWidget* parent)
     : QWidget(parent)
 {
     setupUI();
+
+    // 加载背景图资源到成员变量（使用 qrc 资源）
+    _bgPixmap = QPixmap(":/else/photo/backgroundStartview.png");
+    // 如果资源未打包到 qrc，也尝试从相对路径加载（可选）
+    if (_bgPixmap.isNull()) {
+        QString fallback = QCoreApplication::applicationDirPath() + QDir::separator() + QLatin1String("..") + QDir::separator() + QLatin1String("src") + QDir::separator() + QLatin1String("ui") + QDir::separator() + QLatin1String("photo") + QDir::separator() + QLatin1String("backgroundStartview.png");
+        _bgPixmap.load(fallback);
+    }
+
+    // 让 paintEvent 负责绘制背景
+    setAutoFillBackground(false);
+
     loadRecords();
 }
 
@@ -19,9 +35,11 @@ void RecordsView::setupUI()
     titleLabel->setStyleSheet(
         "font-size: 36px; "
         "font-weight: bold; "
-        "color: #4CAF50; "
+        "color: #000000; "  /* 黑色文字 */
+        "background: transparent; "
         "padding: 20px;"
     );
+    titleLabel->raise();
     mainLayout->addWidget(titleLabel);
 
     // 统计信息
@@ -31,7 +49,7 @@ void RecordsView::setupUI()
         "font-size: 18px; "
         "color: #666; "
         "padding: 10px; "
-        "background-color: white; "
+        "background-color: rgba(255,255,255,220); " /* 半透明白 */
         "border: 2px solid #ddd; "
         "border-radius: 5px;"
     );
@@ -47,7 +65,7 @@ void RecordsView::setupUI()
     _recordsTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     _recordsTable->setStyleSheet(
         "QTableWidget {"
-        "    background-color: white; "
+        "    background-color: rgba(255,255,255,200); " /* 半透明白 */
         "    border: 2px solid #ddd; "
         "    border-radius: 5px; "
         "    font-size: 16px;"
@@ -70,14 +88,14 @@ void RecordsView::setupUI()
         "QPushButton {"
         "    font-size: 16px; "
         "    font-weight: bold; "
-        "    background-color: #f44336; "
+        "    background-color: rgba(244,67,54,220); " /* 半透明红 */
         "    color: white; "
         "    border: none; "
         "    border-radius: 5px; "
         "    padding: 10px;"
         "}"
         "QPushButton:hover {"
-        "    background-color: #da190b; "
+        "    background-color: rgba(218,25,11,220); "
         "}"
     );
     buttonLayout->addWidget(_clearButton);
@@ -89,14 +107,14 @@ void RecordsView::setupUI()
         "QPushButton {"
         "    font-size: 16px; "
         "    font-weight: bold; "
-        "    background-color: #2196F3; "
+        "    background-color: rgba(33,150,243,220); " /* 半透明蓝 */
         "    color: white; "
         "    border: none; "
         "    border-radius: 5px; "
         "    padding: 10px;"
         "}"
         "QPushButton:hover {"
-        "    background-color: #0b7dda; "
+        "    background-color: rgba(11,125,218,220); "
         "}"
     );
     buttonLayout->addWidget(_backButton);
@@ -105,8 +123,6 @@ void RecordsView::setupUI()
 
     connect(_backButton, &QPushButton::clicked, this, &RecordsView::backClicked);
     connect(_clearButton, &QPushButton::clicked, this, &RecordsView::onClearClicked);
-
-    setStyleSheet("background-color: #f0f0f0;");
 }
 
 void RecordsView::loadRecords()
@@ -156,10 +172,21 @@ void RecordsView::addRecord(int round, int wins, int trophies)
     int row = _recordsTable->rowCount();
     _recordsTable->insertRow(row);
 
-    _recordsTable->setItem(row, 0, new QTableWidgetItem(QString::number(row + 1)));
-    _recordsTable->setItem(row, 1, new QTableWidgetItem(QString::number(round)));
-    _recordsTable->setItem(row, 2, new QTableWidgetItem(QString::number(wins)));
-    _recordsTable->setItem(row, 3, new QTableWidgetItem(QString::number(trophies)));
+    auto* item0 = new QTableWidgetItem(QString::number(row + 1));
+    auto* item1 = new QTableWidgetItem(QString::number(round));
+    auto* item2 = new QTableWidgetItem(QString::number(wins));
+    auto* item3 = new QTableWidgetItem(QString::number(trophies));
+
+    // 确保表格内数字为黑色，便于在浅色半透明背景上阅读
+    item0->setForeground(QBrush(Qt::black));
+    item1->setForeground(QBrush(Qt::black));
+    item2->setForeground(QBrush(Qt::black));
+    item3->setForeground(QBrush(Qt::black));
+
+    _recordsTable->setItem(row, 0, item0);
+    _recordsTable->setItem(row, 1, item1);
+    _recordsTable->setItem(row, 2, item2);
+    _recordsTable->setItem(row, 3, item3);
 
     // 设置居中对齐
     for (int col = 0; col < 4; ++col) {
@@ -183,5 +210,19 @@ void RecordsView::onClearClicked()
         updateStats();
         QMessageBox::information(this, "提示", "战绩记录已清空！");
     }
+}
+
+void RecordsView::paintEvent(QPaintEvent* event)
+{
+    if (!_bgPixmap.isNull()) {
+        QPainter p(this);
+        QSize targetSize = size();
+        QPixmap scaled = _bgPixmap.scaled(targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        int x = (targetSize.width() - scaled.width()) / 2;
+        int y = (targetSize.height() - scaled.height()) / 2;
+        p.drawPixmap(x, y, scaled);
+    }
+
+    QWidget::paintEvent(event);
 }
 
