@@ -46,6 +46,7 @@ public:
         , _hasArmor(false)
         , _canRevive(false)
         , _hasMelonShield(false) {};
+    Pet(const Pet& other);               //拷贝构造函数
     ~Pet() = default;
     std::string getName() const { return _name; };
     int getHP() const { return _hp; };
@@ -138,6 +139,7 @@ class Duck : public Pet
 {
 public:
     Duck(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 1);
+    Duck(const Duck& other);                                // 新增拷贝构造函数
     ~Duck() = default;
 };
 
@@ -173,6 +175,7 @@ class Kangaroo : public Pet
 {
 public:
     Kangaroo(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 2);
+    Kangaroo(const Kangaroo& other);                        // 新增拷贝构造函数
     ~Kangaroo() = default;
 };
 
@@ -190,6 +193,7 @@ class Camel : public Pet
 {
 public:
     Camel(int hp = 4, int attack = 2, int ownerPlayer = 0, int tier = 3);
+    Camel(const Camel& other);                              // 新增拷贝构造函数
     ~Camel() = default;
 };
 
@@ -198,6 +202,7 @@ class Dodo : public Pet
 {
 public:
     Dodo(int hp = 2, int attack = 4, int ownerPlayer = 0, int tier = 3);
+    Dodo(const Dodo& other);                                // 新增拷贝构造函数
     ~Dodo() = default;
 };
 
@@ -206,6 +211,7 @@ class Blowfish : public Pet
 {
 public:
     Blowfish(int hp = 6, int attack = 3, int ownerPlayer = 0, int tier = 4);
+    Blowfish(const Blowfish& other);                        // 新增拷贝构造函数
     ~Blowfish() = default;
 };
 
@@ -214,5 +220,6 @@ class Skunk : public Pet
 {
 public:
     Skunk(int hp = 5, int attack = 3, int ownerPlayer = 0, int tier = 4);
+    Skunk(const Skunk& other);                              // 新增拷贝构造函数
     ~Skunk() = default;
 };

@@ -140,15 +140,26 @@ Fish::Fish(const Fish& other) : Pet(other) {}
 
 Cricket::Cricket(const Cricket& other) : Pet(other) {}
 
+Duck::Duck(const Duck& other) : Pet(other) {}
+
 Swan::Swan(const Swan& other) : Pet(other) {}
 
 Flamingo::Flamingo(const Flamingo& other) : Pet(other) {}
 
 Hedgehog::Hedgehog(const Hedgehog& other) : Pet(other) {}
 
+Kangaroo::Kangaroo(const Kangaroo& other) : Pet(other) {}
+
 Peacock::Peacock(const Peacock& other) : Pet(other) {}
 
-\
+Camel::Camel(const Camel& other) : Pet(other) {}
+
+Dodo::Dodo(const Dodo& other) : Pet(other) {}
+
+Blowfish::Blowfish(const Blowfish& other) : Pet(other) {}
+
+Skunk::Skunk(const Skunk& other) : Pet(other) {}
+
 template <class Derived>
 struct Registrar
 {
