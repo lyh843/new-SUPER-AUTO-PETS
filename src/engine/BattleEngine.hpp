@@ -66,12 +66,12 @@ public:
     BattleResult getResult() const { return _result; }
 
     // 获取队伍信息（用于界面显示）
-    const std::vector<std::unique_ptr<Pet>>& getPlayer1Team() const { return *_player1Team; }
-    const std::vector<std::unique_ptr<Pet>>& getPlayer2Team() const { return *_player2Team; }
+    const std::vector<std::unique_ptr<Pet>>& getPlayer1Team() const { return _player1Team; }
+    const std::vector<std::unique_ptr<Pet>>& getPlayer2Team() const { return _player2Team; }
 
 private:
-    std::vector<std::unique_ptr<Pet>>* _player1Team;
-    std::vector<std::unique_ptr<Pet>>* _player2Team;
+    std::vector<std::unique_ptr<Pet>> _player1Team;
+    std::vector<std::unique_ptr<Pet>> _player2Team;
     EventCallback _eventCallback;
     bool _inBattle;
     BattleResult _result;

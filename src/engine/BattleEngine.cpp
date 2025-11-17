@@ -1,9 +1,10 @@
 #include "BattleEngine.hpp"
 #include <QThread>
+#include <qdebug.h>
 
 BattleEngine::BattleEngine()
-    : _player1Team(nullptr)
-    , _player2Team(nullptr)
+    : _player1Team()
+    , _player2Team()
     , _eventCallback(nullptr)
     , _inBattle(false)
     , _result(BattleResult::Draw)
@@ -14,10 +15,18 @@ BattleEngine::BattleEngine()
 void BattleEngine::initialize(std::vector<std::unique_ptr<Pet>>& p1, 
                                std::vector<std::unique_ptr<Pet>>& p2)
 {
-    _player1Team = &p1;
-    _player2Team = &p2;
+    // 清空现有队伍
+    _player1Team.clear();
+    _player2Team.clear();
+
+    // 关键修复：转移所有权，而不是仅仅清空
+    _player1Team = std::move(p1);
+    _player2Team = std::move(p2);
+
     _inBattle = false;
     _player1Turn = true;
+
+    qDebug() << "战斗引擎初始化：玩家宠物" << _player1Team.size() << "个，AI宠物" << _player2Team.size() << "个";
 }
 
 void BattleEngine::setEventCallback(EventCallback callback)
@@ -90,9 +99,9 @@ bool BattleEngine::executeSingleStep()
 void BattleEngine::_executePreBattleSkills()
 {
     // 触发战斗前技能（如蜂蜜召唤蜜蜂）
-    for (size_t i = 0; i < _player1Team->size(); ++i)
+    for (size_t i = 0; i < _player1Team.size(); ++i)
     {
-        auto& pet = (*_player1Team)[i];
+        auto& pet = (_player1Team)[i];
         if (pet)
         {
             pet->triggerPreBattleSkill();
@@ -100,9 +109,9 @@ void BattleEngine::_executePreBattleSkills()
         }
     }
 
-    for (size_t i = 0; i < _player2Team->size(); ++i)
+    for (size_t i = 0; i < _player2Team.size(); ++i)
     {
-        auto& pet = (*_player2Team)[i];
+        auto& pet = (_player2Team)[i];
         if (pet)
         {
             pet->triggerPreBattleSkill();
@@ -116,14 +125,14 @@ void BattleEngine::_executeTurn()
         return;
 
     // 获取第一个存活的宠物
-    int attackerIdx = _getFirstAlivePet(_player1Turn ? *_player1Team : *_player2Team);
-    int defenderIdx = _getFirstAlivePet(_player1Turn ? *_player2Team : *_player1Team);
+    int attackerIdx = _getFirstAlivePet(_player1Turn ? _player1Team : _player2Team);
+    int defenderIdx = _getFirstAlivePet(_player1Turn ? _player2Team : _player1Team);
 
     if (attackerIdx == -1 || defenderIdx == -1)
         return;
 
-    auto& attackerTeam = _player1Turn ? *_player1Team : *_player2Team;
-    auto& defenderTeam = _player1Turn ? *_player2Team : *_player1Team;
+    auto& attackerTeam = _player1Turn ? _player1Team : _player2Team;
+    auto& defenderTeam = _player1Turn ? _player2Team : _player1Team;
 
     Pet* attacker = attackerTeam[attackerIdx].get();
     Pet* defender = defenderTeam[defenderIdx].get();
@@ -202,7 +211,7 @@ void BattleEngine::_applyDamage(Pet* attacker, int attackerIdx, Pet* defender,
 
 void BattleEngine::_handlePetDeath(int index, bool isPlayer1)
 {
-    auto& team = isPlayer1 ? *_player1Team : *_player2Team;
+    auto& team = isPlayer1 ? _player1Team : _player2Team;
     
     if (index >= 0 && index < static_cast<int>(team.size()))
     {
@@ -237,19 +246,19 @@ void BattleEngine::_handlePetDeath(int index, bool isPlayer1)
 void BattleEngine::_cleanupDeadPets()
 {
     // 移除死亡的宠物（从后往前遍历，避免索引问题）
-    for (int i = _player1Team->size() - 1; i >= 0; --i)
+    for (int i = _player1Team.size() - 1; i >= 0; --i)
     {
-        if ((*_player1Team)[i]->isDead())
+        if ((_player1Team)[i]->isDead())
         {
-            _player1Team->erase(_player1Team->begin() + i);
+            _player1Team.erase(_player1Team.begin() + i);
         }
     }
 
-    for (int i = _player2Team->size() - 1; i >= 0; --i)
+    for (int i = _player2Team.size() - 1; i >= 0; --i)
     {
-        if ((*_player2Team)[i]->isDead())
+        if ((_player2Team)[i]->isDead())
         {
-            _player2Team->erase(_player2Team->begin() + i);
+            _player2Team.erase(_player2Team.begin() + i);
         }
     }
 }
@@ -259,13 +268,13 @@ bool BattleEngine::_isBattleOver()
     int player1Alive = 0;
     int player2Alive = 0;
 
-    for (const auto& pet : *_player1Team)
+    for (const auto& pet : _player1Team)
     {
         if (pet && !pet->isDead())
             player1Alive++;
     }
 
-    for (const auto& pet : *_player2Team)
+    for (const auto& pet : _player2Team)
     {
         if (pet && !pet->isDead())
             player2Alive++;
@@ -279,13 +288,13 @@ void BattleEngine::_finishBattle()
     int player1Alive = 0;
     int player2Alive = 0;
 
-    for (const auto& pet : *_player1Team)
+    for (const auto& pet : _player1Team)
     {
         if (pet && !pet->isDead())
             player1Alive++;
     }
 
-    for (const auto& pet : *_player2Team)
+    for (const auto& pet : _player2Team)
     {
         if (pet && !pet->isDead())
             player2Alive++;

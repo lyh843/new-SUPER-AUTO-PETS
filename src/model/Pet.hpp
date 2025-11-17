@@ -45,6 +45,7 @@ public:
         , _hasArmor(false)
         , _canRevive(false)
         , _hasMelonShield(false) {};
+    Pet(const Pet& other);                                      // 拷贝构造函数
     ~Pet() = default;
     std::string getName() const { return _name; };
     int getHP() const { return _hp; };
@@ -101,6 +102,7 @@ class Cat : public Pet
 {
 public:
     Cat(int hp = 4, int attack = 3, int ownerPlayer = 0, int tier = 1);
+    Cat(const Cat& other);                                  // 新增拷贝构造函数
     ~Cat() = default;
 };
 
@@ -109,6 +111,7 @@ class Ant : public Pet
 {
 public:
     Ant(int hp = 2, int attack = 1, int ownerPlayer = 0, int tier = 1);
+    Ant(const Ant& other);                                  // 新增拷贝构造函数
     ~Ant() = default;
 };
 
@@ -117,6 +120,7 @@ class Fish : public Pet
 {
 public:
     Fish(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 1);
+    Fish(const Fish& other);                                // 新增拷贝构造函数
     ~Fish() = default;
 };
 
@@ -125,6 +129,7 @@ class Cricket : public Pet
 {
 public:
     Cricket(int hp = 1, int attack = 2, int ownerPlayer = 0, int tier = 1);
+    Cricket(const Cricket& other);                          // 新增拷贝构造函数
     ~Cricket() = default;
 };
 
@@ -133,6 +138,7 @@ class Swan : public Pet
 {
 public:
     Swan(int hp = 3, int attack = 1, int ownerPlayer = 0, int tier = 2);
+    Swan(const Swan& other);                                // 新增拷贝构造函数
     ~Swan() = default;
 };
 
@@ -141,6 +147,7 @@ class Flamingo : public Pet
 {
 public:
     Flamingo(int hp = 3, int attack = 2, int ownerPlayer = 0, int tier = 2);
+    Flamingo(const Flamingo& other);                        // 新增拷贝构造函数
     ~Flamingo() = default;
 };
 
@@ -149,6 +156,7 @@ class Hedgehog : public Pet
 {
 public:
     Hedgehog(int hp = 3, int attack = 1, int ownerPlayer = 0, int tier = 2);
+    Hedgehog(const Hedgehog& other);                        // 新增拷贝构造函数
     ~Hedgehog() = default;
 };
 
@@ -157,5 +165,6 @@ class Peacock : public Pet
 {
 public:
     Peacock(int hp = 2, int attack = 5, int ownerPlayer = 0, int tier = 3);
+    Peacock(const Peacock& other);                          // 新增拷贝构造函数
     ~Peacock() = default;
 };

@@ -920,7 +920,7 @@
    </property>
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/else/photo/refreshButton.png</normaloff>:/else/photo/refreshButton.png</iconset>
+     <normaloff>:/else/photo/longButton_refresh.png</normaloff>:/else/photo/longButton_refresh.png</iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -950,7 +950,7 @@
    </property>
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/else/photo/endTurnButton.png</normaloff>:/else/photo/endTurnButton.png</iconset>
+     <normaloff>:/else/photo/longButton_fright.png</normaloff>:/else/photo/longButton_fright.png</iconset>
    </property>
    <property name="iconSize">
     <size>

@@ -2,6 +2,23 @@
 #include <algorithm>
 #include "Food.hpp"
 
+//宠物基类拷贝构造函数
+Pet::Pet(const Pet& other)
+    : _name(other._name)
+    , _hp(other._hp)
+    , _damage(other._damage)
+    , _ownerPlayer(other._ownerPlayer)
+    , _level(other._level)
+    , _exp(other._exp)
+    , _tier(other._tier)
+    , _baseHP(other._baseHP)
+    , _baseAttack(other._baseAttack)
+    , _foodPerk(other._foodPerk)
+    , _hasArmor(other._hasArmor)
+    , _canRevive(other._canRevive)
+    , _hasMelonShield(other._hasMelonShield)
+{}
+
 // 实现升级逻辑
 void Pet::levelUp()
 {
@@ -70,17 +87,6 @@ bool Pet::applyFood(std::unique_ptr<Food>& food)
     return applied;
 }
 
-template <class Derived>
-struct Registrar
-{
-    Registrar()
-    {
-        static_assert(std::is_base_of<Pet, Derived>::value, "Derived must inherit from Pet");
-        Creator creator = []() -> std::unique_ptr<Pet> { return std::make_unique<Derived>(); };
-        getAllPets().push_back(creator);
-    };
-};
-
 // 派生类构造函数实现
 
 Cat::Cat(int hp, int attack, int ownerPlayer, int tier)
@@ -106,6 +112,36 @@ Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
 
 Peacock::Peacock(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Peacock", hp, attack, ownerPlayer, tier) {}
+
+
+// 实现派生类的拷贝构造函数
+Cat::Cat(const Cat& other) : Pet(other) {}
+
+Ant::Ant(const Ant& other) : Pet(other) {}
+
+Fish::Fish(const Fish& other) : Pet(other) {}
+
+Cricket::Cricket(const Cricket& other) : Pet(other) {}
+
+Swan::Swan(const Swan& other) : Pet(other) {}
+
+Flamingo::Flamingo(const Flamingo& other) : Pet(other) {}
+
+Hedgehog::Hedgehog(const Hedgehog& other) : Pet(other) {}
+
+Peacock::Peacock(const Peacock& other) : Pet(other) {}
+
+\
+template <class Derived>
+struct Registrar
+{
+    Registrar()
+    {
+        static_assert(std::is_base_of<Pet, Derived>::value, "Derived must inherit from Pet");
+        Creator creator = []() -> std::unique_ptr<Pet> { return std::make_unique<Derived>(); };
+        getAllPets().push_back(creator);
+    };
+};
 
 // 所有 Pet 派生类全部在这里手动注册一次
 static Registrar<Cat> catRegistrar;

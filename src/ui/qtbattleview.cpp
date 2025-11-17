@@ -5,9 +5,6 @@
 #include <QScrollBar>
 #include <QTextCursor>
 #include <random>
-#include <QPainter>        // 添加这行
-#include <QDebug>          // 添加这行用于调试输出
-#include <QFont>           // 添加这行
 
 //构造函数实现
 QtBattleView::QtBattleView(Player* player, QWidget* parent) :
@@ -24,6 +21,12 @@ QtBattleView::QtBattleView(Player* player, QWidget* parent) :
     connect(ui->start_button, &QPushButton::clicked, this, &QtBattleView::on_start_button_clicked);
     connect(ui->auto_play_button, &QPushButton::clicked, this, &QtBattleView::on_auto_play_button_clicked);
     connect(ui->forward_button, &QPushButton::clicked, this, &QtBattleView::on_forward_button_clicked);
+    ui->start_font->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->auto_play_font->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->forward_font->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->start->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->auto_play->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->forward->setAttribute(Qt::WA_TransparentForMouseEvents);
     connect(_autoTimer, &QTimer::timeout, this, &QtBattleView::onAutoStep);
 
     setupPetDisplays();
@@ -37,10 +40,10 @@ void QtBattleView::startNewBattle()
     _pendingDisplayUpdate = false;
     _autoTimer->stop();
 
-    // 生成AI对手
+            // 生成AI对手
     generateAITeam(_player->getRound());
 
-    // 延迟更新显示
+            // 延迟更新显示
     QTimer::singleShot(0, this, [this]() {
         updateBattleDisplay();
     });
@@ -58,7 +61,7 @@ void QtBattleView::generateAITeam(int difficulty)
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    // 根据难度生成对手（2-5只宠物）
+            // 根据难度生成对手（2-5只宠物）
     int petCount = std::min(5, 2 + difficulty / 2);
 
     for (int i = 0; i < petCount; ++i)
@@ -79,7 +82,7 @@ void QtBattleView::generateAITeam(int difficulty)
         case 7: pet = std::make_unique<Peacock>(2, 5, 1, 3); break;
         }
 
-        // 根据难度提升属性
+                // 根据难度提升属性
         int levelBonus = difficulty / 3;
         for (int j = 0; j < levelBonus; ++j)
         {
@@ -97,7 +100,7 @@ void QtBattleView::setupPetDisplays()
     _playerPetLabels.clear();
     _aiPetLabels.clear();
 
-    // 使用UI中预留的宠物位置
+            // 使用UI中预留的宠物位置
     _playerPetLabels.append(ui->your_pet_1);
     _playerPetLabels.append(ui->your_pet_2);
     _playerPetLabels.append(ui->your_pet_3);
@@ -123,7 +126,7 @@ void QtBattleView::updatePetDisplay(int index, bool isPlayer, const Pet* pet)
 
     petLabel->setScaledContents(true); // 关键：启用内容自适应
 
-    // 2. 显示血量和攻击力（可以用tooltip或者额外label）
+            // 2. 显示血量和攻击力（可以用tooltip或者额外label）
     QString tooltip = QString("%1\nHP: %2\nATK: %3")
                           .arg(QString::fromStdString(pet->getName()))
                           .arg(pet->getHP())
@@ -141,7 +144,7 @@ void QtBattleView::updateBattleDisplay()
 {
     if (!_player) return;
 
-    // 更新玩家宠物显示
+            // 更新玩家宠物显示
     for (int i = 0; i < _playerPetLabels.size(); ++i) {
         if (i < _player->getPetCount()) {
             Pet* pet = _player->getPetAt(i);
@@ -149,7 +152,7 @@ void QtBattleView::updateBattleDisplay()
         }
     }
 
-    // 更新AI宠物显示
+            // 更新AI宠物显示
     for (int i = 0; i < _aiPetLabels.size(); ++i) {
         if (i < static_cast<int>(_aiTeam.size()) && _aiTeam[i]) {
             updatePetDisplay(i, false, _aiTeam[i].get());  // false表示是AI宠物
@@ -182,14 +185,14 @@ void QtBattleView::highlightDefender(int index, bool isPlayer)
 
 void QtBattleView::clearHighlights()
 {
-    //待实现
-    // 恢复默认样式
-    // for (auto* label : _playerPetLabels) {
-    //     label->setStyleSheet("border: 2px solid green;");
-    // }
-    // for (auto* label : _aiPetLabels) {
-    //     label->setStyleSheet("border: 2px solid red;");
-    // }
+   //待实现
+   // 恢复默认样式
+   // for (auto* label : _playerPetLabels) {
+   //     label->setStyleSheet("border: 2px solid green;");
+   // }
+   // for (auto* label : _aiPetLabels) {
+   //     label->setStyleSheet("border: 2px solid red;");
+   // }
 }
 
 QtBattleView::~QtBattleView()
@@ -202,8 +205,34 @@ void QtBattleView::on_start_button_clicked()
 {
     _battleStarted = true;
 
+    // 创建玩家宠物的副本用于战斗
+    std::vector<std::unique_ptr<Pet>> playerPetsCopy;
+    for (int i = 0; i < _player->getPetCount(); ++i) {
+        Pet* originalPet = _player->getPetAt(i);
+        if (originalPet) {
+            // 创建宠物副本（需要Pet类有拷贝构造函数）
+            auto petCopy = std::make_unique<Pet>(*originalPet);
+            playerPetsCopy.push_back(std::move(petCopy));
+        }
+    }
+
+    // 创建AI宠物的副本用于战斗
+    std::vector<std::unique_ptr<Pet>> aiPetsCopy;
+    for (size_t i = 0; i < _aiTeam.size(); ++i) {
+        if (_aiTeam[i]) {
+            qDebug() << "复制AI宠物" << i << ":" << _aiTeam[i]->getName().c_str();
+
+            // 使用拷贝构造函数创建副本
+            auto petCopy = std::make_unique<Pet>(*_aiTeam[i]);
+            aiPetsCopy.push_back(std::move(petCopy));
+        }
+    }
+
+    qDebug() << "玩家宠物复制完成，数量:" << playerPetsCopy.size();
+    qDebug() << "AI宠物复制完成，数量:" << aiPetsCopy.size();
+
     // 初始化战斗引擎
-    _battleEngine.initialize(_player->getPets(), _aiTeam);
+    _battleEngine.initialize(playerPetsCopy, aiPetsCopy);
 
     // 设置事件回调
     _battleEngine.setEventCallback([this](const BattleEvent& event) {
@@ -257,7 +286,7 @@ void QtBattleView::on_forward_button_clicked()
         ui->forward_button->setEnabled(false);
     }
 
-    // 延迟更新显示，避免阻塞
+            // 延迟更新显示，避免阻塞
     QTimer::singleShot(10, this, [this]() {
         updateBattleDisplay();
     });
@@ -311,7 +340,7 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
         break;
     }
 
-    // 延迟更新显示，避免频繁重绘导致卡顿
+            // 延迟更新显示，避免频繁重绘导致卡顿
     if (_pendingDisplayUpdate)
     {
         _pendingDisplayUpdate = false;
@@ -320,4 +349,3 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
         });
     }
 }
-
