@@ -28,17 +28,23 @@ void PetEncyclopediaView::setupUI()
     titleLabel->setStyleSheet(
         "font-size: 36px; "
         "font-weight: bold; "
-        "color: #4CAF50; "
+        "color: #000000; "  /* 黑色文字 */
+        "background: transparent; "
         "padding: 20px;"
     );
+    // 确保标题位于顶层，避免被其他控件遮挡
+    titleLabel->raise();
     _mainLayout->addWidget(titleLabel);
 
     // 滚动区域
     _scrollArea = new QScrollArea(this);
     _scrollArea->setWidgetResizable(true);
-    _scrollArea->setStyleSheet("background-color: white; border: 2px solid #ddd; border-radius: 5px;");
+    // 让滚动区背景透明，以便底层背景图可见；保留边框样式
+    _scrollArea->setStyleSheet("QScrollArea { background: transparent; border: 2px solid #ddd; border-radius: 5px; } QScrollArea > QWidget { background: transparent; }");
 
     _contentWidget = new QWidget();
+    // 内容容器透明，卡片/GroupBox 使用半透明白背景，从而能看到底层背景图
+    _contentWidget->setStyleSheet("background: transparent;");
     auto* contentLayout = new QVBoxLayout(_contentWidget);
     contentLayout->setSpacing(15);
 
@@ -175,7 +181,7 @@ QWidget* PetEncyclopediaView::createPetCard(const QString& name, const QString& 
     auto* petCard = new QWidget();
     petCard->setStyleSheet(
         "QWidget {"
-        "    background-color: white; "
+        "    background-color: rgba(255,255,255,220); " /* 半透明白 */
         "    border: 2px solid #ddd; "
         "    border-radius: 8px; "
         "    padding: 10px;"
@@ -206,7 +212,7 @@ QWidget* PetEncyclopediaView::createFoodCard(const QString& name, const QString&
     auto* foodCard = new QWidget();
     foodCard->setStyleSheet(
         "QWidget {"
-        "    background-color: white; "
+        "    background-color: rgba(255,255,255,220); " /* 半透明白 */
         "    border: 2px solid #ddd; "
         "    border-radius: 8px; "
         "    padding: 10px;"
