@@ -1,18 +1,26 @@
-"C:\Software\Toolbox\CLion 2024.2.0.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Software/Toolbox/CLion 2024.2.0.1/bin/ninja/win/x64/ninja.exe" -G Ninja -S D:\SAP_projects_new\new-SUPER-AUTO-PETS -B D:\SAP_projects_new\new-SUPER-AUTO-PETS\cmake-build-debug
-CMake Error at CMakeLists.txt:13 (find_package):
-  By not providing "FindQt6.cmake" in CMAKE_MODULE_PATH this project has
-  asked CMake to find a package configuration file provided by "Qt6", but
-  CMake did not find one.
+D:\JetBrains\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=D:/JetBrains/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S D:\new-SUPER-AUTO-PETS -B D:\new-SUPER-AUTO-PETS\cmake-build-debug
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
 
-  Could not find a package configuration file provided by "Qt6" with any of
-  the following names:
-
-    Qt6Config.cmake
-    qt6-config.cmake
-
-  Add the installation prefix of "Qt6" to CMAKE_PREFIX_PATH or set "Qt6_DIR"
-  to a directory containing one of the above files.  If "Qt6" provides a
-  separate development package or SDK, be sure it has been installed.
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
 
 
--- Configuring incomplete, errors occurred!
+-- The CXX compiler identification is GNU 13.1.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/Qt/Tools/mingw1310_64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (2.7s)
+-- Generating done (0.7s)
+-- Build files have been written to: D:/new-SUPER-AUTO-PETS/cmake-build-debug
