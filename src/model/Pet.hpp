@@ -17,6 +17,7 @@ private:
     int _level;
     int _exp;
     int _tier;
+    int _cost = 3;
 
     // 基础属性（用于计算升级后的值）
 
@@ -53,6 +54,7 @@ public:
     void setHP(int hp) { _hp = hp; };
     int getAttack() const { return _damage; };
     void setAttack(int attack) { _damage = attack; };
+    int getCost() const { return _cost; };
     bool isDead() const { return _hp <= 0; };
     void attack(Pet& other) { other.receiveDamage(_damage); };
     bool receiveDamage(int damage)

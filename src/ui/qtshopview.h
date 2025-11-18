@@ -7,7 +7,7 @@
 
 #include <QPushButton>
 #include <QWidget>
-#include <utility>
+#include <QLabel>
 
 
 namespace Ui
@@ -20,19 +20,28 @@ class QtPet
 private:
     Pet* _pet;
     QPushButton* _petPushButton;
-    std::pair<int, int> _loc;
+    QLabel* _petInfo;
+    QLabel* _petInfoAttack;
+    QLabel* _petInfoHeart;
+    QLabel* _petInfoCoin;
+    QLabel* _petInfoCoinIndex; 
+    // std::pair<int, int> _loc;
     int _index;
     bool _isPlayerPet;
     bool _isFreeze;
 
 public:
-    QtPet(QPushButton* petPushButton, int index, bool isPlayerPet);
+    QtPet(QPushButton* petPushButton, QLabel* petInfo, QLabel* petInfoAttack, QLabel* petInfoHeart, QLabel* petInfoCoin,
+        QLabel* petInfoCoinIndex, int index, bool isPlayerPet);
     void updatePet(Pet* pet);
     void clear();
     void freeze();
     void clicked();
     QPushButton* getPushButton();
     Pet* getPet(){ return _pet; };
+    Pet* setPet(Pet* pet){
+        _pet = pet;
+    }
 };
 
 class QtFood
@@ -40,10 +49,12 @@ class QtFood
 private:
     Food* _food;
     QPushButton* _foodPushButton;
-    std::pair<int, int> _loc;
+    QLabel* _foodInfoCoin;
+    QLabel* _foodInfoCoinIndex; 
+    // std::pair<int, int> _loc;
     int _index;
 public:
-    QtFood(QPushButton* foodPushButton, int index);
+    QtFood(QPushButton* foodPushButton,  QLabel* foodInfoCoin, QLabel* foodInfoCoinIndex, int index);
     void updateFood(Food* food);
     void clear();
     void freeze();

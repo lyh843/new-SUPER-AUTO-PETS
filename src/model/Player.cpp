@@ -60,7 +60,7 @@ int Player::getPetCount() const
 
 void Player::swapPets(int index, int targetIndex)
 {
-    if (index < 0 || index >= _pets.size() || targetIndex < 0 || targetIndex >= _pets.size())
+    if (index < 0 || targetIndex < 0)
         return;
 
     std::swap(_pets[index], _pets[targetIndex]);
