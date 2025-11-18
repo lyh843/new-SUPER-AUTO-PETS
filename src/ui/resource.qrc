@@ -116,6 +116,7 @@
         <file>photo/backgroundStartview.png</file>
         <file>photo/Buttonstartview.png</file>
         <file>photo/NewHourglass.png</file>
+        <file>photo/Pause.png</file>
     </qresource>
     <qresource prefix="/Food">
         <file>photo/Food/Apple.png</file>

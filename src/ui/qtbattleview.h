@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
+#include <QGraphicsOpacityEffect>
 #include <QTimer>
 #include <vector>
 #include <memory>
@@ -55,6 +56,7 @@ private:
     QTimer* _autoTimer;
     bool _pendingDisplayUpdate;
 
+    void setupConnections();
     void updateBattleDisplay();
     void updatePetDisplay(int index, bool isPlayer, const Pet* pet);
     void highlightAttacker(int index, bool isPlayer);

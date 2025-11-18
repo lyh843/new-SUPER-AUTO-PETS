@@ -18,18 +18,33 @@ QtBattleView::QtBattleView(Player* player, QWidget* parent) :
     ui->setupUi(this);
 
     _autoTimer = new QTimer(this);
-    connect(ui->start_button, &QPushButton::clicked, this, &QtBattleView::on_start_button_clicked);
-    connect(ui->auto_play_button, &QPushButton::clicked, this, &QtBattleView::on_auto_play_button_clicked);
-    connect(ui->forward_button, &QPushButton::clicked, this, &QtBattleView::on_forward_button_clicked);
+
+    // 修复重复连接问题
+    setupConnections();
+
     ui->start_font->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->auto_play_font->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->forward_font->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->start->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->auto_play->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->forward->setAttribute(Qt::WA_TransparentForMouseEvents);
-    connect(_autoTimer, &QTimer::timeout, this, &QtBattleView::onAutoStep);
 
     setupPetDisplays();
+}
+
+void QtBattleView::setupConnections()
+{
+    // 先断开所有可能的连接
+    disconnect(ui->start_button, nullptr, this, nullptr);
+    disconnect(ui->auto_play_button, nullptr, this, nullptr);
+    disconnect(ui->forward_button, nullptr, this, nullptr);
+    disconnect(_autoTimer, nullptr, this, nullptr);
+
+    // 使用UniqueConnection确保只连接一次
+    connect(_autoTimer, &QTimer::timeout, this, &QtBattleView::onAutoStep, Qt::UniqueConnection);
+    connect(ui->start_button, &QPushButton::clicked, this, &QtBattleView::on_start_button_clicked, Qt::UniqueConnection);
+    connect(ui->auto_play_button, &QPushButton::clicked, this, &QtBattleView::on_auto_play_button_clicked, Qt::UniqueConnection);
+    connect(ui->forward_button, &QPushButton::clicked, this, &QtBattleView::on_forward_button_clicked, Qt::UniqueConnection);
 }
 
 //对战开始实现
@@ -40,13 +55,25 @@ void QtBattleView::startNewBattle()
     _pendingDisplayUpdate = false;
     _autoTimer->stop();
 
-            // 生成AI对手
+    // 生成AI对手
     generateAITeam(_player->getRound());
 
-            // 延迟更新显示
+    // 延迟更新显示
     QTimer::singleShot(0, this, [this]() {
         updateBattleDisplay();
     });
+
+    // 恢复自动播放图标和文字的原始状态
+    ui->auto_play->setPixmap(QPixmap(":/else/photo/Refresh.png"));
+    ui->auto_play_font->setText("<html><head/><body><p><span style=\" font-size:11pt; font-weight:700;\">自动播放</span></p></body></html>");
+
+    // 移除透明度效果
+    ui->start->setGraphicsEffect(nullptr);
+    ui->forward->setGraphicsEffect(nullptr);
+
+    // 恢复文字原始样式
+    ui->start_font->setStyleSheet("color: white;");
+    ui->forward_font->setStyleSheet("color: white;");
 
     ui->start_button->setEnabled(true);
     ui->auto_play_button->setEnabled(false);
@@ -61,7 +88,7 @@ void QtBattleView::generateAITeam(int difficulty)
     std::random_device rd;
     std::mt19937 gen(rd());
 
-            // 根据难度生成对手（2-5只宠物）
+    // 根据难度生成对手（2-5只宠物）
     int petCount = std::min(5, 2 + difficulty / 2);
 
     for (int i = 0; i < petCount; ++i)
@@ -100,7 +127,7 @@ void QtBattleView::setupPetDisplays()
     _playerPetLabels.clear();
     _aiPetLabels.clear();
 
-            // 使用UI中预留的宠物位置
+    // 使用UI中预留的宠物位置
     _playerPetLabels.append(ui->your_pet_1);
     _playerPetLabels.append(ui->your_pet_2);
     _playerPetLabels.append(ui->your_pet_3);
@@ -126,7 +153,7 @@ void QtBattleView::updatePetDisplay(int index, bool isPlayer, const Pet* pet)
 
     petLabel->setScaledContents(true); // 关键：启用内容自适应
 
-            // 2. 显示血量和攻击力（可以用tooltip或者额外label）
+    // 2. 显示血量和攻击力（可以用tooltip或者额外label）
     QString tooltip = QString("%1\nHP: %2\nATK: %3")
                           .arg(QString::fromStdString(pet->getName()))
                           .arg(pet->getHP())
@@ -243,6 +270,11 @@ void QtBattleView::on_start_button_clicked()
     _battleEngine.startBattleManual();
 
     ui->start_button->setEnabled(false);
+    QGraphicsOpacityEffect *iconEffect = new QGraphicsOpacityEffect(this);
+    iconEffect->setOpacity(0.5); // 50% 透明度
+    ui->start->setGraphicsEffect(iconEffect);
+    ui->start_font->setStyleSheet("color: rgba(255, 255, 255, 0.5);");
+
     ui->auto_play_button->setEnabled(true);
     ui->forward_button->setEnabled(true);
 }
@@ -255,18 +287,36 @@ void QtBattleView::on_auto_play_button_clicked()
         // 停止自动战斗
         _autoBattle = false;
         _autoTimer->stop();
-        // 按键改变透明度待实现
-        // _autoButton->setText("⏩ 自动战斗");
+        qDebug() << "停止自动播放";
+
+        // 改变自动播放图标及文本
+        ui->auto_play->setPixmap(QPixmap(":/else/photo/Refresh.png"));
+        ui->auto_play_font->setText("<html><head/><body><p><span style=\" font-size:11pt; font-weight:700;\">自动播放</span></p></body></html>");
+        // 恢复按钮透明度
+        ui->forward->setGraphicsEffect(nullptr);
+        ui->forward_font->setStyleSheet("color: white;");
         ui->forward_button->setEnabled(true);
     }
     else
     {
         // 开始自动战斗
         _autoBattle = true;
-        // 按键改变透明度待实现
-        // _autoButton->setText("⏸️ 暂停");
+
+        // 设置按钮半透明效果
+        QGraphicsOpacityEffect *iconEffect_2 = new QGraphicsOpacityEffect(this);
+        iconEffect_2->setOpacity(0.5);
+        ui->forward->setGraphicsEffect(iconEffect_2);
+        ui->forward_font->setStyleSheet("color: rgba(255, 255, 255, 0.5);");
         ui->forward_button->setEnabled(false);
+
+        // 自动播放图标与文字改变
+        ui->auto_play->setPixmap(QPixmap(":/else/photo/Pause.png"));
+        ui->auto_play_font->setText("<html><head/><body><p><span style=\" font-size:11pt; font-weight:700;\">暂停</span></p></body></html>");
+
         _autoTimer->start(1500);  // 每1.5秒执行一步
+        // 立即执行第一步
+        qDebug() << "立即执行第一步";
+        onAutoStep();
     }
 }
 
@@ -286,7 +336,7 @@ void QtBattleView::on_forward_button_clicked()
         ui->forward_button->setEnabled(false);
     }
 
-            // 延迟更新显示，避免阻塞
+    // 延迟更新显示，避免阻塞
     QTimer::singleShot(10, this, [this]() {
         updateBattleDisplay();
     });
@@ -340,7 +390,7 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
         break;
     }
 
-            // 延迟更新显示，避免频繁重绘导致卡顿
+    // 延迟更新显示，避免频繁重绘导致卡顿
     if (_pendingDisplayUpdate)
     {
         _pendingDisplayUpdate = false;

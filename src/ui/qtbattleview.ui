@@ -112,6 +112,9 @@ background-position: center;</string>
      <height>50</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="text">
     <string/>
    </property>
