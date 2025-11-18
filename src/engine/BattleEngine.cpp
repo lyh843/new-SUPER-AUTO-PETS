@@ -12,21 +12,21 @@ BattleEngine::BattleEngine()
 {
 }
 
-void BattleEngine::initialize(std::vector<std::unique_ptr<Pet>>& p1, 
-                               std::vector<std::unique_ptr<Pet>>& p2)
+void BattleEngine::initialize(std::vector<std::unique_ptr<Pet>>& p1,
+                               std::vector<std::unique_ptr<Pet>>& p2, std::unique_ptr<Player> player)
 {
-    // 清空现有队伍
     _player1Team.clear();
     _player2Team.clear();
 
-    // 关键修复：转移所有权，而不是仅仅清空
     _player1Team = std::move(p1);
     _player2Team = std::move(p2);
+    _player = std::move(player);
 
     _inBattle = false;
     _player1Turn = true;
 
-    qDebug() << "战斗引擎初始化：玩家宠物" << _player1Team.size() << "个，AI宠物" << _player2Team.size() << "个";
+    qDebug() << "战斗初始化：玩家宠物" << _player1Team.size()
+             << " AI宠物" << _player2Team.size();
 }
 
 void BattleEngine::setEventCallback(EventCallback callback)
@@ -37,107 +37,97 @@ void BattleEngine::setEventCallback(EventCallback callback)
 void BattleEngine::_triggerEvent(const BattleEvent& event)
 {
     if (_eventCallback)
-    {
         _eventCallback(event);
-    }
 }
 
 BattleResult BattleEngine::startBattle()
 {
     _inBattle = true;
-    
-    // 战斗开始事件
+
     _triggerEvent({BattleEventType::BattleStart, "战斗开始！", -1, -1, 0, true});
     QThread::msleep(500);
 
-    // 执行战斗前技能
     _executePreBattleSkills();
 
-    // 主战斗循环
     while (!_isBattleOver())
     {
         _executeTurn();
-        QThread::msleep(800);  // 每回合暂停，便于观看
+        QThread::msleep(800);
     }
 
     _finishBattle();
     _inBattle = false;
-    
+
     return _result;
 }
 
 void BattleEngine::startBattleManual()
 {
     _inBattle = true;
-    
-    // 战斗开始事件
+
     _triggerEvent({BattleEventType::BattleStart, "战斗开始！", -1, -1, 0, true});
-    
-    // 执行战斗前技能
+
     _executePreBattleSkills();
 }
 
 bool BattleEngine::executeSingleStep()
 {
     if (!_inBattle || _isBattleOver())
-    {
         return false;
-    }
 
     _executeTurn();
-    
+
     if (_isBattleOver())
     {
         _finishBattle();
         _inBattle = false;
         return false;
     }
-    
+
     return true;
 }
 
+/* ======================== 战斗前技能 ======================== */
+
 void BattleEngine::_executePreBattleSkills()
 {
-    // 触发战斗前技能（如蜂蜜召唤蜜蜂）
-    for (size_t i = 0; i < _player1Team.size(); ++i)
+    //优先检查实现Swan的技能
+    for (auto &pet : _player1Team)
     {
-        auto& pet = (_player1Team)[i];
-        if (pet)
+        if (dynamic_cast<Swan*>(pet.get()))
         {
-            pet->triggerPreBattleSkill();
-            // 可以在这里添加具体的战斗前技能逻辑
+            _player->addCoin();
         }
     }
 
-    for (size_t i = 0; i < _player2Team.size(); ++i)
-    {
-        auto& pet = (_player2Team)[i];
+    for (auto &pet : _player1Team)
         if (pet)
-        {
-            pet->triggerPreBattleSkill();
-        }
-    }
+            pet->onStartBattle();
+
+    for (auto &pet : _player2Team)
+        if (pet)
+            pet->onStartBattle();
 }
+
+/* ======================== 主回合流程 ======================== */
 
 void BattleEngine::_executeTurn()
 {
     if (_isBattleOver())
         return;
 
-    // 获取第一个存活的宠物
     int attackerIdx = _getFirstAlivePet(_player1Turn ? _player1Team : _player2Team);
     int defenderIdx = _getFirstAlivePet(_player1Turn ? _player2Team : _player1Team);
 
     if (attackerIdx == -1 || defenderIdx == -1)
         return;
 
-    auto& attackerTeam = _player1Turn ? _player1Team : _player2Team;
-    auto& defenderTeam = _player1Turn ? _player2Team : _player1Team;
+    auto &attackerTeam = _player1Turn ? _player1Team : _player2Team;
+    auto &defenderTeam = _player1Turn ? _player2Team : _player1Team;
 
     Pet* attacker = attackerTeam[attackerIdx].get();
     Pet* defender = defenderTeam[defenderIdx].get();
 
-    // 回合开始事件
     _triggerEvent({
         BattleEventType::TurnStart,
         QString("%1 准备攻击 %2！")
@@ -146,41 +136,40 @@ void BattleEngine::_executeTurn()
         attackerIdx, defenderIdx, 0, _player1Turn
     });
 
-    // 应用伤害
+    /* ===== 攻击前技能 ===== */
+    attacker->triggerOnAttack(defender, this);
+
     _applyDamage(attacker, attackerIdx, defender, defenderIdx, _player1Turn);
 
-    // 清理死亡的宠物
     _cleanupDeadPets();
 
-    // 切换回合
     _player1Turn = !_player1Turn;
 }
+
+/* ======================== 伤害计算 ======================== */
 
 int BattleEngine::_calculateDamage(Pet* attacker, Pet* defender)
 {
     int baseDamage = attacker->getAttack();
-    
-    // 考虑西瓜护盾（50%减伤）
+
     if (defender->hasMelonShield())
-    {
-        baseDamage = baseDamage / 2;
-    }
-    
-    // 考虑护甲（减少1点伤害）
+        baseDamage /= 2;
+
     if (defender->hasArmor())
-    {
         baseDamage = std::max(0, baseDamage - 1);
-    }
-    
+
     return baseDamage;
 }
 
-void BattleEngine::_applyDamage(Pet* attacker, int attackerIdx, Pet* defender, 
-                                 int defenderIdx, bool isPlayer1Attacking)
-{
+/* ======================== 伤害应用 ======================== */
+
+void BattleEngine::_applyDamage(
+    Pet* attacker, int attackerIdx,
+    Pet* defender, int defenderIdx,
+    bool isPlayer1Attacking
+) {
     int damage = _calculateDamage(attacker, defender);
-    
-    // 攻击事件
+
     _triggerEvent({
         BattleEventType::Attack,
         QString("%1 攻击了 %2，造成 %3 点伤害！")
@@ -190,10 +179,11 @@ void BattleEngine::_applyDamage(Pet* attacker, int attackerIdx, Pet* defender,
         attackerIdx, defenderIdx, damage, isPlayer1Attacking
     });
 
-    // 应用伤害
     defender->receiveDamage(damage);
 
-    // 受伤事件
+    /* ===== 受伤技能触发 ===== */
+    defender->triggerOnHurt(attacker, damage, this);
+
     _triggerEvent({
         BattleEventType::TakeDamage,
         QString("%1 剩余生命：%2")
@@ -202,137 +192,141 @@ void BattleEngine::_applyDamage(Pet* attacker, int attackerIdx, Pet* defender,
         attackerIdx, defenderIdx, damage, isPlayer1Attacking
     });
 
-    // 检查是否死亡
+    /* ===== 攻击者造成伤害技能 ===== */
+    attacker->triggerOnDealDamage(defender, damage, this);
+
     if (defender->isDead())
-    {
         _handlePetDeath(defenderIdx, !isPlayer1Attacking);
-    }
 }
+
+/* ======================== 死亡处理 ======================== */
 
 void BattleEngine::_handlePetDeath(int index, bool isPlayer1)
 {
-    auto& team = isPlayer1 ? _player1Team : _player2Team;
-    
-    if (index >= 0 && index < static_cast<int>(team.size()))
+    auto &team = isPlayer1 ? _player1Team : _player2Team;
+
+    if (index < 0 || index >= (int)team.size())
+        return;
+
+    Pet* deadPet = team[index].get();
+
+    _triggerEvent({
+        BattleEventType::PetDeath,
+        QString("%1 被击败了！").arg(QString::fromStdString(deadPet->getName())),
+        -1, index, 0, isPlayer1
+    });
+
+    /* ===== 队友死亡触发技能 ===== */
+    for (auto& pet : team)
+        if (pet && !pet->isDead())
+            pet->triggerOnFriendFaint(deadPet, this, isPlayer1, index);
+
+    /* ===== 死亡技能（召唤、新单位） ===== */
+    deadPet->triggerOnFaint(this, isPlayer1, index);
+
+    /* ===== 复活效果 ===== */
+    if (deadPet->canRevive())
     {
-        Pet* deadPet = team[index].get();
-        
+        deadPet->setHP(1);
+        deadPet->setCanRevive(false);
+
         _triggerEvent({
-            BattleEventType::PetDeath,
-            QString("%1 被击败了！")
+            BattleEventType::SkillTrigger,
+            QString("%1 复活了！（蘑菇效果）")
                 .arg(QString::fromStdString(deadPet->getName())),
             -1, index, 0, isPlayer1
         });
-
-        // 触发死亡技能
-        deadPet->triggerPostBattleSkill();
-        
-        // 处理复活效果
-        if (deadPet->canRevive())
-        {
-            deadPet->setHP(1);  // 复活后1点生命
-            deadPet->setCanRevive(false);  // 只能复活一次
-            
-            _triggerEvent({
-                BattleEventType::SkillTrigger,
-                QString("%1 复活了！（蘑菇效果）")
-                    .arg(QString::fromStdString(deadPet->getName())),
-                -1, index, 0, isPlayer1
-            });
-        }
     }
 }
+
+/* ======================== 移除死亡宠物 ======================== */
 
 void BattleEngine::_cleanupDeadPets()
 {
-    // 移除死亡的宠物（从后往前遍历，避免索引问题）
     for (int i = _player1Team.size() - 1; i >= 0; --i)
-    {
-        if ((_player1Team)[i]->isDead())
-        {
+        if (_player1Team[i]->isDead())
             _player1Team.erase(_player1Team.begin() + i);
-        }
-    }
 
     for (int i = _player2Team.size() - 1; i >= 0; --i)
-    {
-        if ((_player2Team)[i]->isDead())
-        {
+        if (_player2Team[i]->isDead())
             _player2Team.erase(_player2Team.begin() + i);
-        }
-    }
 }
+
+/* ======================== 判断战斗结束 ======================== */
 
 bool BattleEngine::_isBattleOver()
 {
-    int player1Alive = 0;
-    int player2Alive = 0;
+    bool p1Alive = false, p2Alive = false;
 
-    for (const auto& pet : _player1Team)
-    {
-        if (pet && !pet->isDead())
-            player1Alive++;
-    }
+    for (auto &pet : _player1Team)
+        if (pet && !pet->isDead()) p1Alive = true;
 
-    for (const auto& pet : _player2Team)
-    {
-        if (pet && !pet->isDead())
-            player2Alive++;
-    }
+    for (auto &pet : _player2Team)
+        if (pet && !pet->isDead()) p2Alive = true;
 
-    return player1Alive == 0 || player2Alive == 0;
+    return !p1Alive || !p2Alive;
 }
+
+/* ======================== 战斗结束 ======================== */
 
 void BattleEngine::_finishBattle()
 {
-    int player1Alive = 0;
-    int player2Alive = 0;
+    int p1Alive = 0, p2Alive = 0;
 
-    for (const auto& pet : _player1Team)
-    {
-        if (pet && !pet->isDead())
-            player1Alive++;
-    }
+    for (auto &pet : _player1Team)
+        if (pet && !pet->isDead()) p1Alive++;
 
-    for (const auto& pet : _player2Team)
-    {
-        if (pet && !pet->isDead())
-            player2Alive++;
-    }
+    for (auto &pet : _player2Team)
+        if (pet && !pet->isDead()) p2Alive++;
 
-    QString resultMessage;
-    
-    if (player1Alive == 0 && player2Alive == 0)
+    QString msg;
+
+    if (p1Alive == 0 && p2Alive == 0)
     {
         _result = BattleResult::Draw;
-        resultMessage = "平局！双方全军覆没！";
+        msg = "平局！双方全军覆没！";
     }
-    else if (player1Alive == 0)
+    else if (p1Alive == 0)
     {
         _result = BattleResult::Player2Win;
-        resultMessage = "失败！对手获胜！";
+        msg = "失败！对手获胜！";
     }
     else
     {
         _result = BattleResult::Player1Win;
-        resultMessage = "胜利！你赢得了这场战斗！";
+        msg = "胜利！你赢得了这场战斗！";
     }
 
-    _triggerEvent({
-        BattleEventType::BattleEnd,
-        resultMessage,
-        -1, -1, 0, true
-    });
+    _triggerEvent({BattleEventType::BattleEnd, msg, -1, -1, 0, true});
 }
+
+/* ======================== 工具函数 ======================== */
 
 int BattleEngine::_getFirstAlivePet(const std::vector<std::unique_ptr<Pet>>& team) const
 {
-    for (size_t i = 0; i < team.size(); ++i)
-    {
+    for (int i = 0; i < (int)team.size(); ++i)
         if (team[i] && !team[i]->isDead())
-        {
-            return static_cast<int>(i);
-        }
-    }
+            return i;
+
     return -1;
+}
+
+/* ========== 群体伤害接口（供刺猬、鳄鱼等技能使用） ========== */
+
+void BattleEngine::dealDamageToAll(int damage)
+{
+    auto apply = [&](auto& team){
+        for (auto& pet : team)
+            if (pet && !pet->isDead())
+                pet->receiveDamage(damage);
+    };
+
+    apply(_player1Team);
+    apply(_player2Team);
+
+    _cleanupDeadPets();
+}
+
+void BattleEngine::emitEvent(const BattleEvent& event) {
+    _triggerEvent(event);
 }

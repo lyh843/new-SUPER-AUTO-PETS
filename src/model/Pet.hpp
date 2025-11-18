@@ -6,11 +6,17 @@
 #include <vector>
 #include "Food.hpp"
 #include "Skill.hpp"
+#include "Player.hpp"
+
+class BattleEngine;
+class Skill;
 
 class Pet
 {
-private:
+protected:
     std::string _name;
+    std::string _chineseName;
+    std::string _introSkills;
     int _hp;
     int _damage;
     int _ownerPlayer;
@@ -18,6 +24,7 @@ private:
     int _exp;
     int _tier;
     int _cost = 3;
+    std::unique_ptr<Skill> _skill;
 
     // 基础属性（用于计算升级后的值）
 
@@ -33,8 +40,10 @@ private:
     virtual void levelUp();
 
 public:
-    Pet(std::string name, int hp, int attack, int ownerPlayer, int tier = 1)
+    Pet(std::string name, std::string chineseName, std::string introSkills, int hp, int attack, int ownerPlayer, int tier = 1)
         : _name(name)
+        , _chineseName(chineseName)
+        ,_introSkills(introSkills)
         , _hp(hp)
         , _damage(attack)
         , _ownerPlayer(ownerPlayer)
@@ -46,18 +55,21 @@ public:
         , _foodPerk(FoodPerkType::None)
         , _hasArmor(false)
         , _canRevive(false)
-        , _hasMelonShield(false) {};
+        , _hasMelonShield(false)
+        , _skill(nullptr) {};
     Pet(const Pet& other);               //拷贝构造函数
-    ~Pet() = default;
+    virtual ~Pet() = default;
     std::string getName() const { return _name; };
+    std::string getChineseName() const { return _chineseName;};
     int getHP() const { return _hp; };
     void setHP(int hp) { _hp = hp; };
+    void addHP(int x) { _hp += x; };
     int getAttack() const { return _damage; };
     void setAttack(int attack) { _damage = attack; };
     int getCost() const { return _cost; };
     bool isDead() const { return _hp <= 0; };
     void attack(Pet& other) { other.receiveDamage(_damage); };
-    bool receiveDamage(int damage)
+    virtual bool receiveDamage(int damage)
     {
         _hp -= damage;
         return isDead();
@@ -84,8 +96,23 @@ public:
     // 应用食物效果
     bool applyFood(std::unique_ptr<Food>& food);
 
-    virtual void triggerPreBattleSkill() {};
-    virtual void triggerPostBattleSkill() {};
+    virtual void triggerPreBattleSkill(BattleEngine* engine);
+    virtual void triggerOnAttack(Pet* target, BattleEngine* engine);
+    virtual void triggerOnHurt(Pet* attacker, int damage, BattleEngine* engine);
+    virtual void triggerOnDealDamage(Pet* target, int damage, BattleEngine* engine);
+    virtual void triggerOnFaint(BattleEngine* engine, bool isPlayer1, int index);
+    virtual void triggerOnFriendFaint(Pet* faintedFriend, BattleEngine* engine, bool isPlayer1, int indexOfFainted);
+    virtual void triggerOnSell(std::vector<std::unique_ptr<Pet>>& ownerTeam);
+
+    void setSkill(std::unique_ptr<Skill> s) { _skill = std::move(s); }
+    Skill* getSkill() const { return _skill.get(); }
+    void onStartBattle();
+
+    virtual void triggerPreBattleSkill() {}; // 兼容旧调用（如果无 engine）
+    virtual void triggerPostBattleSkill() {}; // 兼容占位
+
+    // 简单工具：给宠物加攻击（便于技能使用）
+    void addAttack(int v) { _damage += v; }
 };
 
 using Creator = std::unique_ptr<Pet> (*)();
@@ -127,7 +154,7 @@ public:
     ~Fish() = default;
 };
 
-// 蟋蟀 - Tier 1：死亡时召唤一只蜜蜂
+// 蟋蟀 - Tier 1：出售以后对任意的两个队友+1攻击力
 class Cricket : public Pet
 {
 public:
@@ -181,7 +208,7 @@ public:
     ~Kangaroo() = default;
 };
 
-// 孔雀 - Tier 3：受到攻击前获得50%伤害减免
+// 孔雀 - Tier 3：受到攻击+1攻击力
 class Peacock : public Pet
 {
 public:
@@ -197,6 +224,12 @@ public:
     Camel(int hp = 4, int attack = 2, int ownerPlayer = 0, int tier = 3);
     Camel(const Camel& other);                              // 新增拷贝构造函数
     ~Camel() = default;
+    bool receiveDamage(int damage)override
+    {
+        _hp -= damage * 0.5;
+
+        return isDead();
+    };
 };
 
 // 渡渡鸟 - Tier 3：战斗开始前给予前方最近队友50%攻击力

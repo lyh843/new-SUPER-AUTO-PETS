@@ -151,7 +151,12 @@ bool Shop::sell(int targetPetIndex)
     auto pet = _player->removePet(targetPetIndex);
     if (!pet)
         return false;
-
+    if (dynamic_cast<Duck*>(pet.get())) { //在Shop中实现Duck的技能
+        for (int i = 0;i < _player->getPetCount(); i++)
+        {
+            _player->getPetAt(i)->addHP(1);
+        }
+    }
     // 给予玩家金币
     _player->addCoin(SELL_REWARD);
 
