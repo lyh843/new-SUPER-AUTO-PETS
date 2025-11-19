@@ -1,5 +1,6 @@
 #include "BattleView.hpp"
 #include "../model/Pet.hpp"
+#include "model/Player.hpp"
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QTextCursor>
@@ -425,7 +426,7 @@ void BattleView::onStartClicked()
     _battleStarted = true;
     
     // 初始化战斗引擎
-    _battleEngine.initialize(_player->getPets(), _aiTeam);
+    _battleEngine.initialize(_player->getPets(), _aiTeam, this->_player);
     
     // 设置事件回调
     _battleEngine.setEventCallback([this](const BattleEvent& event) {

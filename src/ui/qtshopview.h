@@ -1,6 +1,7 @@
 #ifndef QTSHOPVIEW_H
 #define QTSHOPVIEW_H
 
+#include <qlabel.h>
 #include "../model/Player.hpp"
 #include "../model/Shop.hpp"
 #include "model/Pet.hpp"
@@ -25,6 +26,7 @@ private:
     QLabel* _petInfoHeart;
     QLabel* _petInfoCoin;
     QLabel* _petInfoCoinIndex; 
+    QLabel* _petInfoLevel;
     // std::pair<int, int> _loc;
     int _index;
     bool _isPlayerPet;
@@ -32,7 +34,7 @@ private:
 
 public:
     QtPet(QPushButton* petPushButton, QLabel* petInfo, QLabel* petInfoAttack, QLabel* petInfoHeart, QLabel* petInfoCoin,
-        QLabel* petInfoCoinIndex, int index, bool isPlayerPet);
+        QLabel* petInfoCoinIndex, QLabel* petInfoLevel, int index, bool isPlayerPet);
     void updatePet(Pet* pet);
     void clear();
     void freeze();

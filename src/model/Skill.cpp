@@ -20,9 +20,9 @@ void SkillAnt::onFaint(Pet* self, BattleEngine* engine, bool isPlayer1, int inde
     t->setHP(t->getHP() + 2);
     t->addAttack(1);
 
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 死亡，随机友军获得 +2HP +1ATK").arg(QString::fromStdString(self->getName())),
-        -1, index, 0, isPlayer1});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 死亡，随机友军获得 +2HP +1ATK").arg(QString::fromStdString(self->getName())),
+    //     -1, index, 0, isPlayer1});
 }
 
 /* ---------------- Fish ----------------
@@ -45,9 +45,9 @@ void SkillFish::onPreBattle(Pet* self, BattleEngine* engine){
         candidates[i]->setHP(candidates[i]->getHP() + 1);
         candidates[i]->addAttack(1);
     }
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 升级，给随机两个友军 +1/+1").arg(QString::fromStdString(self->getName())),
-        -1, -1, 0, engine->_player1Turn});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 升级，给随机两个友军 +1/+1").arg(QString::fromStdString(self->getName())),
+    //     -1, -1, 0, engine->_player1Turn});
 }
 
 
@@ -82,9 +82,9 @@ void SkillHedgehog::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* e
     if (!attacker) return;
     int retaliate = damage; // 原版：把伤害等量反弹
     attacker->receiveDamage(retaliate);
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 受伤，反弹 %2 点伤害给攻击者").arg(QString::fromStdString(self->getName())).arg(retaliate),
-        -1, -1, retaliate, true});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 受伤，反弹 %2 点伤害给攻击者").arg(QString::fromStdString(self->getName())).arg(retaliate),
+    //     -1, -1, retaliate, true});
 }
 
 
@@ -94,9 +94,9 @@ void SkillHedgehog::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* e
 
 void SkillPeacock::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* engine) {
     self->addAttack(1);
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 展示孔雀羽毛，获得 +1 攻击").arg(QString::fromStdString(self->getName())),
-        -1, -1, 0, true});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 展示孔雀羽毛，获得 +1 攻击").arg(QString::fromStdString(self->getName())),
+    //     -1, -1, 0, true});
 }
 
 
@@ -115,10 +115,10 @@ void SkillCamel::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* engi
         if (team[i] && !team[i]->isDead()) {
             team[i]->setHP(team[i]->getHP() + 2);
             team[i]->addAttack(2);
-            engine->emitEvent({BattleEventType::SkillTrigger,
-                QString("%1 受伤，给后方最近友军 +2/+2").arg(QString::fromStdString(self->getName())),
-                -1, -1, 0, engine->_player1Turn});
-            return;
+            // engine->emitEvent({BattleEventType::SkillTrigger,
+            //     QString("%1 受伤，给后方最近友军 +2/+2").arg(QString::fromStdString(self->getName())),
+            //     -1, -1, 0, engine->_player1Turn});
+            // return;
         }
     }
 }
@@ -137,10 +137,10 @@ void SkillDodo::onPreBattle(Pet* self, BattleEngine* engine) {
     if (!friendPet) return;
     int bonus = friendPet->getAttack() / 2;
     friendPet->setAttack(friendPet->getAttack() + bonus);
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 战斗开始，给予前方最近队友 +%1 攻击（50%）")
-            .arg(QString::fromStdString(self->getName())).arg(bonus),
-        -1, -1, 0, engine->_player1Turn});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 战斗开始，给予前方最近队友 +%1 攻击（50%）")
+    //         .arg(QString::fromStdString(self->getName())).arg(bonus),
+    //     -1, -1, 0, engine->_player1Turn});
 }
 
 /* ---------------- Blowfish ----------------
@@ -156,9 +156,9 @@ void SkillBlowfish::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* e
     if (candidates.empty()) return;
     Pet* target = candidates[randIndex((int)candidates.size())];
     target->receiveDamage(3);
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 受伤，对随机敌人造成 3 点伤害").arg(QString::fromStdString(self->getName())),
-        -1, -1, 3, engine->_player1Turn});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 受伤，对随机敌人造成 3 点伤害").arg(QString::fromStdString(self->getName())),
+    //     -1, -1, 3, engine->_player1Turn});
     engine->dealDamageToAll(0); // 仅调用清理逻辑
 }
 
@@ -181,9 +181,9 @@ void SkillSkunk::onPreBattle(Pet* self, BattleEngine* engine) {
     if (idx == -1) return;
     int reduce = std::max(1, enemyTeam[idx]->getHP() / 3);
     enemyTeam[idx]->setHP(enemyTeam[idx]->getHP() - reduce);
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 战斗开始，降低敌方最高血量单位 %2 点").arg(QString::fromStdString(self->getName())).arg(reduce),
-        -1, idx, reduce, engine->_player1Turn});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 战斗开始，降低敌方最高血量单位 %2 点").arg(QString::fromStdString(self->getName())).arg(reduce),
+    //     -1, idx, reduce, engine->_player1Turn});
 }
 
 
@@ -212,9 +212,9 @@ void SkillKangaroo::onPreBattle(Pet* self, BattleEngine* engine) {
     if (!friendPet) return;
     friendPet->setHP(friendPet->getHP() + 1);
     friendPet->addAttack(1);
-    engine->emitEvent({BattleEventType::SkillTrigger,
-        QString("%1 战斗开始，给予前方友军 +1/+1").arg(QString::fromStdString(self->getName())),
-        -1, -1, 0, engine->_player1Turn});
+    // engine->emitEvent({BattleEventType::SkillTrigger,
+    //     QString("%1 战斗开始，给予前方友军 +1/+1").arg(QString::fromStdString(self->getName())),
+    //     -1, -1, 0, engine->_player1Turn});
 }
 
 

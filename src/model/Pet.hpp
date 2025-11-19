@@ -37,8 +37,6 @@ protected:
     bool _canRevive;         // 是否有复活效果
     bool _hasMelonShield;    // 是否有西瓜护盾（50%减伤）
 
-    virtual void levelUp();
-
 public:
     Pet(std::string name, std::string chineseName, std::string introSkills, int hp, int attack, int ownerPlayer, int tier = 1)
         : _name(name)
@@ -61,6 +59,8 @@ public:
     virtual ~Pet() = default;
     std::string getName() const { return _name; };
     std::string getChineseName() const { return _chineseName;};
+
+    std::string getIntroSkills() const {return _introSkills;};
     int getHP() const { return _hp; };
     void setHP(int hp) { _hp = hp; };
     void addHP(int x) { _hp += x; };
@@ -79,6 +79,8 @@ public:
     int getLevel() const { return _level; };
     int getExp() const { return _exp; };
     int getTier() const { return _tier; };
+
+    virtual void levelUp();
 
     // 获得经验并自动升级
     void gainExperience(int amount);

@@ -43,8 +43,8 @@ void Pet::levelUp()
     _level++;
 
     // 升级时提升属性：每级增长50%的基础属性
-    int hpBonus     = _baseHP / 2;
-    int attackBonus = _baseAttack / 2;
+    int hpBonus     = _baseHP / 2 + 1;
+    int attackBonus = _baseAttack / 2 + 1;
 
     _hp += hpBonus;
     _damage += attackBonus;
@@ -138,7 +138,7 @@ void Pet::onStartBattle() {
 // 派生类构造函数实现
 
 Cat::Cat(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Cat", "猫", "", hp, attack, ownerPlayer, tier){}
+    : Pet("Pig", "猪", "朴实无华的一只小猪", hp, attack, ownerPlayer, tier){}
 
 Ant::Ant(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Ant", "蚂蚁", "死亡时给随机友方宠物+2HP/+1ATK", hp, attack, ownerPlayer, tier)
@@ -153,13 +153,13 @@ Fish::Fish(int hp, int attack, int ownerPlayer, int tier)
 }
 
 Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Cricket", "蟋蟀", "出售以后对任意的两个队友+1ATK", hp, attack, ownerPlayer, tier)
+    : Pet("Turtle", "乌龟", "出售以后对任意的两个队友+1ATK", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillCricket>());
 }
 
 Duck::Duck(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Duck", "鸭", "出售给商店宠物+1HP", hp, attack, ownerPlayer, tier)
+    : Pet("Duck", "鸭", "出售给所有玩家宠物+1HP", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillDuck>());
 }

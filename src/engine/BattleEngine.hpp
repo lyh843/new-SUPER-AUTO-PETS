@@ -51,7 +51,7 @@ public:
 
     // 初始化战场，传入两边玩家的动物队伍的unique_ptr，同时传入player以实现对player的属性修改
     void initialize(std::vector<std::unique_ptr<Pet>>& player1,
-                   std::vector<std::unique_ptr<Pet>>& player2,std::unique_ptr<Player> player);
+                   std::vector<std::unique_ptr<Pet>>& player2,Player* player);
 
     // 设置事件回调（用于战斗界面更新）
     void setEventCallback(EventCallback callback);
@@ -85,7 +85,7 @@ private:
     EventCallback _eventCallback;
     bool _inBattle;
     BattleResult _result;
-    std::unique_ptr<Player> _player;
+    Player* _player;
 
     // 触发事件
     void _triggerEvent(const BattleEvent& event);

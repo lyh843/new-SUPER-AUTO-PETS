@@ -65,3 +65,23 @@ void Player::swapPets(int index, int targetIndex)
 
     std::swap(_pets[index], _pets[targetIndex]);
 }
+
+void Player::compactPets()
+{
+    std::vector<std::unique_ptr<Pet>> compacted;
+
+    // 只保留非空
+    for (auto& p : _pets)
+    {
+        if (p)
+            compacted.push_back(std::move(p));
+    }
+
+    // 重建并填充 nullptr（最多 5 格）
+    _pets.clear();
+    for (auto& p : compacted)
+        _pets.push_back(std::move(p));
+
+    while (_pets.size() < 5)
+        _pets.push_back(nullptr);
+}

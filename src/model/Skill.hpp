@@ -115,6 +115,6 @@ public:
 class SkillDuck : public Skill {
 public:
     void onPreBattle(Pet* self, BattleEngine* engine) override {
-        // Duck 无战斗技能（出售时给商店宠物+1HP 归商店逻辑）
+        // Duck 无战斗技能（出售时给玩家宠物+1HP 归商店逻辑）
     }
 };

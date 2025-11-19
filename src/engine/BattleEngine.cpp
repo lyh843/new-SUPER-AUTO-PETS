@@ -1,5 +1,6 @@
 #include "BattleEngine.hpp"
 #include <QThread>
+#include "model/Player.hpp"
 #include <qdebug.h>
 
 BattleEngine::BattleEngine()
@@ -13,14 +14,14 @@ BattleEngine::BattleEngine()
 }
 
 void BattleEngine::initialize(std::vector<std::unique_ptr<Pet>>& p1,
-                               std::vector<std::unique_ptr<Pet>>& p2, std::unique_ptr<Player> player)
+                               std::vector<std::unique_ptr<Pet>>& p2, Player* player)
 {
     _player1Team.clear();
     _player2Team.clear();
 
     _player1Team = std::move(p1);
     _player2Team = std::move(p2);
-    _player = std::move(player);
+    _player = player;
 
     _inBattle = false;
     _player1Turn = true;

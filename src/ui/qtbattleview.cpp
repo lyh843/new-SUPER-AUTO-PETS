@@ -259,7 +259,7 @@ void QtBattleView::on_start_button_clicked()
     qDebug() << "AI宠物复制完成，数量:" << aiPetsCopy.size();
 
     // 初始化战斗引擎
-    _battleEngine.initialize(playerPetsCopy, aiPetsCopy);
+    _battleEngine.initialize(playerPetsCopy, aiPetsCopy, _player);
 
     // 设置事件回调
     _battleEngine.setEventCallback([this](const BattleEvent& event) {

@@ -112,4 +112,7 @@ public:
 
     // 调换宠物位置
     void swapPets(int index, int targetIndex);
+
+    // 始终保持连续队列
+    void compactPets();
 };

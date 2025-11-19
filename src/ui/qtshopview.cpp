@@ -4,6 +4,7 @@
 #include <qfont.h>
 #include <qicon.h>
 #include <qimage.h>
+#include <qlabel.h>
 #include <qmessagebox.h>
 #include <qnamespace.h>
 #include <qobject.h>
@@ -21,6 +22,7 @@ QtPet::QtPet(QPushButton* petPushButton,
              QLabel* petInfoHeart,
              QLabel* petInfoCoin,
              QLabel* petInfoCoinIndex,
+             QLabel* petInfoLevel,
              int index,
              bool isPlayerPet)
     : _petPushButton(petPushButton)
@@ -29,12 +31,14 @@ QtPet::QtPet(QPushButton* petPushButton,
     , _petInfoHeart(petInfoHeart)
     , _petInfoCoin(petInfoCoin)
     , _petInfoCoinIndex(petInfoCoinIndex)
+    , _petInfoLevel(petInfoLevel)
     , _index(index)
     , _isPlayerPet(isPlayerPet)
 {}
 
 void QtPet::updatePet(Pet* pet)
 {
+    _pet = pet;
     if (pet)
     {
         QString path = QString(":/Pet/photo/Pet/%1.png").arg(pet->getName());
@@ -47,11 +51,26 @@ void QtPet::updatePet(Pet* pet)
         _petInfoAttack->setText(QString::number(pet->getAttack()));
         _petInfoHeart->show();
         _petInfoHeart->setText(QString::number(pet->getHP()));
+        QString tip = QString("<b>%1</b><br>%2").arg(QString::fromStdString(pet->getChineseName()))
+        .arg(QString::fromStdString(pet->getIntroSkills()));
+        _petPushButton->setToolTip(tip);
         if (_petInfoCoin != nullptr)
         {
             _petInfoCoin->show();
             _petInfoCoinIndex->show();
             _petInfoCoinIndex->setText(QString::number(pet->getCost()));
+        }
+        if(_petInfoLevel != nullptr){
+            _petInfoLevel->show();
+            if(pet->getLevel() == 1){
+                _petInfoLevel->setPixmap(QPixmap(QString(":/else/photo/petLevel1.png")));
+            }
+            else if(pet->getLevel() == 2){
+                _petInfoLevel->setPixmap(QPixmap(QString(":/else/photo/petLevel2.png")));
+            }
+            else {
+                _petInfoLevel->setPixmap(QPixmap(QString(":/else/photo/petLevel3.png")));
+            }
         }
     }
     else
@@ -63,6 +82,7 @@ void QtPet::updatePet(Pet* pet)
 void QtPet::clear()
 {
     _petPushButton->setIcon(QIcon());
+    _petPushButton->setToolTip("");
     _petInfo->hide();
     _petInfoAttack->hide();
     _petInfoHeart->hide();
@@ -70,6 +90,9 @@ void QtPet::clear()
     {
         _petInfoCoin->hide();
         _petInfoCoinIndex->hide();
+    }
+    if(_petInfoLevel != nullptr){
+        _petInfoLevel->hide();
     }
 }
 
@@ -126,15 +149,15 @@ void QtShopview::setupUI()
     ui->prizeIndex->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     QtPet* playerPet1 = new QtPet(ui->playAnimals1, ui->playPetInfo1, ui->playPetInfo1_attack, ui->playPetInfo1_heart,
-                                  nullptr, nullptr, 0, true);
+                                  nullptr, nullptr, ui->playPetLevel1, 0, true);
     QtPet* playerPet2 = new QtPet(ui->playAnimals2, ui->playPetInfo2, ui->playPetInfo2_attack, ui->playPetInfo2_heart,
-                                  nullptr, nullptr, 1, true);
+                                  nullptr, nullptr, ui->playPetLevel2, 1, true);
     QtPet* playerPet3 = new QtPet(ui->playAnimals3, ui->playPetInfo3, ui->playPetInfo3_attack, ui->playPetInfo3_heart,
-                                  nullptr, nullptr, 2, true);
+                                  nullptr, nullptr, ui->playPetLevel3, 2, true);
     QtPet* playerPet4 = new QtPet(ui->playAnimals4, ui->playPetInfo4, ui->playPetInfo4_attack, ui->playPetInfo4_heart,
-                                  nullptr, nullptr, 3, true);
+                                  nullptr, nullptr, ui->playPetLevel4, 3, true);
     QtPet* playerPet5 = new QtPet(ui->playAnimals5, ui->playPetInfo5, ui->playPetInfo5_attack, ui->playPetInfo5_heart,
-                                  nullptr, nullptr, 4, true);
+                                  nullptr, nullptr, ui->playPetLevel5, 4, true);
     _playerPets.push_back(playerPet5);
     _playerPets.push_back(playerPet4);
     _playerPets.push_back(playerPet3);
@@ -142,17 +165,17 @@ void QtShopview::setupUI()
     _playerPets.push_back(playerPet1);
 
     QtPet* shopPet1 = new QtPet(ui->shopAnimals1, ui->shopPetInfo1, ui->shopPetInfo1_attack, ui->shopPetInfo1_heart,
-                                ui->shopPetCoin1, ui->shopPetCoin1_index, 0, false);
+                                ui->shopPetCoin1, ui->shopPetCoin1_index, nullptr, 0, false);
     QtPet* shopPet2 = new QtPet(ui->shopAnimals2, ui->shopPetInfo2, ui->shopPetInfo2_attack, ui->shopPetInfo2_heart,
-                                ui->shopPetCoin2, ui->shopPetCoin2_index, 1, false);
+                                ui->shopPetCoin2, ui->shopPetCoin2_index, nullptr, 1, false);
     QtPet* shopPet3 = new QtPet(ui->shopAnimals3, ui->shopPetInfo3, ui->shopPetInfo3_attack, ui->shopPetInfo3_heart,
-                                ui->shopPetCoin3, ui->shopPetCoin3_index, 2, false);
+                                ui->shopPetCoin3, ui->shopPetCoin3_index, nullptr, 2, false);
     QtPet* shopPet4 = new QtPet(ui->shopAnimals4, ui->shopPetInfo4, ui->shopPetInfo4_attack, ui->shopPetInfo4_heart,
-                                ui->shopPetCoin4, ui->shopPetCoin4_index, 3, false);
+                                ui->shopPetCoin4, ui->shopPetCoin4_index, nullptr, 3, false);
     QtPet* shopPet5 = new QtPet(ui->shopAnimals5, ui->shopPetInfo5, ui->shopPetInfo5_attack, ui->shopPetInfo5_heart,
-                                ui->shopPetCoin5, ui->shopPetCoin5_index, 4, false);
+                                ui->shopPetCoin5, ui->shopPetCoin5_index, nullptr, 4, false);
     QtPet* shopPet6 = new QtPet(ui->shopAnimals6, ui->shopPetInfo6, ui->shopPetInfo6_attack, ui->shopPetInfo6_heart,
-                                ui->shopPetCoin6, ui->shopPetCoin6_index, 5, false);
+                                ui->shopPetCoin6, ui->shopPetCoin6_index, nullptr, 5, false);
     _shopPets.push_back(shopPet1);
     _shopPets.push_back(shopPet2);
     _shopPets.push_back(shopPet3);
@@ -217,6 +240,7 @@ void QtShopview::updatePlayerInfo()
     ui->prizeIndex->show();
 }
 
+
 void QtShopview::updatePlayerPets()
 {
     for (int i = 0; i < 5; i++)
@@ -255,6 +279,7 @@ void QtShopview::updateShopFoods()
 void QtShopview::updateUI()
 {
     updatePlayerInfo();
+    _player->compactPets();
     updatePlayerPets();
     updateShopPets();
     updateShopFoods();
@@ -339,6 +364,7 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
 
     QPushButton* moveBtn   = msgBox.addButton("换位", QMessageBox::AcceptRole);
     QPushButton* sellBtn   = msgBox.addButton("出售", QMessageBox::DestructiveRole);
+    QPushButton* levelUpBtn = msgBox.addButton("升级", QMessageBox::ActionRole);
     QPushButton* cancelBtn = msgBox.addButton("取消", QMessageBox::RejectRole);
 
     msgBox.exec();
@@ -354,14 +380,14 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
             int index;
         };
         QVector<ButtonItem> items;
-        for (int i = 0; i < 5; ++i)
+        for (int i = 4; i >= 0; i--)
         {
             if (i == index)
                 continue;
             Pet* p = _player->getPetAt(i);
             if (p)
             {
-                QString name = QString::fromStdString(p->getName());
+                QString name = QString::fromStdString(p->getChineseName());
                 auto* btn    = posBox.addButton(name, QMessageBox::ActionRole);
                 items.append({btn, i});
             }
@@ -392,6 +418,43 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
         {
             updateUI();
             QMessageBox::information(this, "出售成功", "宠物已出售，获得 1 金币！");
+        }
+    }
+    else if(msgBox.clickedButton() == levelUpBtn){
+        if(pet->getLevel() >= 3){
+            QMessageBox::information(this, "提示", "宠物已到最高等级");
+            return;
+        }
+        int samePetIndex = -1;
+        Pet *selectedPet = nullptr;
+        for(int i = 0; i < _player->getPetCount(); i++){
+            if(i == index) continue;
+            selectedPet = _player->getPetAt(i);
+            if(selectedPet && selectedPet->getName() == pet->getName()){
+                samePetIndex = i;
+                break;
+            }
+        }
+
+        if(samePetIndex != -1 && selectedPet->getLevel() < 3){
+            if(selectedPet->getLevel() + pet->getLevel() >= 3){
+                pet->levelUp();
+                if(pet->getLevel() != 3){
+                    pet->levelUp();
+                }
+                _player->removePet(samePetIndex);
+                updateUI();
+                QMessageBox::information(this, "升级成功", "宠物已升级！");
+            }
+            else if(selectedPet->getLevel() + pet->getLevel() < 3){
+                pet->levelUp();
+                _player->removePet(samePetIndex);
+                updateUI();
+                QMessageBox::information(this, "升级成功", "宠物已升级！");
+            }
+        }
+        else{
+            QMessageBox::warning(this, "升级失败", "没有找到同名且非最高等级宠物！");
         }
     }
     else
