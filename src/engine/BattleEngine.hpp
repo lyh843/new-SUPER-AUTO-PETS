@@ -5,6 +5,9 @@
 #include <functional>
 #include <QString>
 #include "../model/Pet.hpp"
+#include "../model/Player.hpp"
+
+class Player;
 
 // 战斗事件类型
 enum class BattleEventType
@@ -40,14 +43,15 @@ enum class BattleResult
 class BattleEngine
 {
 public:
+    bool _player1Turn;  // 是否是玩家1的回合
     using EventCallback = std::function<void(const BattleEvent&)>;
 
     BattleEngine();
     ~BattleEngine() = default;
 
-    // 初始化战场，传入两边玩家的动物队伍的unique_ptr
-    void initialize(std::vector<std::unique_ptr<Pet>>& player1, 
-                   std::vector<std::unique_ptr<Pet>>& player2);
+    // 初始化战场，传入两边玩家的动物队伍的unique_ptr，同时传入player以实现对player的属性修改
+    void initialize(std::vector<std::unique_ptr<Pet>>& player1,
+                   std::vector<std::unique_ptr<Pet>>& player2,Player* player);
 
     // 设置事件回调（用于战斗界面更新）
     void setEventCallback(EventCallback callback);
@@ -69,13 +73,19 @@ public:
     const std::vector<std::unique_ptr<Pet>>& getPlayer1Team() const { return _player1Team; }
     const std::vector<std::unique_ptr<Pet>>& getPlayer2Team() const { return _player2Team; }
 
+    // 供技能使用：对所有单位造成伤害（技能可能调用）
+    void dealDamageToAll(int dmg);
+
+    // 供技能使用：触发一个文本事件到 UI（包装 _triggerEvent）
+    void emitEvent(const BattleEvent& event);
+
 private:
     std::vector<std::unique_ptr<Pet>> _player1Team;
     std::vector<std::unique_ptr<Pet>> _player2Team;
     EventCallback _eventCallback;
     bool _inBattle;
     BattleResult _result;
-    bool _player1Turn;  // 是否是玩家1的回合
+    Player* _player;
 
     // 触发事件
     void _triggerEvent(const BattleEvent& event);

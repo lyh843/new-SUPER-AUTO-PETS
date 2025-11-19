@@ -2,9 +2,24 @@
 #include <algorithm>
 #include "Food.hpp"
 
+class SkillAnt;
+class SkillFish;
+class SkillCricket;
+class SkillHedgehog;
+class SkillPeacock;
+class SkillCamel;
+class SkillDodo;
+class SkillBlowfish;
+class SkillSkunk;
+class SkillFlamingo;
+class SkillKangaroo;
+class SkillSwan;
+class SkillDuck;
+
 //宠物基类拷贝构造函数
 Pet::Pet(const Pet& other)
     : _name(other._name)
+    , _chineseName(other._chineseName)
     , _hp(other._hp)
     , _damage(other._damage)
     , _ownerPlayer(other._ownerPlayer)
@@ -28,8 +43,8 @@ void Pet::levelUp()
     _level++;
 
     // 升级时提升属性：每级增长50%的基础属性
-    int hpBonus     = _baseHP / 2;
-    int attackBonus = _baseAttack / 2;
+    int hpBonus     = _baseHP / 2 + 1;
+    int attackBonus = _baseAttack / 2 + 1;
 
     _hp += hpBonus;
     _damage += attackBonus;
@@ -87,49 +102,121 @@ bool Pet::applyFood(std::unique_ptr<Food>& food)
     return applied;
 }
 
+void Pet::triggerPreBattleSkill(BattleEngine* engine) {
+    if (_skill) _skill->onPreBattle(this, engine);
+}
+
+void Pet::triggerOnAttack(Pet* target, BattleEngine* engine) {
+    if (_skill) _skill->onAttack(this, target, engine);
+}
+
+void Pet::triggerOnHurt(Pet* attacker, int damage, BattleEngine* engine) {
+    if (_skill) _skill->onHurt(this, attacker, damage, engine);
+}
+
+void Pet::triggerOnDealDamage(Pet* target, int damage, BattleEngine* engine) {
+    if (_skill) _skill->onDealDamage(this, target, damage, engine);
+}
+
+void Pet::triggerOnFaint(BattleEngine* engine, bool isPlayer1, int index) {
+    if (_skill) _skill->onFaint(this, engine, isPlayer1, index);
+}
+
+void Pet::triggerOnFriendFaint(Pet* faintedFriend, BattleEngine* engine, bool isPlayer1, int indexOfFainted) {
+    if (_skill) _skill->onFriendFaint(this, faintedFriend, engine, isPlayer1, indexOfFainted);
+}
+
+void Pet::triggerOnSell(std::vector<std::unique_ptr<Pet>>& ownerTeam) {
+    if (_skill) _skill->onSell(this, ownerTeam);
+}
+
+void Pet::onStartBattle() {
+    if (_skill)
+        _skill->onStart(this);
+}
+
 // 派生类构造函数实现
 
 Cat::Cat(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Cat", hp, attack, ownerPlayer, tier) {}
+    : Pet("Pig", "猪", "朴实无华的一只小猪", hp, attack, ownerPlayer, tier){}
 
 Ant::Ant(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Ant", hp, attack, ownerPlayer, tier) {}
+    : Pet("Ant", "蚂蚁", "死亡时给随机友方宠物+2HP/+1ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillAnt>());
+}
 
 Fish::Fish(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Fish", hp, attack, ownerPlayer, tier) {}
+    : Pet("Fish", "鱼", "升级时给随机两个友方宠物+1HP/+1ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillFish>());
+}
 
 Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Cricket", hp, attack, ownerPlayer, tier) {}
+    : Pet("Turtle", "乌龟", "出售以后对任意的两个队友+1ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillCricket>());
+}
 
 Duck::Duck(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Duck", hp, attack, ownerPlayer, tier) {}
+    : Pet("Duck", "鸭", "出售给所有玩家宠物+1HP", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillDuck>());
+}
 
 Swan::Swan(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Swan", hp, attack, ownerPlayer, tier) {}
+    : Pet("Swan", "天鹅", "回合开始时获得1金币", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillSwan>());
+}
 
 Flamingo::Flamingo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Flamingo", hp, attack, ownerPlayer, tier) {}
+    : Pet("Flamingo", "火烈鸟", "战斗结束时如果存活获得+2ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillFlamingo>());
+}
 
 Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Hedgehog", hp, attack, ownerPlayer, tier) {}
+    : Pet("Hedgehog", "刺猬", "受到伤害时对敌人造成等量伤害", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillHedgehog>());
+}
 
 Kangaroo::Kangaroo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Kangaroo", hp, attack, ownerPlayer, tier) {}
+    : Pet("Kangaroo", "袋鼠", "前方的友方+1HP/+1ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillKangaroo>());
+}
 
 Peacock::Peacock(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Peacock", hp, attack, ownerPlayer, tier) {}
+    : Pet("Peacock", "孔雀", "受到攻击+1ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillPeacock>());
+}
 
 Camel::Camel(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Camel", hp, attack, ownerPlayer, tier) {}
+    : Pet("Camel", "骆驼", "受到攻击给后面最近的朋友+2HP/+2ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillCamel>());
+}
 
 Dodo::Dodo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Dodo", hp, attack, ownerPlayer, tier) {}
+    : Pet("Dodo", "渡渡鸟", "战斗开始前给予前方最近队友50%ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillDodo>());
+}
 
 Blowfish::Blowfish(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Blowfish", hp, attack, ownerPlayer, tier) {}
+    : Pet("Blowfish", "河豚", "受到伤害对一个随机敌人造成ATK", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillBlowfish>());
+}
 
 Skunk::Skunk(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Skunk", hp, attack, ownerPlayer, tier) {}
+    : Pet("Skunk", "臭鼬", "战斗开始前将最高血量的敌人减少1/3HP", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillSkunk>());
+}
 
 // 实现派生类的拷贝构造函数
 Cat::Cat(const Cat& other) : Pet(other) {}
