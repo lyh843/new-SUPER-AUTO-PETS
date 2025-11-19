@@ -69,15 +69,26 @@ void QtBattleView::startNewBattle()
 
     // 移除透明度效果
     ui->start->setGraphicsEffect(nullptr);
-    ui->forward->setGraphicsEffect(nullptr);
+
+    // 设置透明度效果
+    QGraphicsOpacityEffect *iconEffect_1 = new QGraphicsOpacityEffect(this);
+    QGraphicsOpacityEffect *iconEffect_2 = new QGraphicsOpacityEffect(this);
+    iconEffect_1->setOpacity(0.5);
+    iconEffect_2->setOpacity(0.5);
+    ui->auto_play->setGraphicsEffect(iconEffect_1);
+    ui->forward->setGraphicsEffect(iconEffect_2);
+    ui->auto_play_font->setStyleSheet("color: rgba(255, 255, 255, 0.5);");
+    ui->forward_font->setStyleSheet("color: rgba(255, 255, 255, 0.5);");
 
     // 恢复文字原始样式
     ui->start_font->setStyleSheet("color: white;");
-    ui->forward_font->setStyleSheet("color: white;");
 
     ui->start_button->setEnabled(true);
+    ui->start_button->setCursor(Qt::PointingHandCursor);
     ui->auto_play_button->setEnabled(false);
+    ui->auto_play_button->setCursor(Qt::ArrowCursor);
     ui->forward_button->setEnabled(false);
+    ui->forward_button->setCursor(Qt::ArrowCursor);
 }
 
 //生成AI队伍实现
@@ -128,11 +139,11 @@ void QtBattleView::setupPetDisplays()
     _aiPetLabels.clear();
 
     // 使用UI中预留的宠物位置
-    _playerPetLabels.append(ui->your_pet_1);
-    _playerPetLabels.append(ui->your_pet_2);
-    _playerPetLabels.append(ui->your_pet_3);
-    _playerPetLabels.append(ui->your_pet_4);
     _playerPetLabels.append(ui->your_pet_5);
+    _playerPetLabels.append(ui->your_pet_4);
+    _playerPetLabels.append(ui->your_pet_3);
+    _playerPetLabels.append(ui->your_pet_2);
+    _playerPetLabels.append(ui->your_pet_1);
 
     _aiPetLabels.append(ui->opponents_pet_1);
     _aiPetLabels.append(ui->opponents_pet_2);
@@ -149,7 +160,16 @@ void QtBattleView::updatePetDisplay(int index, bool isPlayer, const Pet* pet)
     QLabel* petLabel = isPlayer ? _playerPetLabels.value(index) : _aiPetLabels.value(index);
     if (!petLabel) return;
 
-    petLabel->setPixmap(QPixmap(QString(":/Pet/photo/Pet/%1.png").arg(pet->getName())));
+    QPixmap originalPixmap(QString(":/Pet/photo/Pet/%1.png").arg(pet->getName()));
+
+    // 如果是AI的宠物，进行水平翻转
+    if (isPlayer) {
+        QTransform transform;
+        transform.scale(-1, 1);  // 水平翻转
+        originalPixmap = originalPixmap.transformed(transform);
+    }
+
+    petLabel->setPixmap(originalPixmap);
 
     petLabel->setScaledContents(true); // 关键：启用内容自适应
 
@@ -270,13 +290,20 @@ void QtBattleView::on_start_button_clicked()
     _battleEngine.startBattleManual();
 
     ui->start_button->setEnabled(false);
+    ui->start_button->setCursor(Qt::ArrowCursor);
     QGraphicsOpacityEffect *iconEffect = new QGraphicsOpacityEffect(this);
     iconEffect->setOpacity(0.5); // 50% 透明度
     ui->start->setGraphicsEffect(iconEffect);
     ui->start_font->setStyleSheet("color: rgba(255, 255, 255, 0.5);");
 
+    ui->auto_play->setGraphicsEffect(nullptr);
+    ui->forward->setGraphicsEffect(nullptr);
+    ui->auto_play_font->setStyleSheet("color: white");
+    ui->forward_font->setStyleSheet("color: white");
     ui->auto_play_button->setEnabled(true);
+    ui->auto_play_button->setCursor(Qt::PointingHandCursor);
     ui->forward_button->setEnabled(true);
+    ui->forward_button->setCursor(Qt::PointingHandCursor);
 }
 
 //按自动播放按钮
@@ -296,6 +323,7 @@ void QtBattleView::on_auto_play_button_clicked()
         ui->forward->setGraphicsEffect(nullptr);
         ui->forward_font->setStyleSheet("color: white;");
         ui->forward_button->setEnabled(true);
+        ui->forward_button->setCursor(Qt::PointingHandCursor);
     }
     else
     {
@@ -308,6 +336,7 @@ void QtBattleView::on_auto_play_button_clicked()
         ui->forward->setGraphicsEffect(iconEffect_2);
         ui->forward_font->setStyleSheet("color: rgba(255, 255, 255, 0.5);");
         ui->forward_button->setEnabled(false);
+        ui->forward_button->setCursor(Qt::ArrowCursor);
 
         // 自动播放图标与文字改变
         ui->auto_play->setPixmap(QPixmap(":/else/photo/Pause.png"));
@@ -333,7 +362,9 @@ void QtBattleView::on_forward_button_clicked()
         emit battleFinished(result);
 
         ui->auto_play_button->setEnabled(false);
+        ui->auto_play_button->setCursor(Qt::ArrowCursor);
         ui->forward_button->setEnabled(false);
+        ui->forward_button->setCursor(Qt::ArrowCursor);
     }
 
     // 延迟更新显示，避免阻塞

@@ -22,6 +22,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(0, 0, 0, 0.3);
 border-radius: 10px;
@@ -112,9 +115,6 @@ background-position: center;</string>
      <height>50</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
    <property name="text">
     <string/>
    </property>
@@ -172,6 +172,9 @@ background-position: center;</string>
      <width>81</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">color: white;</string>
@@ -306,9 +309,6 @@ background-position: center;</string>
      <width>45</width>
      <height>45</height>
     </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
    <property name="pixmap">
     <pixmap resource="resource.qrc">:/else/photo/Heart.png</pixmap>
@@ -715,6 +715,88 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>17</x>
+     <y>733</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 18px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;
+</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>107</x>
+     <y>733</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 18px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>61</x>
+     <y>733</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 18px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>background</zorder>
   <zorder>auto_play_button</zorder>
   <zorder>auto_play</zorder>
@@ -747,6 +829,9 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
   <zorder>start_button</zorder>
   <zorder>start</zorder>
   <zorder>start_font</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>
