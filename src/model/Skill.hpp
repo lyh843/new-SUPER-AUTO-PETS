@@ -94,9 +94,7 @@ public:
 };
 
 class SkillFlamingo : public Skill {
-public:
-    void onFaint(Pet* self, BattleEngine* engine, bool isPlayer1, int index) override;
-    void onDealDamage(Pet* self, Pet* target, int damage, BattleEngine* engine) override;
+    //在BattleEngine中实现
 };
 
 class SkillKangaroo : public Skill {

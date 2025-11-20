@@ -120,6 +120,10 @@
         <file>photo/petLevel1.png</file>
         <file>photo/petLevel2.png</file>
         <file>photo/petLevel3.png</file>
+        <file>photo/Defeat.png</file>
+        <file>photo/Victory.png</file>
+        <file>photo/Draw.png</file>
+        <file>photo/HeartBroke.png</file>
     </qresource>
     <qresource prefix="/Food">
         <file>photo/Food/Apple.png</file>

@@ -115,7 +115,24 @@ void BattleEngine::_executePreBattleSkills()
 void BattleEngine::_executeTurn()
 {
     if (_isBattleOver())
+    {
+        //优先检查实现Flamingo技能
+        for (auto &pet : _player1Team)
+        {
+            if (dynamic_cast<Flamingo*>(pet.get()) && !pet.get()->isDead())
+            {
+                pet.get()->setAttack(pet.get()->getAttack()+2);
+            }
+        }
+        for (auto &pet : _player2Team)
+        {
+            if (dynamic_cast<Flamingo*>(pet.get()) && !pet.get()->isDead())
+            {
+                pet.get()->setAttack(pet.get()->getAttack()+2);
+            }
+        }
         return;
+    }
 
     int attackerIdx = _getFirstAlivePet(_player1Turn ? _player1Team : _player2Team);
     int defenderIdx = _getFirstAlivePet(_player1Turn ? _player2Team : _player1Team);
