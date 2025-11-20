@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QDialog>
+#include <QTimer>
 #include "ui/StartView.hpp"
 #include "ui/QtShopview.h"
 #include "ui/qtbattleview.h"
@@ -15,6 +16,7 @@
 #include "ui/RecordsView.hpp"
 #include "model/Player.hpp"
 #include "engine/BattleEngine.hpp"
+#include "ui/resultturn.h"
 
 class MainWindow : public QMainWindow
 {
@@ -28,11 +30,14 @@ private:
     PetEncyclopediaView* _encyclopediaView;
     RecordsView* _recordsView;
     Player* _player;
+    ResultTurn* _resultTurn;  // 添加为成员变量
 
 public:
     MainWindow(QWidget* parent = nullptr)
         : QMainWindow(parent)
     {
+
+        _resultTurn = nullptr;  // 初始化结算视图指针
         // 创建玩家
         _player = new Player(10, 5, 1, 0);
 
@@ -92,6 +97,7 @@ public:
     ~MainWindow()
     {
         delete _player;
+        delete _resultTurn;  // 删除结算视图
     }
 
 private slots:
@@ -100,6 +106,14 @@ private slots:
         // 删除旧的玩家对象
         delete _player;
         
+        // 删除旧的结果视图
+        if (_resultTurn)
+        {
+            _stackedWidget->removeWidget(_resultTurn);
+            delete _resultTurn;
+            _resultTurn = nullptr;
+        }
+
         // 开始新游戏
         _player = new Player(10, 5, 1, 0);
         
@@ -164,6 +178,7 @@ private slots:
             "4. 刷新商店需要 1 金币\n"
             "5. 出售宠物获得 1 金币\n\n"
             "祝你游戏愉快！");
+
     }
 
     void onEncyclopediaClicked()
@@ -309,63 +324,35 @@ private slots:
             _player->addPrize(prizeChange);
         }
 
-        // 显示战斗结果
-        resultMessage += QString("\n\n当前状态：\n"
-                                "❤️ 生命：%1\n"
-                                "🏆 奖杯：%2\n"
-                                "🔄 回合：%3")
-                            .arg(_player->getLives())
-                            .arg(_player->getPrize())
-                            .arg(_player->getRound());
-
-        // 使用自定义对话框显示战斗结果，背景根据胜负切换
-        QDialog dlg(this);
-        dlg.setWindowTitle("战斗结果");
-        dlg.setModal(true);
-        dlg.setFixedSize(600, 420);
-
-        QString bgStyle;
-        if (result == BattleResult::Player1Win)
-        {
-            bgStyle = "background-image: url(:/photo/Victory.png); background-repeat: no-repeat; background-position: center; background-color: transparent;";
-        }
-        else if (result == BattleResult::Player2Win)
-        {
-            bgStyle = "background-image: url(:/photo/Defeat.png); background-repeat: no-repeat; background-position: center; background-color: transparent;";
-        }
-        else
-        {
-            bgStyle = "background-image: url(:/photo/Draw.png); background-repeat: no-repeat; background-position: center; background-color: transparent;";
-        }
-        dlg.setStyleSheet(bgStyle);
-
-        QVBoxLayout* dlgLayout = new QVBoxLayout(&dlg);
-        dlgLayout->setContentsMargins(20, 20, 20, 20);
-        dlgLayout->addStretch();
-
-        QLabel* msgLabel = new QLabel(resultMessage, &dlg);
-        msgLabel->setWordWrap(true);
-        msgLabel->setAlignment(Qt::AlignCenter);
-        msgLabel->setStyleSheet("color: white; font-size: 18px; background: transparent;");
-        dlgLayout->addWidget(msgLabel);
-
-        dlgLayout->addStretch();
-
-        QHBoxLayout* btnLayout = new QHBoxLayout();
-        btnLayout->addStretch();
-        QPushButton* okBtn = new QPushButton("确定", &dlg);
-        okBtn->setFixedSize(110, 36);
-        okBtn->setStyleSheet("font-size:16px;");
-        connect(okBtn, &QPushButton::clicked, &dlg, &QDialog::accept);
-        btnLayout->addWidget(okBtn);
-        btnLayout->addStretch();
-        dlgLayout->addLayout(btnLayout);
-
-        dlg.exec();
-
         // 检查游戏是否结束
         if (_player->getLives() <= 0)
         {
+
+            // 创建或重置结算视图
+            if (!_resultTurn)
+            {
+                _resultTurn = new ResultTurn(this);
+                _stackedWidget->addWidget(_resultTurn);
+            }
+
+            // 加载结果图片
+            _resultTurn->loadingPicture(result, _player);
+
+            // 显示结果界面
+            _stackedWidget->setCurrentWidget(_resultTurn);
+            setWindowTitle("Super Auto Pets - 战斗结果");
+
+            // 使用单次定时器，2秒后自动返回商店
+            QTimer::singleShot(2000, this, [this]() {
+                        // 重置结果视图（如果存在）
+                if (_resultTurn && _stackedWidget->indexOf(_resultTurn) >= 0)
+                {
+                    _stackedWidget->removeWidget(_resultTurn);
+                    delete _resultTurn;
+                    _resultTurn = nullptr;
+        }
+            });
+
             QMessageBox::information(this, "游戏结束",
                                    QString("游戏结束！\n\n"
                                           "最终成绩：\n"
@@ -398,9 +385,26 @@ private slots:
             return;
         }
 
-        // 继续下一回合
-        onBackToShop();
+    // 创建或重置结算视图
+    if (!_resultTurn)
+    {
+        _resultTurn = new ResultTurn(this);
+        _stackedWidget->addWidget(_resultTurn);
     }
+
+    // 加载结果图片
+    _resultTurn->loadingPicture(result, _player);
+
+    // 显示结果界面
+    _stackedWidget->setCurrentWidget(_resultTurn);
+    setWindowTitle("Super Auto Pets - 战斗结果");
+
+    // 使用单次定时器，2秒后自动返回商店
+    QTimer::singleShot(2000, this, [this]() {
+        onBackToShop();
+    });
+}
+
 
     void onBackToShop()
     {
@@ -410,6 +414,15 @@ private slots:
 
         // 重置商店
         _shopView->resetShop();
+
+
+        // 重置结果视图（如果存在）
+        if (_resultTurn && _stackedWidget->indexOf(_resultTurn) >= 0)
+        {
+            _stackedWidget->removeWidget(_resultTurn);
+            delete _resultTurn;
+            _resultTurn = nullptr;
+        }
 
         // 返回商店
         _stackedWidget->setCurrentWidget(_shopView);
