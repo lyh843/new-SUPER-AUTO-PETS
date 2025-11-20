@@ -36,7 +36,6 @@ ResultTurn::ResultTurn(QWidget* parent) : QWidget(parent), ui(new Ui::ResultTurn
     ui->label_resultIcon_2->setGeometry(startX + 2*(iconWidth + spacing), startY, iconWidth, iconHeight);
     ui->label_resultIcon_3->setGeometry(startX + 3*(iconWidth + spacing), startY, iconWidth, iconHeight);
     ui->label_resultIcon_4->setGeometry(startX + 4*(iconWidth + spacing), startY, iconWidth, iconHeight);
-    ui->label_resultIcon_5->setGeometry(startX + 5*(iconWidth + spacing), startY, iconWidth, iconHeight);
     
     // 设置图标缩放以适应标签大小
     ui->label_resultIcon_0->setScaledContents(true);
@@ -44,7 +43,6 @@ ResultTurn::ResultTurn(QWidget* parent) : QWidget(parent), ui(new Ui::ResultTurn
     ui->label_resultIcon_2->setScaledContents(true);
     ui->label_resultIcon_3->setScaledContents(true);
     ui->label_resultIcon_4->setScaledContents(true);
-    ui->label_resultIcon_5->setScaledContents(true);
 }
 
 void ResultTurn::loadingPicture(BattleResult result, Player* _player)
@@ -105,11 +103,7 @@ void ResultTurn::loadingPicture(BattleResult result, Player* _player)
     } else {
         ui->label_resultIcon_4->setPixmap(heartbroken_icon);
     }
-    if (playerLives >= 6) {
-        ui->label_resultIcon_5->setPixmap(heart_icon);
-    } else {
-        ui->label_resultIcon_5->setPixmap(heartbroken_icon);
-    }
+
 }
 
 ResultTurn::~ResultTurn()

@@ -91,19 +91,6 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_resultIcon_5">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>730</y>
-     <width>49</width>
-     <height>14</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
