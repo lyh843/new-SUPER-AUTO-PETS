@@ -3,9 +3,11 @@
 #include <QWidget>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QMessageBox>
+#include <QDialog>
 #include "ui/StartView.hpp"
 #include "ui/QtShopview.h"
 #include "ui/qtbattleview.h"
@@ -316,7 +318,50 @@ private slots:
                             .arg(_player->getPrize())
                             .arg(_player->getRound());
 
-        QMessageBox::information(this, "战斗结果", resultMessage);
+        // 使用自定义对话框显示战斗结果，背景根据胜负切换
+        QDialog dlg(this);
+        dlg.setWindowTitle("战斗结果");
+        dlg.setModal(true);
+        dlg.setFixedSize(600, 420);
+
+        QString bgStyle;
+        if (result == BattleResult::Player1Win)
+        {
+            bgStyle = "background-image: url(:/photo/Victory.png); background-repeat: no-repeat; background-position: center; background-color: transparent;";
+        }
+        else if (result == BattleResult::Player2Win)
+        {
+            bgStyle = "background-image: url(:/photo/Defeat.png); background-repeat: no-repeat; background-position: center; background-color: transparent;";
+        }
+        else
+        {
+            bgStyle = "background-image: url(:/photo/Draw.png); background-repeat: no-repeat; background-position: center; background-color: transparent;";
+        }
+        dlg.setStyleSheet(bgStyle);
+
+        QVBoxLayout* dlgLayout = new QVBoxLayout(&dlg);
+        dlgLayout->setContentsMargins(20, 20, 20, 20);
+        dlgLayout->addStretch();
+
+        QLabel* msgLabel = new QLabel(resultMessage, &dlg);
+        msgLabel->setWordWrap(true);
+        msgLabel->setAlignment(Qt::AlignCenter);
+        msgLabel->setStyleSheet("color: white; font-size: 18px; background: transparent;");
+        dlgLayout->addWidget(msgLabel);
+
+        dlgLayout->addStretch();
+
+        QHBoxLayout* btnLayout = new QHBoxLayout();
+        btnLayout->addStretch();
+        QPushButton* okBtn = new QPushButton("确定", &dlg);
+        okBtn->setFixedSize(110, 36);
+        okBtn->setStyleSheet("font-size:16px;");
+        connect(okBtn, &QPushButton::clicked, &dlg, &QDialog::accept);
+        btnLayout->addWidget(okBtn);
+        btnLayout->addStretch();
+        dlgLayout->addLayout(btnLayout);
+
+        dlg.exec();
 
         // 检查游戏是否结束
         if (_player->getLives() <= 0)
