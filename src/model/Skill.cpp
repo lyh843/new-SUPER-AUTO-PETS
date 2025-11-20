@@ -186,19 +186,6 @@ void SkillSkunk::onPreBattle(Pet* self, BattleEngine* engine) {
     //     -1, idx, reduce, engine->_player1Turn});
 }
 
-
-/* ---------------- Flamingo ----------------
-   战斗结束时如果存活获得 +2 ATK
-*/
-
-void SkillFlamingo::onFaint(Pet* self, BattleEngine* engine, bool isPlayer1, int index) {
-    // Flamingo 的效果在战斗结束时，如果活着获得 +2。这里我们在战斗中实现：每次一轮后检查并在 onDealDamage 或 onPreBattle 中实现
-}
-void SkillFlamingo::onDealDamage(Pet* self, Pet* target, int damage, BattleEngine* engine) {
-    // 实现：击打完结后如果还活着，给予 +2 ATK（为示例，这会过多触发）
-}
-
-
 /* ---------------- Kangaroo ----------------
    商店出售时给前方友军 +1/+1
 */
