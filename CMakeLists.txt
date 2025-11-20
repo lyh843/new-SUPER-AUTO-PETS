@@ -71,6 +71,7 @@ add_executable(${PROJECT_NAME}
         # src/ui/qtstartview.h src/ui/qtstartview.cpp src/ui/qtstartview.ui
         src/ui/qtbattleview.h src/ui/qtbattleview.cpp src/ui/qtbattleview.ui
         src/ui/resource.qrc
+        src/ui/resultturn.h src/ui/resultturn.cpp src/ui/resultturn.ui
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
