@@ -696,7 +696,7 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="setting">
    <property name="geometry">
     <rect>
      <x>1325</x>
@@ -715,7 +715,7 @@ border: 1px solid rgba(100, 100, 100, 0.5);</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="hourglass_left_num">
    <property name="geometry">
     <rect>
      <x>17</x>
@@ -743,7 +743,7 @@ background-color: transparent;
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="heart_left_num">
    <property name="geometry">
     <rect>
      <x>107</x>
@@ -770,10 +770,91 @@ background-color: transparent;</string>
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="trophy_left_num">
    <property name="geometry">
     <rect>
      <x>61</x>
+     <y>733</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 18px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hour_glass_right_num">
+   <property name="geometry">
+    <rect>
+     <x>1237</x>
+     <y>733</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 18px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="heart_right_num">
+   <property name="geometry">
+    <rect>
+     <x>1327</x>
+     <y>733</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 18px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="trophy_right_num">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
      <y>733</y>
      <width>51</width>
      <height>51</height>
@@ -821,7 +902,7 @@ background-color: transparent;</string>
   <zorder>opponents_pet_3</zorder>
   <zorder>opponents_pet_4</zorder>
   <zorder>opponents_pet_5</zorder>
-  <zorder>label</zorder>
+  <zorder>setting</zorder>
   <zorder>settingsButton</zorder>
   <zorder>forward_button</zorder>
   <zorder>forward_font</zorder>
@@ -829,9 +910,12 @@ background-color: transparent;</string>
   <zorder>start_button</zorder>
   <zorder>start</zorder>
   <zorder>start_font</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
+  <zorder>hourglass_left_num</zorder>
+  <zorder>heart_left_num</zorder>
+  <zorder>trophy_left_num</zorder>
+  <zorder>hour_glass_right_num</zorder>
+  <zorder>heart_right_num</zorder>
+  <zorder>trophy_right_num</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>
