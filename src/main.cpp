@@ -327,6 +327,32 @@ private slots:
         // 检查游戏是否结束
         if (_player->getLives() <= 0)
         {
+
+            // 创建或重置结算视图
+            if (!_resultTurn)
+            {
+                _resultTurn = new ResultTurn(this);
+                _stackedWidget->addWidget(_resultTurn);
+            }
+
+            // 加载结果图片
+            _resultTurn->loadingPicture(result, _player);
+
+            // 显示结果界面
+            _stackedWidget->setCurrentWidget(_resultTurn);
+            setWindowTitle("Super Auto Pets - 战斗结果");
+
+            // 使用单次定时器，2秒后自动返回商店
+            QTimer::singleShot(2000, this, [this]() {
+                        // 重置结果视图（如果存在）
+                if (_resultTurn && _stackedWidget->indexOf(_resultTurn) >= 0)
+                {
+                    _stackedWidget->removeWidget(_resultTurn);
+                    delete _resultTurn;
+                    _resultTurn = nullptr;
+        }
+            });
+
             QMessageBox::information(this, "游戏结束",
                                    QString("游戏结束！\n\n"
                                           "最终成绩：\n"
