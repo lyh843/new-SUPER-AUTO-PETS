@@ -42,6 +42,7 @@ void Pet::levelUp()
 
     _level++;
 
+
     // 升级时提升属性：每级增长50%的基础属性
     int hpBonus     = _baseHP / 2 + 1;
     int attackBonus = _baseAttack / 2 + 1;
@@ -183,7 +184,7 @@ Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
 }
 
 Kangaroo::Kangaroo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Kangaroo", "袋鼠", "前方的友方+1HP/+1ATK", hp, attack, ownerPlayer, tier)
+    : Pet("Kangaroo", "袋鼠", "前方的朋友+1HP/+1ATK", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillKangaroo>());
 }

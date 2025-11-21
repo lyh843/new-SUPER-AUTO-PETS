@@ -98,6 +98,7 @@ private slots:
     void onFoodFreezeClicked(int index);
     void onPetBookClicked();
     void onSettingsClicked();
+    void fishskill(Player* player,Pet* pet);
 
 signals:
     void endTurn();

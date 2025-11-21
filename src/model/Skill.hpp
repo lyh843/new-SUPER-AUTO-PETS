@@ -54,8 +54,7 @@ public:
 };
 
 class SkillFish : public Skill {
-public:
-    void onPreBattle(Pet* self, BattleEngine* engine) override;
+    //在Pet中实现
 };
 
 class SkillCricket : public Skill {

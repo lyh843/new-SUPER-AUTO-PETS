@@ -443,12 +443,14 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
                     pet->levelUp();
                 }
                 _player->removePet(samePetIndex);
+                fishskill(_player,pet);
                 updateUI();
                 QMessageBox::information(this, "升级成功", "宠物已升级！");
             }
             else if(selectedPet->getLevel() + pet->getLevel() < 3){
                 pet->levelUp();
                 _player->removePet(samePetIndex);
+                fishskill(_player,pet);
                 updateUI();
                 QMessageBox::information(this, "升级成功", "宠物已升级！");
             }
@@ -569,4 +571,24 @@ void QtShopview::onSettingsClicked()
 QtShopview::~QtShopview()
 {
     delete ui;
+}
+
+void QtShopview::fishskill(Player* player,Pet* pet)
+{
+    //Fish技能实现
+    if (dynamic_cast<Fish*>(pet))
+    {
+        auto& team = player->getPets();
+        std::vector<int> candidates;
+        for (size_t i = 0; i < team.size(); ++i)
+            if (team[i].get() != pet && team[i].get())
+                candidates.push_back(i);
+        if (candidates.empty()) return;
+        std::shuffle(candidates.begin(), candidates.end(), std::mt19937{std::random_device{}()});
+        int cnt = std::min<int>(2, (int)candidates.size());
+        for (int i = 0; i < cnt; ++i) {
+            team[candidates[i]].get()->setHP(team[candidates[i]].get()->getHP() + 1);
+            team[candidates[i]].get()->addAttack(1);
+        }
+    }
 }

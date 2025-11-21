@@ -157,6 +157,9 @@ bool Shop::sell(int targetPetIndex)
             _player->getPetAt(i)->addHP(1);
         }
     }
+    if (dynamic_cast<Cricket*>(pet.get())) { //在Shop中调用Cricket技能
+        pet.get()->triggerOnSell(_player->getPets());
+    }
     // 给予玩家金币
     _player->addCoin(SELL_REWARD);
 

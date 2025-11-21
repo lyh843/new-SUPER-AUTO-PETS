@@ -11,12 +11,12 @@
 
 void SkillAnt::onFaint(Pet* self, BattleEngine* engine, bool isPlayer1, int index) {
     auto &team = isPlayer1 ? engine->getPlayer1Team() : engine->getPlayer2Team();
-    std::vector<Pet*> candidates;
+    std::vector<int> candidates;
     for (size_t i = 0; i < team.size(); ++i) {
-        if ((int)i != index && team[i] && !team[i]->isDead()) candidates.push_back(team[i].get());
+        if ((int)i != index && team[i] && !team[i]->isDead()) candidates.push_back(i);
     }
     if (candidates.empty()) return;
-    Pet* t = candidates[randIndex((int)candidates.size())];
+    Pet* t = team[candidates[randIndex((int)candidates.size())]].get();
     t->setHP(t->getHP() + 2);
     t->addAttack(1);
 
@@ -25,35 +25,11 @@ void SkillAnt::onFaint(Pet* self, BattleEngine* engine, bool isPlayer1, int inde
     //     -1, index, 0, isPlayer1});
 }
 
-/* ---------------- Fish ----------------
-   升级时（战斗开始时若等级>1）给予两个友军 +1/+1
-   这里采用战斗开始前触发，检查level>1（也可放到levelUp里）
-*/
-
-void SkillFish::onPreBattle(Pet* self, BattleEngine* engine){
-    if (!self) return;
-    if (self->getLevel() <= 1) return;
-    auto& team = (engine->_player1Turn) ? engine->getPlayer1Team() : engine->getPlayer2Team();
-    std::vector<Pet*> candidates;
-    for (size_t i = 0; i < team.size(); ++i)
-        if (team[i].get() != self)
-            candidates.push_back(team[i].get());
-    if (candidates.empty()) return;
-    std::shuffle(candidates.begin(), candidates.end(), std::mt19937{std::random_device{}()});
-    int cnt = std::min<int>(2, (int)candidates.size());
-    for (int i = 0; i < cnt; ++i) {
-        candidates[i]->setHP(candidates[i]->getHP() + 1);
-        candidates[i]->addAttack(1);
-    }
-    // engine->emitEvent({BattleEventType::SkillTrigger,
-    //     QString("%1 升级，给随机两个友军 +1/+1").arg(QString::fromStdString(self->getName())),
-    //     -1, -1, 0, engine->_player1Turn});
-}
 
 
 /* ---------------- Cricket ----------------
-   你要求：出售后对任意两个队友 +1 攻击
-   我实现为 onSell（商店卖出时应调用 Pet::triggerOnSell(ownerTeam)）
+   出售后对任意两个队友 +1 攻击
+   实现为 onSell（商店卖出时应调用 Pet::triggerOnSell(ownerTeam)）
 */
 
 void SkillCricket::onSell(Pet* self, std::vector<std::unique_ptr<Pet>>& ownerTeam) {
@@ -151,10 +127,11 @@ void SkillBlowfish::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* e
     // 对随机敌人造成3点伤害
     int enemy = (engine->_player1Turn) ? 2 : 1;
     auto &enemyTeam = (enemy == 1) ? engine->getPlayer1Team() : engine->getPlayer2Team();
-    std::vector<Pet*> candidates;
-    for (auto &p : enemyTeam) if (p && !p->isDead()) candidates.push_back(p.get());
+    std::vector<int> candidates;
+    for (size_t i = 0; i < enemyTeam.size(); ++i)
+        if (enemyTeam[i].get() && !enemyTeam[i].get()->isDead()) candidates.push_back(i);
     if (candidates.empty()) return;
-    Pet* target = candidates[randIndex((int)candidates.size())];
+    Pet* target = enemyTeam[candidates[randIndex((int)candidates.size())]].get();
     target->receiveDamage(3);
     // engine->emitEvent({BattleEventType::SkillTrigger,
     //     QString("%1 受伤，对随机敌人造成 3 点伤害").arg(QString::fromStdString(self->getName())),
