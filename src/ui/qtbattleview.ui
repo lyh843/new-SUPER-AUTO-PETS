@@ -261,6 +261,9 @@ background-position: center;</string>
    </property>
   </widget>
   <widget class="QLabel" name="background">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -878,6 +881,796 @@ background-color: transparent;</string>
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="your_pet_1_status">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_3_status">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_4_status">
+   <property name="geometry">
+    <rect>
+     <x>411</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_5_status">
+   <property name="geometry">
+    <rect>
+     <x>543</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_1_status">
+   <property name="geometry">
+    <rect>
+     <x>727</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_2_status">
+   <property name="geometry">
+    <rect>
+     <x>859</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_3_status">
+   <property name="geometry">
+    <rect>
+     <x>991</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_4_status">
+   <property name="geometry">
+    <rect>
+     <x>1123</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_pet_5_status">
+   <property name="geometry">
+    <rect>
+     <x>1255</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_pet_2_status">
+   <property name="geometry">
+    <rect>
+     <x>147</x>
+     <y>570</y>
+     <width>130</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/else/photo/Stats.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_Attack_1">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_HP_1">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>88</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_HP_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_HP_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>352</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_HP_4">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>484</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_HP_5">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>616</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_Attack_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>157</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_Attack_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>289</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_Attack_4">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>421</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="your_Attack_5">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>553</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_Attack_1">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>736</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_Attack_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>868</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_Attack_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_Attack_4">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1132</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_Attack_5">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1264</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_HP_1">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_HP_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>932</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_HP_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1064</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_HP_4">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1196</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="opponents_HP_5">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1328</x>
+     <y>575</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 更完整的样式 */
+color: white;
+font-weight: bold;
+font-size: 24px;
+font-family: &quot;Microsoft YaHei&quot;;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>background</zorder>
   <zorder>auto_play_button</zorder>
   <zorder>auto_play</zorder>
@@ -916,6 +1709,36 @@ background-color: transparent;</string>
   <zorder>hour_glass_right_num</zorder>
   <zorder>heart_right_num</zorder>
   <zorder>trophy_right_num</zorder>
+  <zorder>your_pet_1_status</zorder>
+  <zorder>your_pet_3_status</zorder>
+  <zorder>your_pet_4_status</zorder>
+  <zorder>your_pet_5_status</zorder>
+  <zorder>opponents_pet_1_status</zorder>
+  <zorder>opponents_pet_2_status</zorder>
+  <zorder>opponents_pet_3_status</zorder>
+  <zorder>opponents_pet_4_status</zorder>
+  <zorder>opponents_pet_5_status</zorder>
+  <zorder>your_pet_2_status</zorder>
+  <zorder>your_Attack_1</zorder>
+  <zorder>your_HP_1</zorder>
+  <zorder>your_HP_2</zorder>
+  <zorder>your_HP_3</zorder>
+  <zorder>your_HP_4</zorder>
+  <zorder>your_HP_5</zorder>
+  <zorder>your_Attack_2</zorder>
+  <zorder>your_Attack_3</zorder>
+  <zorder>your_Attack_4</zorder>
+  <zorder>your_Attack_5</zorder>
+  <zorder>opponents_Attack_1</zorder>
+  <zorder>opponents_Attack_2</zorder>
+  <zorder>opponents_Attack_3</zorder>
+  <zorder>opponents_Attack_4</zorder>
+  <zorder>opponents_Attack_5</zorder>
+  <zorder>opponents_HP_1</zorder>
+  <zorder>opponents_HP_2</zorder>
+  <zorder>opponents_HP_3</zorder>
+  <zorder>opponents_HP_4</zorder>
+  <zorder>opponents_HP_5</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>

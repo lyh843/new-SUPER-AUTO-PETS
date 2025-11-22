@@ -34,6 +34,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -53,6 +56,9 @@
      <width>100</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -74,6 +80,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -93,6 +102,9 @@
      <width>100</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -114,6 +126,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -133,6 +148,9 @@
      <width>100</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -154,6 +172,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -174,6 +195,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -193,6 +217,9 @@
      <width>100</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -290,6 +317,9 @@
      <height>800</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -308,6 +338,9 @@
      <width>50</width>
      <height>50</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string/>
@@ -332,6 +365,9 @@
      <height>50</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -349,7 +385,7 @@
   <widget class="QLabel" name="backgroundLabel1">
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>750</x>
      <y>230</y>
      <width>100</width>
      <height>100</height>
@@ -374,6 +410,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -393,6 +432,9 @@
      <width>100</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -712,15 +754,16 @@
   <widget class="QLabel" name="labelFont1">
    <property name="geometry">
     <rect>
-     <x>760</x>
-     <y>255</y>
-     <width>61</width>
+     <x>780</x>
+     <y>253</y>
+     <width>41</width>
      <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>11</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -732,13 +775,14 @@
     <rect>
      <x>120</x>
      <y>480</y>
-     <width>61</width>
+     <width>41</width>
      <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>11</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -792,6 +836,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -811,6 +858,9 @@
      <width>100</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -908,6 +958,9 @@
      <height>120</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -938,6 +991,9 @@
      <height>120</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -965,7 +1021,7 @@
      <x>230</x>
      <y>360</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -984,7 +1040,7 @@
      <x>330</x>
      <y>360</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1003,7 +1059,7 @@
      <x>430</x>
      <y>360</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1022,7 +1078,7 @@
      <x>530</x>
      <y>360</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1041,7 +1097,7 @@
      <x>630</x>
      <y>360</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1060,7 +1116,7 @@
      <x>230</x>
      <y>590</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1079,7 +1135,7 @@
      <x>330</x>
      <y>590</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1098,7 +1154,7 @@
      <x>430</x>
      <y>590</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1117,7 +1173,7 @@
      <x>530</x>
      <y>590</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1136,7 +1192,7 @@
      <x>630</x>
      <y>590</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1155,7 +1211,7 @@
      <x>730</x>
      <y>590</y>
      <width>100</width>
-     <height>40</height>
+     <height>45</height>
     </rect>
    </property>
    <property name="text">
@@ -1171,8 +1227,8 @@
   <widget class="QLabel" name="playPetInfo1_attack">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>370</y>
+     <x>249</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1190,8 +1246,8 @@
   <widget class="QLabel" name="playPetInfo2_attack">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>370</y>
+     <x>349</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1209,8 +1265,8 @@
   <widget class="QLabel" name="playPetInfo2_heart">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>370</y>
+     <x>399</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1228,8 +1284,8 @@
   <widget class="QLabel" name="playPetInfo3_attack">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>370</y>
+     <x>449</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1247,8 +1303,8 @@
   <widget class="QLabel" name="playPetInfo3_heart">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>370</y>
+     <x>499</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1266,8 +1322,8 @@
   <widget class="QLabel" name="playPetInfo4_attack">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>370</y>
+     <x>549</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1285,8 +1341,8 @@
   <widget class="QLabel" name="playPetInfo4_heart">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>370</y>
+     <x>599</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1304,8 +1360,8 @@
   <widget class="QLabel" name="playPetInfo5_attack">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>370</y>
+     <x>649</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1323,8 +1379,8 @@
   <widget class="QLabel" name="playPetInfo5_heart">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>370</y>
+     <x>699</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1342,8 +1398,8 @@
   <widget class="QLabel" name="shopPetInfo1_attack">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>600</y>
+     <x>249</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1361,8 +1417,8 @@
   <widget class="QLabel" name="shopPetInfo1_heart">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>600</y>
+     <x>299</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1380,8 +1436,8 @@
   <widget class="QLabel" name="shopPetInfo2_attack">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>600</y>
+     <x>349</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1399,8 +1455,8 @@
   <widget class="QLabel" name="shopPetInfo2_heart">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>600</y>
+     <x>399</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1418,8 +1474,8 @@
   <widget class="QLabel" name="shopPetInfo3_attack">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>600</y>
+     <x>449</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1437,8 +1493,8 @@
   <widget class="QLabel" name="shopPetInfo3_heart">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>600</y>
+     <x>499</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1456,8 +1512,8 @@
   <widget class="QLabel" name="shopPetInfo4_attack">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>600</y>
+     <x>549</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1475,8 +1531,8 @@
   <widget class="QLabel" name="shopPetInfo4_heart">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>600</y>
+     <x>599</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1494,8 +1550,8 @@
   <widget class="QLabel" name="shopPetInfo5_attack">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>600</y>
+     <x>649</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1513,8 +1569,8 @@
   <widget class="QLabel" name="shopPetInfo5_heart">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>600</y>
+     <x>699</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1532,8 +1588,8 @@
   <widget class="QLabel" name="shopPetInfo6_attack">
    <property name="geometry">
     <rect>
-     <x>750</x>
-     <y>600</y>
+     <x>749</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1551,8 +1607,8 @@
   <widget class="QLabel" name="shopPetInfo6_heart">
    <property name="geometry">
     <rect>
-     <x>800</x>
-     <y>600</y>
+     <x>799</x>
+     <y>603</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1722,8 +1778,8 @@
   <widget class="QLabel" name="playPetInfo1_heart">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>370</y>
+     <x>299</x>
+     <y>373</y>
      <width>20</width>
      <height>20</height>
     </rect>
@@ -1741,7 +1797,7 @@
   <widget class="QLabel" name="shopPetCoin1_index">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>233</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1760,7 +1816,7 @@
   <widget class="QLabel" name="shopPetCoin2_index">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>333</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1779,7 +1835,7 @@
   <widget class="QLabel" name="shopPetCoin3_index">
    <property name="geometry">
     <rect>
-     <x>440</x>
+     <x>443</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1798,7 +1854,7 @@
   <widget class="QLabel" name="shopPetCoin4_index">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>533</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1817,7 +1873,7 @@
   <widget class="QLabel" name="shopPetCoin5_index">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>633</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1836,7 +1892,7 @@
   <widget class="QLabel" name="shopPetCoin6_index">
    <property name="geometry">
     <rect>
-     <x>730</x>
+     <x>733</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1855,7 +1911,7 @@
   <widget class="QLabel" name="shopFoodCoin1_index">
    <property name="geometry">
     <rect>
-     <x>1060</x>
+     <x>1063</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1874,7 +1930,7 @@
   <widget class="QLabel" name="shopFoodCoin2_index">
    <property name="geometry">
     <rect>
-     <x>1170</x>
+     <x>1173</x>
      <y>500</y>
      <width>20</width>
      <height>20</height>
@@ -1896,7 +1952,7 @@
      <x>220</x>
      <y>260</y>
      <width>60</width>
-     <height>30</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -1915,7 +1971,7 @@
      <x>330</x>
      <y>260</y>
      <width>60</width>
-     <height>30</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -1934,7 +1990,7 @@
      <x>430</x>
      <y>260</y>
      <width>60</width>
-     <height>30</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -1953,7 +2009,7 @@
      <x>520</x>
      <y>260</y>
      <width>60</width>
-     <height>30</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -1972,7 +2028,7 @@
      <x>620</x>
      <y>260</y>
      <width>60</width>
-     <height>30</height>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
