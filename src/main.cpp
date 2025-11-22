@@ -364,6 +364,38 @@ private slots:
             // 返回主菜单
             _stackedWidget->setCurrentWidget(_startView);
             setWindowTitle("Super Auto Pets");
+            // 重置商店
+            _shopView->resetShop();
+
+            // 删除旧的玩家对象
+            delete _player;
+            
+            // 删除旧的结果视图
+            if (_resultTurn)
+            {
+                _stackedWidget->removeWidget(_resultTurn);
+                delete _resultTurn;
+                _resultTurn = nullptr;
+            }
+
+            // 开始新游戏
+            _player = new Player(10, 5, 1, 0);
+            
+            // 重新创建商店视图
+            if (_shopView)
+            {
+                // 断开所有信号连接，避免旧信号触发
+                disconnect(_shopView, nullptr, this, nullptr);
+                _stackedWidget->removeWidget(_shopView);
+                delete _shopView;
+                _shopView = nullptr;
+            }
+            _shopView = new QtShopview(_player, this);
+            _stackedWidget->insertWidget(1, _shopView);
+            connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn, Qt::UniqueConnection);
+            connect(_shopView, &QtShopview::encyclopediaClicked, this, &MainWindow::onEncyclopediaClicked, Qt::UniqueConnection);
+            connect(_shopView, &QtShopview::settingsClicked, this, &MainWindow::onSettingsClicked, Qt::UniqueConnection);
+
             return;
         }
 
@@ -382,6 +414,36 @@ private slots:
             // 返回主菜单
             _stackedWidget->setCurrentWidget(_startView);
             setWindowTitle("Super Auto Pets");
+            // 重置商店
+            _shopView->resetShop();
+            // 删除旧的玩家对象
+            delete _player;
+            
+            // 删除旧的结果视图
+            if (_resultTurn)
+            {
+                _stackedWidget->removeWidget(_resultTurn);
+                delete _resultTurn;
+                _resultTurn = nullptr;
+            }
+
+            // 开始新游戏
+            _player = new Player(10, 5, 1, 0);
+            
+            // 重新创建商店视图
+            if (_shopView)
+            {
+                // 断开所有信号连接，避免旧信号触发
+                disconnect(_shopView, nullptr, this, nullptr);
+                _stackedWidget->removeWidget(_shopView);
+                delete _shopView;
+                _shopView = nullptr;
+            }
+            _shopView = new QtShopview(_player, this);
+            _stackedWidget->insertWidget(1, _shopView);
+            connect(_shopView, &QtShopview::endTurn, this, &MainWindow::onEndTurn, Qt::UniqueConnection);
+            connect(_shopView, &QtShopview::encyclopediaClicked, this, &MainWindow::onEncyclopediaClicked, Qt::UniqueConnection);
+            connect(_shopView, &QtShopview::settingsClicked, this, &MainWindow::onSettingsClicked, Qt::UniqueConnection);
             return;
         }
 
