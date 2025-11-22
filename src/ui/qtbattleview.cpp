@@ -10,7 +10,7 @@
 #include <QParallelAnimationGroup> // 实现同时动画
 #include <QPoint>               // 坐标点
 #include <QEasingCurve>         // 缓动曲线，让动画更自然
-
+#include <QCoreApplication>
 
 //构造函数实现
 QtBattleView::QtBattleView(Player* player, QWidget* parent) :
@@ -346,7 +346,6 @@ void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
     }
 
     // 2. 获取 P2 (右侧/AI) 宠物标签
-    // 假设 _aiPetLabels 是正确的标签集合 (如果您的变量名是 _aiPetsStatusLabels，请自行调整)
     if (p2PetIdx >= 0 && p2PetIdx < _aiPetLabels.size()) {
         aiPetLabel = _aiPetLabels[p2PetIdx];
     }
@@ -357,20 +356,30 @@ void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
         return;
     }
 
-    // 获取初始位置和计算对撞点
-    QPoint p1StartPos = playerPetLabel->pos();
-    QPoint p2StartPos = aiPetLabel->pos();
+    // 使用 geometry() 获取位置和大小，更可靠
+    QRect p1Rect = playerPetLabel->geometry();
+    QRect p2Rect = aiPetLabel->geometry();
+
+    QPoint p1StartPos = p1Rect.topLeft();
+    QPoint p2StartPos = p2Rect.topLeft();
+
+    qDebug() << "P1 Start Pos:" << p1StartPos << "P2 Start Pos:" << p2StartPos;
 
     // 计算对撞点：两只宠物的中心点
+    QPoint p1Center = p1Rect.center();
+    QPoint p2Center = p2Rect.center();
+
     QPoint collisionPoint;
-    collisionPoint.setX((p1StartPos.x() + p2StartPos.x()) / 2);
-    collisionPoint.setY((p1StartPos.y() + p2StartPos.y()) / 2);
+    collisionPoint.setX((p1Center.x() + p2Center.x()) / 2);
+    collisionPoint.setY((p1Center.y() + p2Center.y()) / 2);
 
-    // 调整对撞点，让宠物不完全重叠 (移动距离约占总距离的 45%)
-    QPoint p1AttackPos = p1StartPos + (collisionPoint - p1StartPos) * 0.9;
-    QPoint p2AttackPos = p2StartPos + (collisionPoint - p2StartPos) * 0.9;
+    // 调整对撞点，让宠物不完全重叠
+    QPoint p1AttackPos = p1StartPos + (collisionPoint - p1Center) * 0.8;
+    QPoint p2AttackPos = p2StartPos + (collisionPoint - p2Center) * 0.8;
 
-    const int ANIMATION_DURATION = 150; // 冲刺/返回时间 (ms)
+    qDebug() << "P1 Attack Pos:" << p1AttackPos << "P2 Attack Pos:" << p2AttackPos;
+
+    const int ANIMATION_DURATION = 300; // 稍微延长动画时间
 
     // 为 P1 (左侧) 宠物创建动画组 (冲刺 -> 返回)
     QSequentialAnimationGroup* p1Sequence = new QSequentialAnimationGroup(this);
@@ -416,6 +425,7 @@ void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
     QParallelAnimationGroup* parallelGroup = new QParallelAnimationGroup(this);
     parallelGroup->addAnimation(p1Sequence);
     parallelGroup->addAnimation(p2Sequence);
+    qDebug()<<"播放动画！"<<_activeAnimationCount;
 
     // 启动时增加计数
     _activeAnimationCount++;
@@ -498,16 +508,11 @@ void QtBattleView::on_start_button_clicked()
     std::vector<std::unique_ptr<Pet>> aiPetsCopy;
     for (size_t i = 0; i < _aiTeam.size(); ++i) {
         if (_aiTeam[i]) {
-            qDebug() << "复制AI宠物" << i << ":" << _aiTeam[i]->getName().c_str();
-
             // 使用拷贝构造函数创建副本
             auto petCopy = std::make_unique<Pet>(*_aiTeam[i]);
             aiPetsCopy.push_back(std::move(petCopy));
         }
     }
-
-    qDebug() << "玩家宠物复制完成，数量:" << playerPetsCopy.size();
-    qDebug() << "AI宠物复制完成，数量:" << aiPetsCopy.size();
 
     // 初始化战斗引擎
     _battleEngine.initialize(playerPetsCopy, aiPetsCopy, _player);
@@ -548,7 +553,6 @@ void QtBattleView::on_auto_play_button_clicked()
         // 停止自动战斗
         _autoBattle = false;
         _autoTimer->stop();
-        qDebug() << "停止自动播放";
 
         // 改变自动播放图标及文本
         ui->auto_play->setPixmap(QPixmap(":/else/photo/Refresh.png"));
@@ -578,7 +582,6 @@ void QtBattleView::on_auto_play_button_clicked()
 
         _autoTimer->start(1500);  // 每1.5秒执行一步
         // 立即执行第一步
-        qDebug() << "立即执行第一步";
         onAutoStep();
     }
 }
@@ -621,13 +624,6 @@ void QtBattleView::handleBattleEndActions()
         ui->forward_button->setCursor(Qt::ArrowCursor);
     }
 
-
-    // 2. 显示战斗结果消息
-    if (!_battleEngine.isInBattle()) {
-        BattleResult result = _battleEngine.getResult();
-        QString message = (result == BattleResult::Player1Win) ? "胜利！" : "失败！";
-        QMessageBox::information(this, "战斗结束", message);
-    }
 }
 
 //实现自动执行
