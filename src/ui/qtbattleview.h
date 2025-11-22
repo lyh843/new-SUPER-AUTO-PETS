@@ -80,8 +80,7 @@ private:
     // 生成AI对手
     void generateAITeam(int difficulty);
 
-    //AI用来debug的
-    QPixmap createColoredPixmap(const QString& petName);
+    int _activeAnimationCount = 0; // 用于追踪正在播放的动画数量
 
 signals:
     void battleFinished(BattleResult result);

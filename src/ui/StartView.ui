@@ -60,6 +60,9 @@
      <height>210</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -90,6 +93,9 @@
      <height>100</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
     background-color: transparent;
@@ -119,6 +125,9 @@
      <width>570</width>
      <height>100</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {

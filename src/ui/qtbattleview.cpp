@@ -5,6 +5,12 @@
 #include <QScrollBar>
 #include <QTextCursor>
 #include <random>
+#include <QPropertyAnimation>   // 动画属性
+#include <QSequentialAnimationGroup> // 动画序列
+#include <QParallelAnimationGroup> // 实现同时动画
+#include <QPoint>               // 坐标点
+#include <QEasingCurve>         // 缓动曲线，让动画更自然
+#include <QDebug>               // 可选，用于调试
 
 //构造函数实现
 QtBattleView::QtBattleView(Player* player, QWidget* parent) :
@@ -135,7 +141,7 @@ void QtBattleView::generateAITeam(int difficulty)
             }
 
         // 根据难度提升属性
-        int levelBonus = difficulty / 3;
+        int levelBonus = difficulty / 2;
         for (int j = 0; j < levelBonus; ++j)
         {
             pet->gainExperience(2);
@@ -146,6 +152,7 @@ void QtBattleView::generateAITeam(int difficulty)
 
 }
 
+// 建立展示宠物的容器
 void QtBattleView::setupPetDisplays()
 {
     // 清空容器
@@ -153,12 +160,12 @@ void QtBattleView::setupPetDisplays()
     _aiPetLabels.clear();
     _playerPetStatusLabels.clear(); // 清空状态图标签
     _aiPetsStatusLabels.clear();    // 清空状态图标签
-    _playerAttackLabels.clear();    // 新增: 清空容器
-    _playerHPLabels.clear();        // 新增: 清空容器
-    _aiAttackLabels.clear();        // 新增: 清空容器
-    _aiHPLabels.clear();            // 新增: 清空容器
+    _playerAttackLabels.clear();    // 清空容器
+    _playerHPLabels.clear();        // 清空容器
+    _aiAttackLabels.clear();        // 清空容器
+    _aiHPLabels.clear();            // 清空容器
 
-            // 使用UI中预留的宠物位置 (顺序为从右到左: 5, 4, 3, 2, 1)
+    // 使用UI中预留的宠物位置 (顺序为从右到左: 5, 4, 3, 2, 1)
 
     // 玩家宠物（从右到左）
     _playerPetLabels.append(ui->your_pet_5);
@@ -230,7 +237,7 @@ void QtBattleView::updatePetDisplay(int index, bool isPlayer, const Pet* pet)
     if (!petLabel || !statusLabel || !attackLabel || !hpLabel) return;
 
     if (!pet) {
-        petLabel->hide();    // 宠物死亡或位置为空时，清除并隐藏所有相关标签
+        petLabel->hide();    // 宠物死亡或位置为空时，隐藏所有相关标签
         statusLabel->hide(); // 隐藏 status 图片
         attackLabel->hide(); // 隐藏攻击力数值
         hpLabel->hide();     // 隐藏生命值数值
@@ -261,7 +268,6 @@ void QtBattleView::updatePetDisplay(int index, bool isPlayer, const Pet* pet)
     hpLabel->setText(QString::number(pet->getHP()));
 }
 
-//更新战斗场景实现
 //更新战斗场景实现
 void QtBattleView::updateBattleDisplay()
 {
@@ -322,6 +328,113 @@ void QtBattleView::updateBattleDisplay()
     update();
 }
 
+void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
+                                       int defenderIdx, bool isPlayerDefender)
+{
+    // [修复: 统一标签获取逻辑]
+    // 统一将第一个索引视为 P1 宠物的索引，第二个索引视为 P2 宠物的索引
+    // 这与 BattleEngine 中固定的索引发送方式 (P1, P2, true) 保持一致。
+
+    QLabel* playerPetLabel = nullptr;
+    QLabel* aiPetLabel = nullptr;
+
+    int p1PetIdx = attackerIdx;
+    int p2PetIdx = defenderIdx;
+
+    // 1. 获取 P1 (左侧) 宠物标签
+    if (p1PetIdx >= 0 && p1PetIdx < _playerPetLabels.size()) {
+        playerPetLabel = _playerPetLabels[p1PetIdx];
+    }
+
+    // 2. 获取 P2 (右侧/AI) 宠物标签
+    // 假设 _aiPetLabels 是正确的标签集合 (如果您的变量名是 _aiPetsStatusLabels，请自行调整)
+    if (p2PetIdx >= 0 && p2PetIdx < _aiPetLabels.size()) {
+        aiPetLabel = _aiPetLabels[p2PetIdx];
+    }
+
+    // 检查标签有效性 (其余代码保持不变)
+    if (!playerPetLabel || !aiPetLabel || playerPetLabel->isHidden() || aiPetLabel->isHidden()) {
+        qDebug() << "Attack animation skipped: Pet labels not found or hidden.";
+        return;
+    }
+
+    // 获取初始位置和计算对撞点
+    QPoint p1StartPos = playerPetLabel->pos();
+    QPoint p2StartPos = aiPetLabel->pos();
+
+    // 计算对撞点：两只宠物的中心点
+    QPoint collisionPoint;
+    collisionPoint.setX((p1StartPos.x() + p2StartPos.x()) / 2);
+    collisionPoint.setY((p1StartPos.y() + p2StartPos.y()) / 2);
+
+    // 调整对撞点，让宠物不完全重叠 (移动距离约占总距离的 45%)
+    QPoint p1AttackPos = p1StartPos + (collisionPoint - p1StartPos) * 0.9;
+    QPoint p2AttackPos = p2StartPos + (collisionPoint - p2StartPos) * 0.9;
+
+    const int ANIMATION_DURATION = 150; // 冲刺/返回时间 (ms)
+
+    // 为 P1 (左侧) 宠物创建动画组 (冲刺 -> 返回)
+    QSequentialAnimationGroup* p1Sequence = new QSequentialAnimationGroup(this);
+
+    // P1 冲刺
+    QPropertyAnimation* p1Move = new QPropertyAnimation(playerPetLabel, "pos", this);
+    p1Move->setDuration(ANIMATION_DURATION);
+    p1Move->setStartValue(p1StartPos);
+    p1Move->setEndValue(p1AttackPos);
+    p1Move->setEasingCurve(QEasingCurve::OutQuad);
+    p1Sequence->addAnimation(p1Move);
+
+    // P1 返回
+    QPropertyAnimation* p1Return = new QPropertyAnimation(playerPetLabel, "pos", this);
+    p1Return->setDuration(ANIMATION_DURATION);
+    p1Return->setStartValue(p1AttackPos);
+    p1Return->setEndValue(p1StartPos);
+    p1Return->setEasingCurve(QEasingCurve::InQuad);
+    p1Sequence->addAnimation(p1Return);
+
+
+    // 为 P2 (右侧) 宠物创建动画组 (冲刺 -> 返回)
+    QSequentialAnimationGroup* p2Sequence = new QSequentialAnimationGroup(this);
+
+    // P2 冲刺
+    QPropertyAnimation* p2Move = new QPropertyAnimation(aiPetLabel, "pos", this);
+    p2Move->setDuration(ANIMATION_DURATION);
+    p2Move->setStartValue(p2StartPos);
+    p2Move->setEndValue(p2AttackPos);
+    p2Move->setEasingCurve(QEasingCurve::OutQuad);
+    p2Sequence->addAnimation(p2Move);
+
+    // P2 返回
+    QPropertyAnimation* p2Return = new QPropertyAnimation(aiPetLabel, "pos", this);
+    p2Return->setDuration(ANIMATION_DURATION);
+    p2Return->setStartValue(p2AttackPos);
+    p2Return->setEndValue(p2StartPos);
+    p2Return->setEasingCurve(QEasingCurve::InQuad);
+    p2Sequence->addAnimation(p2Return);
+
+
+    // 并行播放 P1 和 P2 的动画序列
+    QParallelAnimationGroup* parallelGroup = new QParallelAnimationGroup(this);
+    parallelGroup->addAnimation(p1Sequence);
+    parallelGroup->addAnimation(p2Sequence);
+
+    // 启动时增加计数
+    _activeAnimationCount++;
+
+    // 播放动画并在完成后自动清理和更新显示
+    connect(parallelGroup, &QParallelAnimationGroup::finished, this, [this, parallelGroup]() {
+        // [关键代码] 完成时减少计数并检查是否需要更新显示
+        _activeAnimationCount--;
+        if (_activeAnimationCount == 0 && _pendingDisplayUpdate) {
+            // 所有动画都结束了，现在可以安全地更新显示（死亡宠物消失，新宠物顶上）
+            _pendingDisplayUpdate = false; // 清除标记
+            updateBattleDisplay();
+        }
+        parallelGroup->deleteLater();
+    });
+
+    parallelGroup->start();
+}
 
 //高亮三步走
 void QtBattleView::highlightAttacker(int index, bool isPlayer)
@@ -480,11 +593,6 @@ void QtBattleView::on_forward_button_clicked()
         ui->forward_button->setEnabled(false);
         ui->forward_button->setCursor(Qt::ArrowCursor);
     }
-
-    // 延迟更新显示，避免阻塞
-    QTimer::singleShot(10, this, [this]() {
-        updateBattleDisplay();
-    });
 }
 
 //实现自动执行
@@ -502,7 +610,9 @@ void QtBattleView::onAutoStep()
 //实现对战
 void QtBattleView::onBattleEvent(const BattleEvent& event)
 {
-    // 直接处理事件，但标记需要更新显示
+    // 用于标记本次事件是否触发了需要更新显示的改动
+    bool shouldMarkUpdate = false;
+
     switch (event.type)
     {
     case BattleEventType::BattleStart:
@@ -511,36 +621,42 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
     case BattleEventType::TurnStart:
         highlightAttacker(event.attackerIndex, event.isPlayer1);
         highlightDefender(event.defenderIndex, !event.isPlayer1);
-        _pendingDisplayUpdate = true;
+        shouldMarkUpdate = true;
         break;
 
     case BattleEventType::Attack:
+        // 1. 触发对撞动画
+        playAttackAnimation(event.attackerIndex, event.isPlayer1,
+                            event.defenderIndex, !event.isPlayer1);
+        // 注意：这里不设置 shouldMarkUpdate。动画结束后，其回调会负责最终的更新。
         break;
 
     case BattleEventType::TakeDamage:
-        _pendingDisplayUpdate = true;
-        break;
-
     case BattleEventType::PetDeath:
-        _pendingDisplayUpdate = true;
-        break;
-
     case BattleEventType::SkillTrigger:
-        _pendingDisplayUpdate = true;
+        // 2. 这些事件都会导致数据变化（血量/死亡/状态）
+        shouldMarkUpdate = true;
         break;
 
     case BattleEventType::BattleEnd:
         clearHighlights();
-        _pendingDisplayUpdate = true;
+        shouldMarkUpdate = true;
         break;
     }
 
-    // 延迟更新显示，避免频繁重绘导致卡顿
-    if (_pendingDisplayUpdate)
+    if (shouldMarkUpdate)
     {
-        _pendingDisplayUpdate = false;
-        QTimer::singleShot(10, this, [this]() {
+        // 3. 标记需要更新（供动画结束回调使用）
+        _pendingDisplayUpdate = true;
+
+        // 4. 如果当前没有动画在播放，则立即更新显示。
+        if (_activeAnimationCount == 0)
+        {
+            // 清除标记，并执行更新
+            _pendingDisplayUpdate = false;
             updateBattleDisplay();
-        });
+        }
+        // 否则，更新将被延迟，等待 playAttackAnimation 中的回调函数执行。
     }
+
 }
