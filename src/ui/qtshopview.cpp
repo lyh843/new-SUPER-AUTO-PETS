@@ -571,7 +571,7 @@ void QtShopview::onFoodClicked(int index)
     msgBox.setText("请选择要喂食的宠物：");
 
     QVector<QPushButton*> petButtons;
-    for (int i = 0; i < 5; ++i)
+    for (int i = 4; i >= 0; i--)
     {
         Pet* pet = _player->getPetAt(i);
         if (pet)
