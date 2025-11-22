@@ -141,7 +141,7 @@ void QtBattleView::generateAITeam(int difficulty)
             }
 
         // 根据难度提升属性
-        int levelBonus = difficulty / 2;
+        int levelBonus = difficulty / 3;
         for (int j = 0; j < levelBonus; ++j)
         {
             pet->gainExperience(2);
@@ -425,10 +425,15 @@ void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
     connect(parallelGroup, &QParallelAnimationGroup::finished, this, [this, parallelGroup]() {
         // [关键代码] 完成时减少计数并检查是否需要更新显示
         _activeAnimationCount--;
-        if (_activeAnimationCount == 0 && _pendingDisplayUpdate) {
-            // 所有动画都结束了，现在可以安全地更新显示（死亡宠物消失，新宠物顶上）
-            _pendingDisplayUpdate = false; // 清除标记
-            updateBattleDisplay();
+        if (_activeAnimationCount == 0) {
+            if (_pendingDisplayUpdate) {
+                // 清除标记，执行显示更新（死亡宠物消失，新宠物顶上）
+                _pendingDisplayUpdate = false;
+                updateBattleDisplay();
+            }
+
+            // 【关键修改】在动画结束并显示更新后，检查并处理战斗结束逻辑
+            handleBattleEndActions();
         }
         parallelGroup->deleteLater();
     });
@@ -513,8 +518,11 @@ void QtBattleView::on_start_button_clicked()
         onBattleEvent(event);
     });
 
+
+
     // 触发战斗开始事件
     _battleEngine.startBattleManual();
+    updateBattleDisplay();
 
     ui->start_button->setEnabled(false);
     ui->start_button->setCursor(Qt::ArrowCursor);
@@ -579,7 +587,27 @@ void QtBattleView::on_auto_play_button_clicked()
 //按单步执行按钮
 void QtBattleView::on_forward_button_clicked()
 {
-    // 直接执行战斗步骤
+    if (!_battleEngine.isInBattle())
+        return;
+
+    clearHighlights();
+
+    // 执行单步战斗，这会触发事件链，包括 BattleEnd
+    _battleEngine.executeSingleStep();
+
+    // 【重要！】请移除所有此处对 _battleEngine.isInBattle() 的检查和操作，
+    // 这些操作将由 handleBattleEndActions() 在动画完成后执行。
+}
+
+void QtBattleView::handleBattleEndActions()
+{
+    // 如果没有结束事件在等待，或者动画还在播放，则不执行
+    if (!_pendingBattleEnd || _activeAnimationCount > 0) return;
+
+    // 清除标记，表示战斗结束逻辑已开始执行
+    _pendingBattleEnd = false;
+
+    //检测是否已经结束
     bool hasMore = _battleEngine.executeSingleStep();
 
     if (!hasMore)
@@ -592,6 +620,14 @@ void QtBattleView::on_forward_button_clicked()
         ui->auto_play_button->setCursor(Qt::ArrowCursor);
         ui->forward_button->setEnabled(false);
         ui->forward_button->setCursor(Qt::ArrowCursor);
+    }
+
+
+    // 2. 显示战斗结果消息
+    if (!_battleEngine.isInBattle()) {
+        BattleResult result = _battleEngine.getResult();
+        QString message = (result == BattleResult::Player1Win) ? "胜利！" : "失败！";
+        QMessageBox::information(this, "战斗结束", message);
     }
 }
 
@@ -641,6 +677,7 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
     case BattleEventType::BattleEnd:
         clearHighlights();
         shouldMarkUpdate = true;
+        _pendingBattleEnd = true; // 【关键修改】标记战斗结束等待处理
         break;
     }
 
@@ -655,6 +692,8 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
             // 清除标记，并执行更新
             _pendingDisplayUpdate = false;
             updateBattleDisplay();
+            // 【关键修改】在 UI 更新后，检查并处理战斗结束逻辑
+            handleBattleEndActions();
         }
         // 否则，更新将被延迟，等待 playAttackAnimation 中的回调函数执行。
     }

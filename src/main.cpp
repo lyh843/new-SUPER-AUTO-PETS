@@ -473,6 +473,11 @@ private slots:
         // 新回合开始
         _player->addRound();
         _player->setCoin(10);  // 新回合开始，获得 10 金币
+        for (int i = 0; i < _player->getPets().size(); i++)
+        {
+            if (_player->getPets()[i].get() && _player->getPets()[i].get()->getName() == "Swan" )
+                _player->addCoin(1);
+        }
 
         // 重置商店
         _shopView->resetShop();

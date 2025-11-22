@@ -78,7 +78,16 @@ bool Shop::refresh()
             _petShopList[i] = generateRandomPet();
         }
     }
-
+    if (_player->getRound() == 5)
+    {
+        std::unique_ptr<Cultivated> uptr = std::make_unique<Cultivated>();
+        _petShopList[petShopSize] = std::move(uptr);
+    }
+    if (_player->getRound() == 7)
+    {
+        std::unique_ptr<IronCow> uptr = std::make_unique<IronCow>();
+        _petShopList[petShopSize] = std::move(uptr);
+    }
     // 刷新未冻结的食物
     for (int i = 0; i < FOOD_SHOP_SIZE; ++i)
     {
@@ -148,6 +157,19 @@ bool Shop::buyPet(int petIndex, int targetPetIndex)
         return false;
     }
 
+    //实现铁牛技能
+    if (dynamic_cast<IronCow*>(_petShopList[petIndex].get()))
+    {
+        for (int i = 0;i < _player->getPetCount(); i++)
+        {
+            if (!dynamic_cast<IronCow*>(_petShopList[petIndex].get()))
+            {
+                _player->getPetAt(i)->addHP(2);
+                _player->getPetAt(i)->addAttack(2);
+            }
+        }
+    }
+
     // 清除该位置
     _petShopList[petIndex] = nullptr;
     _petFrozen[petIndex] = false;
@@ -157,16 +179,18 @@ bool Shop::buyPet(int petIndex, int targetPetIndex)
 
 bool Shop::sell(int targetPetIndex)
 {
+    auto pet1 = _player->getPetAt(targetPetIndex);
+    if (dynamic_cast<Duck*>(pet1)) { //在Shop中实现Duck的技能
+        for (int i = 0;i < _player->getPetCount(); i++)
+        {
+            if (i == targetPetIndex) continue;
+            _player->getPetAt(i)->addHP(1);
+        }
+    }
     // 移除宠物
     auto pet = _player->removePet(targetPetIndex);
     if (!pet)
         return false;
-    if (dynamic_cast<Duck*>(pet.get())) { //在Shop中实现Duck的技能
-        for (int i = 0;i < _player->getPetCount(); i++)
-        {
-            _player->getPetAt(i)->addHP(1);
-        }
-    }
     if (dynamic_cast<Cricket*>(pet.get())) { //在Shop中调用Cricket技能
         pet.get()->triggerOnSell(_player->getPets());
     }

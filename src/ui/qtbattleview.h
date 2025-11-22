@@ -80,6 +80,11 @@ private:
     // 生成AI对手
     void generateAITeam(int difficulty);
 
+    // 标记战斗结束事件等待处理
+    bool _pendingBattleEnd = false;
+
+    // 统一处理战斗结束后的逻辑
+    void handleBattleEndActions();
     int _activeAnimationCount = 0; // 用于追踪正在播放的动画数量
 
 signals:

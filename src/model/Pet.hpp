@@ -24,7 +24,7 @@ protected:
     int _exp;
     int _tier;
     int _cost = 3;
-    std::unique_ptr<Skill> _skill;
+    std::shared_ptr<Skill> _skill;
 
     // 基础属性（用于计算升级后的值）
 
@@ -108,7 +108,7 @@ public:
 
     void setSkill(std::unique_ptr<Skill> s) { _skill = std::move(s); }
     Skill* getSkill() const { return _skill.get(); }
-    void onStartBattle();
+    void onStartBattle(BattleEngine* engine);
 
     virtual void triggerPreBattleSkill() {}; // 兼容旧调用（如果无 engine）
     virtual void triggerPostBattleSkill() {}; // 兼容占位
@@ -259,4 +259,20 @@ public:
     Skunk(int hp = 5, int attack = 3, int ownerPlayer = 0, int tier = 4);
     Skunk(const Skunk& other);                              // 新增拷贝构造函数
     ~Skunk() = default;
+};
+
+class IronCow : public Pet
+{
+public:
+    IronCow(int hp = 0, int attack = 0, int ownerPlayer = 0, int tier = 1000);
+    IronCow(const IronCow& other);                              // 新增拷贝构造函数
+    ~IronCow() = default;
+};
+
+class Cultivated : public Pet
+{
+public:
+    Cultivated(int hp = 1, int attack = 7, int ownerPlayer = 0, int tier = 999);
+    Cultivated(const Cultivated& other);                              // 新增拷贝构造函数
+    ~Cultivated() = default;
 };

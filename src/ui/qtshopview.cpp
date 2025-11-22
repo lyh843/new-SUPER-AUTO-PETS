@@ -280,7 +280,7 @@ void QtShopview::setupUI()
         connect(btn, &QPushButton::clicked, this, [this, i]() { onPlayerPetClicked(i, true); });
     }
     // 只连接前3个商店宠物槽位（商店只有3个槽位）
-    for (int i = 0; i < 3 && i < static_cast<int>(_shopPets.size()); i++)
+    for (int i = 0; i < 6; i++)
     {
         QPushButton* btn = _shopPets[i]->getPushButton();
         connect(btn, &QPushButton::clicked, [this, i]() { onShopPetClicked(i, false); });

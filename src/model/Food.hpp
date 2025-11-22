@@ -21,7 +21,8 @@ enum class FoodPerkType
     Mushroom,    // 蘑菇：死亡时复活一次
     Steak,       // 牛排：+20攻击（临时，仅本回合）
     Coconut,     // 椰子：+3生命（护甲）
-    Pear         // 梨子：+2攻击 +1生命
+    Pear,         // 梨子：+2攻击 +1生命
+    Cake         // 蛋糕：陷阱食物
 };
 
 class Food
@@ -70,4 +71,5 @@ public:
     static std::unique_ptr<Food> createMelon();
     static std::unique_ptr<Food> createMushroom();
     static std::unique_ptr<Food> createPear();
+    static std::unique_ptr<Food> createCake();
 };

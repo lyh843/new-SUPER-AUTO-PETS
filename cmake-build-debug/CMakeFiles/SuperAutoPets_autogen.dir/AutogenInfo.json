@@ -1,10 +1,10 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen",
-	"CMAKE_BINARY_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS",
-	"CMAKE_EXECUTABLE" : "D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/bin/cmake.exe",
+	"BUILD_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen",
+	"CMAKE_BINARY_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/new-SUPER-AUTO-PETS",
+	"CMAKE_EXECUTABLE" : "D:/JetBrains/CLion/bin/cmake/win/x64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/CMakeLists.txt",
@@ -259,100 +259,100 @@
 		"F:/Qt/6.10.0/mingw_64/lib/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake",
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/resource.qrc"
 	],
-	"CMAKE_SOURCE_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS",
+	"CMAKE_SOURCE_DIR" : "D:/new-SUPER-AUTO-PETS",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/deps",
+	"DEP_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "SuperAutoPets_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/engine/BattleEngine.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/engine/BattleEngine.hpp",
 			"MU",
 			"GCRDZAAASK/moc_BattleEngine.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Food.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/model/Food.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Food.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Pet.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/model/Pet.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Pet.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Player.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/model/Player.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Player.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Shop.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/model/Shop.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Shop.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Skill.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/model/Skill.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Skill.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/BattleView.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/ui/BattleView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_BattleView.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_PetEncyclopediaView.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/RecordsView.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/ui/RecordsView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_RecordsView.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/ShopView.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/ui/ShopView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_ShopView.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/StartView.hpp",
+			"D:/new-SUPER-AUTO-PETS/src/ui/StartView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_StartView.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtbattleview.h",
+			"D:/new-SUPER-AUTO-PETS/src/ui/qtbattleview.h",
 			"MU",
 			"YPKJ5OE7LN/moc_qtbattleview.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtshopview.h",
+			"D:/new-SUPER-AUTO-PETS/src/ui/qtshopview.h",
 			"MU",
 			"YPKJ5OE7LN/moc_qtshopview.cpp",
 			null
 		],
 		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/resultturn.h",
+			"D:/new-SUPER-AUTO-PETS/src/ui/resultturn.h",
 			"MU",
 			"YPKJ5OE7LN/moc_resultturn.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/include",
-	"MOC_COMPILATION_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/include",
+	"MOC_COMPILATION_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -375,20 +375,20 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug",
-		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS",
-		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src",
-		"F:/Qt/6.10.0/mingw_64/include/QtWidgets",
-		"F:/Qt/6.10.0/mingw_64/include",
-		"F:/Qt/6.10.0/mingw_64/include/QtCore",
-		"F:/Qt/6.10.0/mingw_64/mkspecs/win32-g++",
-		"F:/Qt/6.10.0/mingw_64/include/QtGui",
-		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++",
-		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32",
-		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward",
-		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include",
-		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed",
-		"F:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include"
+		"D:/new-SUPER-AUTO-PETS/cmake-build-debug",
+		"D:/new-SUPER-AUTO-PETS",
+		"D:/new-SUPER-AUTO-PETS/src",
+		"D:/Qt/6.10.0/mingw_64/include/QtWidgets",
+		"D:/Qt/6.10.0/mingw_64/include",
+		"D:/Qt/6.10.0/mingw_64/include/QtCore",
+		"D:/Qt/6.10.0/mingw_64/mkspecs/win32-g++",
+		"D:/Qt/6.10.0/mingw_64/include/QtGui",
+		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++",
+		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32",
+		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward",
+		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include",
+		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed",
+		"D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include"
 	],
 	"MOC_MACRO_NAMES" : 
 	[
@@ -403,101 +403,41 @@
 	"MOC_PATH_PREFIX" : false,
 	"MOC_PREDEFS_CMD" : 
 	[
-		"F:/Qt/Tools/mingw1310_64/bin/c++.exe",
+		"D:/Qt/Tools/mingw1310_64/bin/c++.exe",
 		"-std=gnu++20",
+		"-w",
 		"-dM",
 		"-E",
-		"-c",
-		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp"
+		"D:/JetBrains/CLion/bin/cmake/win/x64/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 16,
-	"PARSE_CACHE_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/ParseCache.txt",
-	"QT_MOC_EXECUTABLE" : "F:/Qt/6.10.0/mingw_64/bin/moc.exe",
-	"QT_UIC_EXECUTABLE" : "F:/Qt/6.10.0/mingw_64/bin/uic.exe",
+	"PARALLEL" : 14,
+	"PARSE_CACHE_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "D:/Qt/6.10.0/mingw_64/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "D:/Qt/6.10.0/mingw_64/bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 10,
-	"SETTINGS_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/engine/BattleEngine.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/main.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Food.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Pet.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Player.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Shop.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Skill.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/BattleView.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/RecordsView.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/ShopView.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/StartView.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtbattleview.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtshopview.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/resultturn.cpp",
-			"MU",
-			null
-		]
+		[ "D:/new-SUPER-AUTO-PETS/src/engine/BattleEngine.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/main.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/model/Food.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/model/Pet.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/model/Player.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/model/Shop.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/model/Skill.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/BattleView.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/RecordsView.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/ShopView.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/StartView.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/qtbattleview.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/qtshopview.cpp", "MU", null ],
+		[ "D:/new-SUPER-AUTO-PETS/src/ui/resultturn.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
