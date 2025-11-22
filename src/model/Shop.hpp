@@ -8,7 +8,6 @@
 #include <vector>
 #include <random>
 
-constexpr int PET_SHOP_SIZE = 3;   // 商店宠物格子数
 constexpr int FOOD_SHOP_SIZE = 2;  // 商店食物格子数
 constexpr int REFRESH_COST = 1;    // 刷新商店的费用
 constexpr int PET_COST = 3;        // 购买宠物的费用
@@ -23,6 +22,7 @@ private:
     std::vector<bool> _petFrozen;                     // 宠物是否被冻结
     std::vector<bool> _foodFrozen;                    // 食物是否被冻结
     std::mt19937 _rng;                                // 随机数生成器
+    int petShopSize;
 
     // 生成随机宠物
     std::unique_ptr<Pet> generateRandomPet();
@@ -68,6 +68,14 @@ public:
     bool isFoodFrozen(int index) const;
 
     void swapPets(int index, int targetIndex);
+
+    void setPetShopSize(int i){
+        petShopSize = i;
+    }
+
+    int getPetShopSize(){
+        return petShopSize;
+    }
 
     ~Shop() = default;
 };

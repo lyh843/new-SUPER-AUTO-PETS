@@ -21,6 +21,7 @@ void BattleEngine::initialize(std::vector<std::unique_ptr<Pet>>& p1,
 
     _player1Team = std::move(p1);
     _player2Team = std::move(p2);
+
     _player = player;
 
     _inBattle = false;
@@ -46,6 +47,7 @@ BattleResult BattleEngine::startBattle()
     _inBattle = true;
 
     _triggerEvent({BattleEventType::BattleStart, "战斗开始！", -1, -1, 0, true});
+
     QThread::msleep(500);
 
     _executePreBattleSkills();
@@ -64,11 +66,11 @@ BattleResult BattleEngine::startBattle()
 
 void BattleEngine::startBattleManual()
 {
+    _executePreBattleSkills();
+
     _inBattle = true;
 
     _triggerEvent({BattleEventType::BattleStart, "战斗开始！", -1, -1, 0, true});
-
-    _executePreBattleSkills();
 }
 
 bool BattleEngine::executeSingleStep()
@@ -101,13 +103,16 @@ void BattleEngine::_executePreBattleSkills()
         }
     }
 
+    //Kangaroo技能实现
     for (auto &pet : _player1Team)
         if (pet)
-            pet->onStartBattle();
+            pet->onStartBattle(this);
 
     for (auto &pet : _player2Team)
         if (pet)
-            pet->onStartBattle();
+            pet->onStartBattle(this);
+
+
 }
 
 /* ======================== 主回合流程 ======================== */
@@ -190,12 +195,13 @@ void BattleEngine::_applyDamage(
     //     attackerIdx, defenderIdx, damage, isPlayer1Attacking
     // });
 
-    defender->receiveDamage(damage1);
-    attacker->receiveDamage(damage2);
-
     /* ===== 受伤技能触发 ===== */
     defender->triggerOnHurt(attacker, damage1, this);
     attacker->triggerOnHurt(defender, damage2, this);
+
+    if (!defender->isDead()) defender->receiveDamage(damage1);
+    if (!attacker->isDead()) attacker->receiveDamage(damage2);
+
 
     // _triggerEvent({
     //     BattleEventType::TakeDamage,

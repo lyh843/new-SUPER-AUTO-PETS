@@ -2,7 +2,6 @@
 #include "YPKJ5OE7LN/moc_BattleView.cpp"
 #include "YPKJ5OE7LN/moc_PetEncyclopediaView.cpp"
 #include "YPKJ5OE7LN/moc_RecordsView.cpp"
-#include "YPKJ5OE7LN/moc_ShopView.cpp"
 #include "YPKJ5OE7LN/moc_StartView.cpp"
 #include "YPKJ5OE7LN/moc_qtbattleview.cpp"
 #include "YPKJ5OE7LN/moc_qtshopview.cpp"

@@ -335,7 +335,7 @@ void QtShopview::updatePlayerPets()
 void QtShopview::updateShopPets()
 {
     // 商店只有3个宠物槽位（PET_SHOP_SIZE = 3）
-    for (int i = 0; i < 3 && i < static_cast<int>(_shopPets.size()); i++)
+    for (int i = 0; i < _shop->getPetShopSize(); i++)
     {
         Pet* pet = _shop->getPet(i);
         bool frozen = _shop->isPetFrozen(i);
@@ -344,7 +344,7 @@ void QtShopview::updateShopPets()
         _shopPets[i]->getPushButton()->setEnabled(pet != nullptr);
     }
     // 隐藏多余的宠物槽位
-    for (int i = 3; i < static_cast<int>(_shopPets.size()); i++)
+    for (int i = _shop->getPetShopSize(); i < static_cast<int>(_shopPets.size()); i++)
     {
         _shopPets[i]->clear();
     }
@@ -391,7 +391,7 @@ void QtShopview::onEndTurnClicked()
 void QtShopview::onShopPetClicked(int index, bool isPlayerPet)
 {
     // 检查索引有效性（商店只有3个宠物槽位）
-    if (index < 0 || index >= 3)
+    if (index < 0 || index >= _shop->getPetShopSize())
     {
         return;
     }
@@ -634,6 +634,7 @@ void QtShopview::resetShop()
 {
     // _shop = std::make_unique<Shop>(_player);
     _shop->refresh();
+    _player->addCoin();
     updateUI();
 }
 

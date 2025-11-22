@@ -24,7 +24,7 @@ protected:
     int _exp;
     int _tier;
     int _cost = 3;
-    std::unique_ptr<Skill> _skill;
+    std::shared_ptr<Skill> _skill;
 
     // 基础属性（用于计算升级后的值）
 
@@ -108,7 +108,7 @@ public:
 
     void setSkill(std::unique_ptr<Skill> s) { _skill = std::move(s); }
     Skill* getSkill() const { return _skill.get(); }
-    void onStartBattle();
+    void onStartBattle(BattleEngine* engine);
 
     virtual void triggerPreBattleSkill() {}; // 兼容旧调用（如果无 engine）
     virtual void triggerPostBattleSkill() {}; // 兼容占位

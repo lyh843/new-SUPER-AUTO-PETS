@@ -20,6 +20,7 @@ class SkillDuck;
 Pet::Pet(const Pet& other)
     : _name(other._name)
     , _chineseName(other._chineseName)
+    ,_introSkills(other._introSkills)
     , _hp(other._hp)
     , _damage(other._damage)
     , _ownerPlayer(other._ownerPlayer)
@@ -32,6 +33,7 @@ Pet::Pet(const Pet& other)
     , _hasArmor(other._hasArmor)
     , _canRevive(other._canRevive)
     , _hasMelonShield(other._hasMelonShield)
+    , _skill(other._skill)
 {}
 
 // 实现升级逻辑
@@ -131,9 +133,9 @@ void Pet::triggerOnSell(std::vector<std::unique_ptr<Pet>>& ownerTeam) {
     if (_skill) _skill->onSell(this, ownerTeam);
 }
 
-void Pet::onStartBattle() {
+void Pet::onStartBattle(BattleEngine* engine) {
     if (_skill)
-        _skill->onStart(this);
+        _skill->onPreBattle(this,engine);
 }
 
 // 派生类构造函数实现
@@ -160,7 +162,7 @@ Cricket::Cricket(int hp, int attack, int ownerPlayer, int tier)
 }
 
 Duck::Duck(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Duck", "鸭", "出售给所有玩家宠物+1HP", hp, attack, ownerPlayer, tier)
+    : Pet("Duck", "鸭", "出售以后给所有玩家宠物+1HP", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillDuck>());
 }
@@ -184,7 +186,7 @@ Hedgehog::Hedgehog(int hp, int attack, int ownerPlayer, int tier)
 }
 
 Kangaroo::Kangaroo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Kangaroo", "袋鼠", "前方的朋友+1HP/+1ATK", hp, attack, ownerPlayer, tier)
+    : Pet("Kangaroo", "袋鼠", "战斗开始时给前方的队友+1HP/+1ATK", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillKangaroo>());
 }
