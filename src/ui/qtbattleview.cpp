@@ -114,22 +114,27 @@ void QtBattleView::generateAITeam(int difficulty)
     for (int i = 0; i < petCount; ++i)
     {
         // 随机选择宠物类型
-        int petType = std::uniform_int_distribution<>(0, 7)(gen);
+        int petType = std::uniform_int_distribution<>(0, 12)(gen);
 
         std::unique_ptr<Pet> pet;
         switch (petType)
         {
-        case 0: pet = std::make_unique<Cat>(4, 3, 1, 1); break;
-        case 1: pet = std::make_unique<Ant>(2, 1, 1, 1); break;
-        case 2: pet = std::make_unique<Fish>(3, 2, 1, 1); break;
-        case 3: pet = std::make_unique<Cricket>(1, 2, 1, 1); break;
-        case 4: pet = std::make_unique<Swan>(3, 1, 1, 2); break;
-        case 5: pet = std::make_unique<Flamingo>(3, 2, 1, 2); break;
-        case 6: pet = std::make_unique<Hedgehog>(3, 1, 1, 2); break;
-        case 7: pet = std::make_unique<Peacock>(2, 5, 1, 3); break;
-        }
+            case 0: pet = std::make_unique<Cat>(4, 3, 1, 1); break;
+            case 1: pet = std::make_unique<Ant>(2, 1, 1, 1); break;
+            case 2: pet = std::make_unique<Fish>(3, 2, 1, 1); break;
+            case 3: pet = std::make_unique<Cricket>(1, 2, 1, 1); break;
+            case 4: pet = std::make_unique<Swan>(3, 1, 1, 2); break;
+            case 5: pet = std::make_unique<Flamingo>(3, 2, 1, 2); break;
+            case 6: pet = std::make_unique<Hedgehog>(3, 1, 1, 2); break;
+            case 7: pet = std::make_unique<Peacock>(2, 5, 1, 3); break;
+            case 8: pet = std::make_unique<Duck>(3, 2, 1, 1); break;
+            case 9: pet = std::make_unique<Kangaroo>(3, 2, 1, 3); break;
+            case 10: pet = std::make_unique<Dodo>(2, 4, 1, 3); break;
+            case 11: pet = std::make_unique<Blowfish>(6, 3, 1, 4); break;
+            case 12: pet = std::make_unique<Skunk>(5, 3, 1, 4); break;
+            }
 
-                // 根据难度提升属性
+        // 根据难度提升属性
         int levelBonus = difficulty / 3;
         for (int j = 0; j < levelBonus; ++j)
         {
@@ -163,21 +168,21 @@ void QtBattleView::setupPetDisplays()
     _playerPetLabels.append(ui->your_pet_1);
 
     // 玩家状态标签 (Status Image)
-    _playerPetStatusLabels.append(ui->your_pet_5_status); // 假设您的状态图片标签命名为 your_status_X
+    _playerPetStatusLabels.append(ui->your_pet_5_status);
     _playerPetStatusLabels.append(ui->your_pet_4_status);
     _playerPetStatusLabels.append(ui->your_pet_3_status);
     _playerPetStatusLabels.append(ui->your_pet_2_status);
     _playerPetStatusLabels.append(ui->your_pet_1_status);
 
     // 玩家属性标签 (Attack)
-    _playerAttackLabels.append(ui->your_Attack_5); // 假设您的攻击力数值标签命名为 your_attack_X
+    _playerAttackLabels.append(ui->your_Attack_5);
     _playerAttackLabels.append(ui->your_Attack_4);
     _playerAttackLabels.append(ui->your_Attack_3);
     _playerAttackLabels.append(ui->your_Attack_2);
     _playerAttackLabels.append(ui->your_Attack_1);
 
     // 玩家属性标签 (HP)
-    _playerHPLabels.append(ui->your_HP_5); // 假设您的生命值数值标签命名为 your_hp_X
+    _playerHPLabels.append(ui->your_HP_5);
     _playerHPLabels.append(ui->your_HP_4);
     _playerHPLabels.append(ui->your_HP_3);
     _playerHPLabels.append(ui->your_HP_2);
@@ -192,21 +197,21 @@ void QtBattleView::setupPetDisplays()
     _aiPetLabels.append(ui->opponents_pet_5);
 
     // AI 状态标签 (Status Image)
-    _aiPetsStatusLabels.append(ui->opponents_pet_1_status); // 假设您的状态图片标签命名为 opponents_status_X
+    _aiPetsStatusLabels.append(ui->opponents_pet_1_status);
     _aiPetsStatusLabels.append(ui->opponents_pet_2_status);
     _aiPetsStatusLabels.append(ui->opponents_pet_3_status);
     _aiPetsStatusLabels.append(ui->opponents_pet_4_status);
     _aiPetsStatusLabels.append(ui->opponents_pet_5_status);
 
     // AI 属性标签 (Attack)
-    _aiAttackLabels.append(ui->opponents_Attack_1); // 假设您的攻击力数值标签命名为 opponents_attack_X
+    _aiAttackLabels.append(ui->opponents_Attack_1);
     _aiAttackLabels.append(ui->opponents_Attack_2);
     _aiAttackLabels.append(ui->opponents_Attack_3);
     _aiAttackLabels.append(ui->opponents_Attack_4);
     _aiAttackLabels.append(ui->opponents_Attack_5);
 
     // AI 属性标签 (HP)
-    _aiHPLabels.append(ui->opponents_HP_1); // 假设您的生命值数值标签命名为 opponents_hp_X
+    _aiHPLabels.append(ui->opponents_HP_1);
     _aiHPLabels.append(ui->opponents_HP_2);
     _aiHPLabels.append(ui->opponents_HP_3);
     _aiHPLabels.append(ui->opponents_HP_4);
@@ -254,18 +259,6 @@ void QtBattleView::updatePetDisplay(int index, bool isPlayer, const Pet* pet)
     // 更新 Attack 和 HP 数值
     attackLabel->setText(QString::number(pet->getAttack()));
     hpLabel->setText(QString::number(pet->getHP()));
-
-    // 更新 Tooltip (保持不变)
-    QString tooltip = QString("%1\nHP: %2\nATK: %3")
-                          .arg(QString::fromStdString(pet->getName()))
-                          .arg(pet->getHP())
-                          .arg(pet->getAttack());
-
-    if (pet->hasArmor()) tooltip += "\n🛡️护甲";
-    if (pet->hasMelonShield()) tooltip += "\n🍉西瓜护盾";
-    if (pet->canRevive()) tooltip += "\n🍄复活";
-
-    petLabel->setToolTip(tooltip);
 }
 
 //更新战斗场景实现
@@ -314,7 +307,7 @@ void QtBattleView::updateBattleDisplay()
         }
     }
 
-            // 2. 更新 AI 宠物显示 (统一使用 aiTeamPtr)
+    // 2. 更新 AI 宠物显示 (统一使用 aiTeamPtr)
     for (int i = 0; i < _aiPetLabels.size(); ++i) {
         if (i < static_cast<int>(aiTeamPtr->size())) {
             const Pet* pet = (*aiTeamPtr)[i].get();
