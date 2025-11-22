@@ -111,6 +111,8 @@ private:
     // 检查胜负
     bool _isBattleOver();
 
+    void FlamingoSkill();
+
     // 战斗结束处理
     void _finishBattle();
 

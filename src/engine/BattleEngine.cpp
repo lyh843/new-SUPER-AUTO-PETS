@@ -114,25 +114,7 @@ void BattleEngine::_executePreBattleSkills()
 
 void BattleEngine::_executeTurn()
 {
-    if (_isBattleOver())
-    {
-        //优先检查实现Flamingo技能
-        for (auto &pet : _player1Team)
-        {
-            if (dynamic_cast<Flamingo*>(pet.get()) && !pet.get()->isDead())
-            {
-                pet.get()->setAttack(pet.get()->getAttack()+2);
-            }
-        }
-        for (auto &pet : _player2Team)
-        {
-            if (dynamic_cast<Flamingo*>(pet.get()) && !pet.get()->isDead())
-            {
-                pet.get()->setAttack(pet.get()->getAttack()+2);
-            }
-        }
-        return;
-    }
+    if (_isBattleOver()) {return;}
 
     int attackerIdx = _getFirstAlivePet(_player1Turn ? _player1Team : _player2Team);
     int defenderIdx = _getFirstAlivePet(_player1Turn ? _player2Team : _player1Team);
@@ -289,6 +271,9 @@ bool BattleEngine::_isBattleOver()
 
 void BattleEngine::_finishBattle()
 {
+    //优先检查实现Flamingo技能
+    FlamingoSkill();
+
     int p1Alive = 0, p2Alive = 0;
 
     for (auto &pet : _player1Team)
@@ -347,4 +332,24 @@ void BattleEngine::dealDamageToAll(int damage)
 
 void BattleEngine::emitEvent(const BattleEvent& event) {
     _triggerEvent(event);
+}
+
+void BattleEngine::FlamingoSkill()
+{
+    int count = 0;
+    for (auto &pet : _player1Team)
+    {
+        if (pet.get()->getName() == "Flamingo" && !pet.get()->isDead())
+        {
+            count++;
+        }
+    }
+    for (int i = _player->getPets().size() - 1; i >= 0 && count > 0; i--)
+    {
+        if (_player->getPets()[i].get()->getName() == "Flamingo")
+        {
+            _player->getPets()[i].get()->setAttack(_player->getPets()[i].get()->getAttack()+2);
+            count--;
+        }
+    }
 }
