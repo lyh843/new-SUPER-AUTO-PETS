@@ -1,6 +1,7 @@
 docs/overall_design.pdf
 CMakePresets.json
 CMakeLists.txt.*
+cmake-build-debug
 
 build/
 out/

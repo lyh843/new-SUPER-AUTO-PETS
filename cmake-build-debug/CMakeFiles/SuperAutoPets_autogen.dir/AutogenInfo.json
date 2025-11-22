@@ -1,16 +1,68 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen",
-	"CMAKE_BINARY_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "D:/new-SUPER-AUTO-PETS",
-	"CMAKE_EXECUTABLE" : "D:/JetBrains/CLion/bin/cmake/win/x64/bin/cmake.exe",
+	"BUILD_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen",
+	"CMAKE_BINARY_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS",
+	"CMAKE_EXECUTABLE" : "D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/CMakeLists.txt",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystem.cmake.in",
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/3.29.6/CMakeSystem.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Determine-CXX.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCompilerIdDetection.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/ADSP-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/ARMCC-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/ARMClang-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/AppleClang-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompilerInternal.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Borland-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompilerInternal.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Cray-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CrayClang-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Embarcadero-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Fujitsu-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GHS-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/HP-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/IAR-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Intel-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/MSVC-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/NVHPC-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/NVIDIA-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/OrangeC-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/PGI-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/PathScale-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/SCO-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/TI-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/TIClang-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Tasking-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/Watcom-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/XL-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeFindBinUtils.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-FindBinUtils.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXCompiler.cmake.in",
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/3.29.6/CMakeCXXCompiler.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake",
@@ -24,11 +76,27 @@
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineRCCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCCompiler.cmake.in",
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/3.29.6/CMakeRCCompiler.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake",
-		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeTestRCCompiler.cmake",
 		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeTestCompilerCommon.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeParseImplicitIncludeInfo.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeParseLibraryArchitecture.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeTestCompilerCommon.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDetermineCompileFeatures.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/FeatureTesting.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXCompiler.cmake.in",
+		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/3.29.6/CMakeCXXCompiler.cmake",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
 		"F:/Qt/6.10.0/mingw_64/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
 		"F:/Qt/6.10.0/mingw_64/lib/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
 		"F:/Qt/6.10.0/mingw_64/lib/cmake/Qt6/Qt6Config.cmake",
@@ -259,100 +327,100 @@
 		"F:/Qt/6.10.0/mingw_64/lib/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake",
 		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/resource.qrc"
 	],
-	"CMAKE_SOURCE_DIR" : "D:/new-SUPER-AUTO-PETS",
+	"CMAKE_SOURCE_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/deps",
+	"DEP_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "SuperAutoPets_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"D:/new-SUPER-AUTO-PETS/src/engine/BattleEngine.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/engine/BattleEngine.hpp",
 			"MU",
 			"GCRDZAAASK/moc_BattleEngine.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/model/Food.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Food.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Food.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/model/Pet.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Pet.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Pet.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/model/Player.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Player.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Player.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/model/Shop.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Shop.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Shop.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/model/Skill.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Skill.hpp",
 			"MU",
 			"VNQA4LF4BW/moc_Skill.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/BattleView.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/BattleView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_BattleView.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_PetEncyclopediaView.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/RecordsView.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/RecordsView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_RecordsView.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/ShopView.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/ShopView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_ShopView.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/StartView.hpp",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/StartView.hpp",
 			"MU",
 			"YPKJ5OE7LN/moc_StartView.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/qtbattleview.h",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtbattleview.h",
 			"MU",
 			"YPKJ5OE7LN/moc_qtbattleview.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/qtshopview.h",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtshopview.h",
 			"MU",
 			"YPKJ5OE7LN/moc_qtshopview.cpp",
 			null
 		],
 		[
-			"D:/new-SUPER-AUTO-PETS/src/ui/resultturn.h",
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/resultturn.h",
 			"MU",
 			"YPKJ5OE7LN/moc_resultturn.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/include",
-	"MOC_COMPILATION_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/include",
+	"MOC_COMPILATION_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -375,20 +443,20 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"D:/new-SUPER-AUTO-PETS/cmake-build-debug",
-		"D:/new-SUPER-AUTO-PETS",
-		"D:/new-SUPER-AUTO-PETS/src",
-		"D:/Qt/6.10.0/mingw_64/include/QtWidgets",
-		"D:/Qt/6.10.0/mingw_64/include",
-		"D:/Qt/6.10.0/mingw_64/include/QtCore",
-		"D:/Qt/6.10.0/mingw_64/mkspecs/win32-g++",
-		"D:/Qt/6.10.0/mingw_64/include/QtGui",
-		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++",
-		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32",
-		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward",
-		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include",
-		"D:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed",
-		"D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include"
+		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug",
+		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS",
+		"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src",
+		"F:/Qt/6.10.0/mingw_64/include/QtWidgets",
+		"F:/Qt/6.10.0/mingw_64/include",
+		"F:/Qt/6.10.0/mingw_64/include/QtCore",
+		"F:/Qt/6.10.0/mingw_64/mkspecs/win32-g++",
+		"F:/Qt/6.10.0/mingw_64/include/QtGui",
+		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++",
+		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32",
+		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward",
+		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include",
+		"F:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed",
+		"F:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include"
 	],
 	"MOC_MACRO_NAMES" : 
 	[
@@ -403,41 +471,101 @@
 	"MOC_PATH_PREFIX" : false,
 	"MOC_PREDEFS_CMD" : 
 	[
-		"D:/Qt/Tools/mingw1310_64/bin/c++.exe",
+		"F:/Qt/Tools/mingw1310_64/bin/c++.exe",
 		"-std=gnu++20",
-		"-w",
 		"-dM",
 		"-E",
-		"D:/JetBrains/CLion/bin/cmake/win/x64/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp"
+		"-c",
+		"D:/software LYH/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/SuperAutoPets_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 14,
-	"PARSE_CACHE_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/ParseCache.txt",
-	"QT_MOC_EXECUTABLE" : "D:/Qt/6.10.0/mingw_64/bin/moc.exe",
-	"QT_UIC_EXECUTABLE" : "D:/Qt/6.10.0/mingw_64/bin/uic.exe",
+	"PARALLEL" : 16,
+	"PARSE_CACHE_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "F:/Qt/6.10.0/mingw_64/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "F:/Qt/6.10.0/mingw_64/bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 10,
-	"SETTINGS_FILE" : "D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "D:/new-SUPER-AUTO-PETS/src/engine/BattleEngine.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/main.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/model/Food.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/model/Pet.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/model/Player.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/model/Shop.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/model/Skill.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/BattleView.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/RecordsView.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/ShopView.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/StartView.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/qtbattleview.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/qtshopview.cpp", "MU", null ],
-		[ "D:/new-SUPER-AUTO-PETS/src/ui/resultturn.cpp", "MU", null ]
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/engine/BattleEngine.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Food.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Pet.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Player.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Shop.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/model/Skill.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/BattleView.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/PetEncyclopediaView.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/RecordsView.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/ShopView.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/StartView.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtbattleview.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/qtshopview.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/src/ui/resultturn.cpp",
+			"MU",
+			null
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
