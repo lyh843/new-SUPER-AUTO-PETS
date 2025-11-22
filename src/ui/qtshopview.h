@@ -2,6 +2,8 @@
 #define QTSHOPVIEW_H
 
 #include <qlabel.h>
+#include <qobject.h>
+#include <qtmetamacros.h>
 #include "../model/Player.hpp"
 #include "../model/Shop.hpp"
 #include "model/Pet.hpp"
@@ -16,8 +18,9 @@ namespace Ui
 class QtShopview;
 }
 
-class QtPet
+class QtPet : public QObject
 {
+    Q_OBJECT
 private:
     Pet* _pet;
     QPushButton* _petPushButton;
@@ -27,6 +30,7 @@ private:
     QLabel* _petInfoCoin;
     QLabel* _petInfoCoinIndex; 
     QLabel* _petInfoLevel;
+    QLabel* _petFreeze;
     // std::pair<int, int> _loc;
     int _index;
     bool _isPlayerPet;
@@ -34,34 +38,47 @@ private:
 
 public:
     QtPet(QPushButton* petPushButton, QLabel* petInfo, QLabel* petInfoAttack, QLabel* petInfoHeart, QLabel* petInfoCoin,
-        QLabel* petInfoCoinIndex, QLabel* petInfoLevel, int index, bool isPlayerPet);
+        QLabel* petInfoCoinIndex, QLabel* petInfoLevel, QLabel* petFreeze, int index, bool isPlayerPet);
     void updatePet(Pet* pet);
     void clear();
-    void freeze();
     void clicked();
     QPushButton* getPushButton();
     Pet* getPet(){ return _pet; };
     Pet* setPet(Pet* pet){
         _pet = pet;
+        return _pet;
     }
+    bool eventFilter(QObject* obj, QEvent *event) override;
+    void setFreeze(bool freeze){ _isFreeze = freeze;}
+    bool isFreeze() const {return isFreeze();}
+signals:
+    void freezeClicked(int index);
 };
 
-class QtFood
+class QtFood : public QObject
 {
+    Q_OBJECT
 private:
     Food* _food;
     QPushButton* _foodPushButton;
     QLabel* _foodInfoCoin;
-    QLabel* _foodInfoCoinIndex; 
+    QLabel* _foodInfoCoinIndex;
+    QLabel* _foodFreeze;
     // std::pair<int, int> _loc;
     int _index;
+    bool _isFreeze;
 public:
-    QtFood(QPushButton* foodPushButton,  QLabel* foodInfoCoin, QLabel* foodInfoCoinIndex, int index);
+    QtFood(QPushButton* foodPushButton,  QLabel* foodInfoCoin, QLabel* foodInfoCoinIndex, QLabel* foodFreeze, int index);
     void updateFood(Food* food);
     void clear();
     void freeze();
     void clicked();
     QPushButton* getPushButton();
+    bool eventFilter(QObject* obj, QEvent *event) override;
+    void setFreeze(bool freeze){_isFreeze = freeze;}
+    bool isFreeze() const {return isFreeze();}
+signals:
+    void freezeClicked(int index);
 };
 
 class QtShopview : public QWidget
