@@ -21,6 +21,7 @@ void BattleEngine::initialize(std::vector<std::unique_ptr<Pet>>& p1,
 
     _player1Team = std::move(p1);
     _player2Team = std::move(p2);
+
     _player = player;
 
     _inBattle = false;
@@ -46,6 +47,7 @@ BattleResult BattleEngine::startBattle()
     _inBattle = true;
 
     _triggerEvent({BattleEventType::BattleStart, "战斗开始！", -1, -1, 0, true});
+
     QThread::msleep(500);
 
     _executePreBattleSkills();
@@ -101,6 +103,7 @@ void BattleEngine::_executePreBattleSkills()
         }
     }
 
+    //Kangaroo技能实现
     for (auto &pet : _player1Team)
         if (pet)
             pet->onStartBattle(this);
@@ -108,6 +111,8 @@ void BattleEngine::_executePreBattleSkills()
     for (auto &pet : _player2Team)
         if (pet)
             pet->onStartBattle(this);
+
+
 }
 
 /* ======================== 主回合流程 ======================== */

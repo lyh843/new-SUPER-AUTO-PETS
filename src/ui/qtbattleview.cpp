@@ -513,8 +513,11 @@ void QtBattleView::on_start_button_clicked()
         onBattleEvent(event);
     });
 
+
+
     // 触发战斗开始事件
     _battleEngine.startBattleManual();
+    updateBattleDisplay();
 
     ui->start_button->setEnabled(false);
     ui->start_button->setCursor(Qt::ArrowCursor);

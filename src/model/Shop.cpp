@@ -78,7 +78,15 @@ bool Shop::refresh()
             _petShopList[i] = generateRandomPet();
         }
     }
-
+    // if (_player->getRound() == 5)
+    // {
+    //
+    //     _petShopList[petShopSize] = ;
+    // }
+    // if (_player->getRound() == 7)
+    // {
+    //     _petShopList[petShopSize] = ;
+    // }
     // 刷新未冻结的食物
     for (int i = 0; i < FOOD_SHOP_SIZE; ++i)
     {
