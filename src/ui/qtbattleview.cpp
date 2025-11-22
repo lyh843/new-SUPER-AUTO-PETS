@@ -10,7 +10,7 @@
 #include <QParallelAnimationGroup> // 实现同时动画
 #include <QPoint>               // 坐标点
 #include <QEasingCurve>         // 缓动曲线，让动画更自然
-#include <QDebug>               // 可选，用于调试
+
 
 //构造函数实现
 QtBattleView::QtBattleView(Player* player, QWidget* parent) :
@@ -59,15 +59,14 @@ void QtBattleView::startNewBattle()
     _battleStarted = false;
     _autoBattle = false;
     _pendingDisplayUpdate = false;
+    _pendingBattleEnd = false;
+    _activeAnimationCount = 0;
     _autoTimer->stop();
 
     // 生成AI对手
     generateAITeam(_player->getRound());
 
-    // 延迟更新显示
-    QTimer::singleShot(0, this, [this]() {
-        updateBattleDisplay();
-    });
+    updateBattleDisplay();
 
     // 恢复自动播放图标和文字的原始状态
     ui->auto_play->setPixmap(QPixmap(":/else/photo/Refresh.png"));
@@ -657,7 +656,6 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
     case BattleEventType::TurnStart:
         highlightAttacker(event.attackerIndex, event.isPlayer1);
         highlightDefender(event.defenderIndex, !event.isPlayer1);
-        shouldMarkUpdate = true;
         break;
 
     case BattleEventType::Attack:
