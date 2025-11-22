@@ -116,14 +116,14 @@ void BattleEngine::_executeTurn()
 {
     if (_isBattleOver()) {return;}
 
-    int attackerIdx = _getFirstAlivePet(_player1Turn ? _player1Team : _player2Team);
-    int defenderIdx = _getFirstAlivePet(_player1Turn ? _player2Team : _player1Team);
+    int attackerIdx = _getFirstAlivePet( _player1Team);
+    int defenderIdx = _getFirstAlivePet(_player2Team);
 
     if (attackerIdx == -1 || defenderIdx == -1)
         return;
 
-    auto &attackerTeam = _player1Turn ? _player1Team : _player2Team;
-    auto &defenderTeam = _player1Turn ? _player2Team : _player1Team;
+    auto &attackerTeam = _player1Team;
+    auto &defenderTeam = _player2Team;
 
     Pet* attacker = attackerTeam[attackerIdx].get();
     Pet* defender = defenderTeam[defenderIdx].get();
@@ -139,7 +139,7 @@ void BattleEngine::_executeTurn()
     /* ===== 攻击前技能 ===== */
     attacker->triggerOnAttack(defender, this);
 
-    _applyDamage(attacker, attackerIdx, defender, defenderIdx, _player1Turn);
+    _applyDamage(attacker, attackerIdx, defender, defenderIdx);
 
     _cleanupDeadPets();
 
@@ -165,38 +165,43 @@ int BattleEngine::_calculateDamage(Pet* attacker, Pet* defender)
 
 void BattleEngine::_applyDamage(
     Pet* attacker, int attackerIdx,
-    Pet* defender, int defenderIdx,
-    bool isPlayer1Attacking
+    Pet* defender, int defenderIdx
 ) {
-    int damage = _calculateDamage(attacker, defender);
+    int damage1 = _calculateDamage(attacker, defender);
+    int damage2 = _calculateDamage(defender, attacker);
 
-    _triggerEvent({
-        BattleEventType::Attack,
-        QString("%1 攻击了 %2，造成 %3 点伤害！")
-            .arg(QString::fromStdString(attacker->getName()))
-            .arg(QString::fromStdString(defender->getName()))
-            .arg(damage),
-        attackerIdx, defenderIdx, damage, isPlayer1Attacking
-    });
+    // _triggerEvent({
+    //     BattleEventType::Attack,
+    //     QString("%1 攻击了 %2，造成 %3 点伤害！")
+    //         .arg(QString::fromStdString(attacker->getName()))
+    //         .arg(QString::fromStdString(defender->getName()))
+    //         .arg(damage),
+    //     attackerIdx, defenderIdx, damage, isPlayer1Attacking
+    // });
 
-    defender->receiveDamage(damage);
+    defender->receiveDamage(damage1);
+    attacker->receiveDamage(damage2);
 
     /* ===== 受伤技能触发 ===== */
-    defender->triggerOnHurt(attacker, damage, this);
+    defender->triggerOnHurt(attacker, damage1, this);
+    attacker->triggerOnHurt(defender, damage2, this);
 
-    _triggerEvent({
-        BattleEventType::TakeDamage,
-        QString("%1 剩余生命：%2")
-            .arg(QString::fromStdString(defender->getName()))
-            .arg(defender->getHP()),
-        attackerIdx, defenderIdx, damage, isPlayer1Attacking
-    });
+    // _triggerEvent({
+    //     BattleEventType::TakeDamage,
+    //     QString("%1 剩余生命：%2")
+    //         .arg(QString::fromStdString(defender->getName()))
+    //         .arg(defender->getHP()),
+    //     attackerIdx, defenderIdx, damage, isPlayer1Attacking
+    // });
 
     /* ===== 攻击者造成伤害技能 ===== */
-    attacker->triggerOnDealDamage(defender, damage, this);
+    attacker->triggerOnDealDamage(defender, damage1, this);
+    defender->triggerOnDealDamage(attacker, damage2, this);
 
     if (defender->isDead())
-        _handlePetDeath(defenderIdx, !isPlayer1Attacking);
+        _handlePetDeath(defenderIdx, true);
+    if (attacker->isDead())
+        _handlePetDeath(attackerIdx, false);
 }
 
 /* ======================== 死亡处理 ======================== */

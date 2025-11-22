@@ -28,6 +28,8 @@ class Food
 {
 private:
     std::string _name;
+    std::string _chineseName;
+    std::string _introSkills;
     int _tier;               // 食物等级，影响购买成本和出现阶段
     int _cost;               // 购买成本
     FoodPerkType _perkType;  // 食物提供的加成类型
@@ -38,12 +40,16 @@ private:
 
 public:
     // 构造函数
-    Food(const std::string& name, int tier, int cost, FoodPerkType perkType, int hpBonus = 0, int attackBonus = 0);
+    Food(const std::string& name, std::string chineseName, std::string introSkills, int tier, int cost, FoodPerkType perkType, int hpBonus = 0, int attackBonus = 0);
 
     ~Food() = default;
 
     // Getter方法
     std::string getName() const { return _name; }
+
+    std::string getChineseName() const { return _chineseName;};
+
+    std::string getIntroSkills() const {return _introSkills;};
     int getTier() const { return _tier; }
     int getCost() const { return _cost; }
     FoodPerkType getPerkType() const { return _perkType; }

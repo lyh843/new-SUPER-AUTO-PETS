@@ -100,7 +100,7 @@ private:
     int _calculateDamage(Pet* attacker, Pet* defender);
 
     // 应用伤害到目标
-    void _applyDamage(Pet* attacker, int attackerIdx, Pet* defender, int defenderIdx, bool isPlayer1Attacking);
+    void _applyDamage(Pet* attacker, int attackerIdx, Pet* defender, int defenderIdx);
 
     // 处理宠物死亡
     void _handlePetDeath(int index, bool isPlayer1);

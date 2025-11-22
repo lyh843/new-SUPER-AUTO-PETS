@@ -114,6 +114,9 @@ void QtFood::updateFood(Food* food)
         _foodInfoCoin->show();
         _foodInfoCoinIndex->show();
         _foodInfoCoinIndex->setText(QString::number(food->getCost()));
+        QString tip = QString("<b>%1</b><br>%2").arg(QString::fromStdString(food->getChineseName()))
+        .arg(QString::fromStdString(food->getIntroSkills()));
+        _foodPushButton->setToolTip(tip);
     }
     else
     {
@@ -126,6 +129,7 @@ void QtFood::clear()
     _foodPushButton->setIcon(QIcon());
     _foodInfoCoin->hide();
     _foodInfoCoinIndex->hide();
+    _foodPushButton->setToolTip("");
 }
 
 QPushButton* QtFood::getPushButton()
@@ -491,7 +495,7 @@ void QtShopview::onFoodClicked(int index)
         Pet* pet = _player->getPetAt(i);
         if (pet)
         {
-            auto* btn = msgBox.addButton(QString::fromStdString(pet->getName()), QMessageBox::ActionRole);
+            auto* btn = msgBox.addButton(QString::fromStdString(pet->getChineseName()), QMessageBox::ActionRole);
             petButtons.append(btn);
         }
     }

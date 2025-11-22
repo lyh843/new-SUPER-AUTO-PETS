@@ -3,8 +3,8 @@
 #include "Pet.hpp"
 
 
-Food::Food(const std::string& name, int tier, int cost, FoodPerkType perkType, int hpBonus, int attackBonus)
-    : _name(name), _tier(tier), _cost(cost), _perkType(perkType), _hpBonus(hpBonus), _attackBonus(attackBonus)
+Food::Food(const std::string& name, std::string chineseName, std::string introSkills, int tier, int cost, FoodPerkType perkType, int hpBonus, int attackBonus)
+    : _name(name), _chineseName(chineseName), _introSkills(introSkills), _tier(tier), _cost(cost), _perkType(perkType), _hpBonus(hpBonus), _attackBonus(attackBonus)
 {}
 
 bool Food::applyToPet(Pet* pet)
@@ -26,11 +26,11 @@ bool Food::applyToPet(Pet* pet)
         pet->setAttack(pet->getAttack() + 3);
         break;
 
-    case FoodPerkType::Garlic:
-        // 大蒜：+2生命，添加护甲效果（这里先简单增加生命，后续可以扩展护甲机制）
-        pet->setHP(pet->getHP() + 2);
-        // TODO: 添加护甲标记
-        break;
+    // case FoodPerkType::Garlic:
+    //     // 大蒜：+2生命，添加护甲效果（这里先简单增加生命，后续可以扩展护甲机制）
+    //     pet->setHP(pet->getHP() + 2);
+    //     // TODO: 添加护甲标记
+    //     break;
 
     case FoodPerkType::Salad:
         // 色拉：+1攻击 +2生命
@@ -44,15 +44,15 @@ bool Food::applyToPet(Pet* pet)
         pet->setAttack(pet->getAttack() + 2);
         break;
 
-    case FoodPerkType::Melon:
-        // 西瓜：战斗开始时获得50%伤害减免（这里先标记，后续在战斗系统中实现）
-        // TODO: 添加伤害减免标记
-        break;
+    // case FoodPerkType::Melon:
+    //     // 西瓜：战斗开始时获得50%伤害减免（这里先标记，后续在战斗系统中实现）
+    //     // TODO: 添加伤害减免标记
+    //     break;
 
-    case FoodPerkType::Mushroom:
-        // 蘑菇：死亡时复活一次（这里先标记，后续在战斗系统中实现）
-        // TODO: 添加复活标记
-        break;
+    // case FoodPerkType::Mushroom:
+    //     // 蘑菇：死亡时复活一次（这里先标记，后续在战斗系统中实现）
+    //     // TODO: 添加复活标记
+    //     break;
 
     case FoodPerkType::Steak:
         // 牛排：临时+20攻击（仅本回合）
@@ -71,10 +71,10 @@ bool Food::applyToPet(Pet* pet)
         pet->setAttack(pet->getAttack() + 2);
         break;
 
-    case FoodPerkType::Honey:
-        // 蜂蜜：战斗开始召唤蜜蜂（在战斗系统实现）
-        // TODO: 在战斗系统实现召唤效果
-        break;
+    // case FoodPerkType::Honey:
+    //     // 蜂蜜：战斗开始召唤蜜蜂（在战斗系统实现）
+    //     // TODO: 在战斗系统实现召唤效果
+    //     break;
 
     default:
         return false;
@@ -86,45 +86,45 @@ bool Food::applyToPet(Pet* pet)
 // 工厂方法：创建各种食物
 std::unique_ptr<Food> Food::createApple()
 {
-    return std::make_unique<Food>("Apple", 1, 3, FoodPerkType::Apple, 1, 1);
+    return std::make_unique<Food>("Apple", "苹果", "最普通的水果，带来均衡加成\n攻击力：+1\n生命值：+1", 1, 3, FoodPerkType::Apple, 1, 1);
 }
 
-std::unique_ptr<Food> Food::createHoney()
-{
-    return std::make_unique<Food>("Honey", 1, 3, FoodPerkType::Honey);
-}
+// std::unique_ptr<Food> Food::createHoney()
+// {
+//     return std::make_unique<Food>("Honey", "蜂蜜", "", 1, 3, FoodPerkType::Honey);
+// }
 
 std::unique_ptr<Food> Food::createMeatBone()
 {
-    return std::make_unique<Food>("MeatBone", 1, 3, FoodPerkType::MeatBone, 0, 3);
+    return std::make_unique<Food>("MeatBone", "骨头", "一个称手的武器\n攻击力+3", 1, 3, FoodPerkType::MeatBone, 0, 3);
 }
 
 std::unique_ptr<Food> Food::createGarlic()
 {
-    return std::make_unique<Food>("Garlic", 2, 6, FoodPerkType::Garlic, 2, 0);
+    return std::make_unique<Food>("Garlic", "大蒜", "生命值：+2", 2, 6, FoodPerkType::Garlic, 2, 0);
 }
 
 std::unique_ptr<Food> Food::createSalad()
 {
-    return std::make_unique<Food>("Salad", 2, 6, FoodPerkType::Salad, 2, 1);
+    return std::make_unique<Food>("Salad", "色拉", "攻击力：+1\n生命值：+2", 2, 6, FoodPerkType::Salad, 2, 1);
 }
 
 std::unique_ptr<Food> Food::createCannedFood()
 {
-    return std::make_unique<Food>("CannedFood", 2, 6, FoodPerkType::CannedFood, 2, 2);
+    return std::make_unique<Food>("CannedFood", "罐头", "攻击力：+2\n生命值：+2",2, 6, FoodPerkType::CannedFood, 2, 2);
 }
 
-std::unique_ptr<Food> Food::createMelon()
-{
-    return std::make_unique<Food>("Melon", 3, 9, FoodPerkType::Melon);
-}
+// std::unique_ptr<Food> Food::createMelon()
+// {
+//     return std::make_unique<Food>("Melon", "西瓜" 3, 9, FoodPerkType::Melon);
+// }
 
-std::unique_ptr<Food> Food::createMushroom()
-{
-    return std::make_unique<Food>("Mushroom", 3, 9, FoodPerkType::Mushroom);
-}
+// std::unique_ptr<Food> Food::createMushroom()
+// {
+//     return std::make_unique<Food>("Mushroom", 3, 9, FoodPerkType::Mushroom);
+// }
 
 std::unique_ptr<Food> Food::createPear()
 {
-    return std::make_unique<Food>("Pear", 1, 3, FoodPerkType::Pear, 1, 2);
+    return std::make_unique<Food>("Pear", "雪梨", "攻击力：+2\n生命值：+1", 1, 3, FoodPerkType::Pear, 1, 2);
 }
