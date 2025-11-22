@@ -128,3 +128,8 @@ std::unique_ptr<Food> Food::createPear()
 {
     return std::make_unique<Food>("Pear", "雪梨", "攻击力：+2\n生命值：+1", 1, 3, FoodPerkType::Pear, 1, 2);
 }
+
+std::unique_ptr<Food> Food::createCake()
+{
+    return std::make_unique<Food>("Cake", "蛋糕", "", 1, 1, FoodPerkType::Cake, 0, 0);
+}

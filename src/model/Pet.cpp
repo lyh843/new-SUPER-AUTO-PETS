@@ -15,6 +15,7 @@ class SkillFlamingo;
 class SkillKangaroo;
 class SkillSwan;
 class SkillDuck;
+class SkillCultivated;
 
 //宠物基类拷贝构造函数
 Pet::Pet(const Pet& other)
@@ -46,8 +47,8 @@ void Pet::levelUp()
 
 
     // 升级时提升属性：每级增长50%的基础属性
-    int hpBonus     = _baseHP / 2 + 1;
-    int attackBonus = _baseAttack / 2 + 1;
+    int hpBonus     = _baseHP / 2 + _baseHP % 2;
+    int attackBonus = _baseAttack / 2 + _baseAttack % 2;
 
     _hp += hpBonus;
     _damage += attackBonus;
@@ -210,7 +211,7 @@ Dodo::Dodo(int hp, int attack, int ownerPlayer, int tier)
 }
 
 Blowfish::Blowfish(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Blowfish", "河豚", "受到伤害对一个随机敌人造成ATK", hp, attack, ownerPlayer, tier)
+    : Pet("Blowfish", "河豚", "受到伤害对一个随机敌人造成3ATK", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillBlowfish>());
 }
@@ -219,6 +220,15 @@ Skunk::Skunk(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Skunk", "臭鼬", "战斗开始前将最高血量的敌人减少1/3HP", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillSkunk>());
+}
+
+IronCow::IronCow(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("IronCow", "铁牛", "购买时，铁牛展现博爱胸怀，友方所有单位+2HP/+2ATK", hp, attack, ownerPlayer, tier){}
+
+Cultivated::Cultivated(int hp, int attack, int ownerPlayer, int tier)
+    : Pet("Cultivated", "高雅人士", "高雅人士品鉴战斗中，30%概率闪避伤害", hp, attack, ownerPlayer, tier)
+{
+    setSkill(std::make_unique<SkillCultivated>());
 }
 
 // 实现派生类的拷贝构造函数
@@ -249,6 +259,10 @@ Dodo::Dodo(const Dodo& other) : Pet(other) {}
 Blowfish::Blowfish(const Blowfish& other) : Pet(other) {}
 
 Skunk::Skunk(const Skunk& other) : Pet(other) {}
+
+IronCow::IronCow(const IronCow& other) : Pet(other) {}
+
+Cultivated::Cultivated(const Cultivated& other) : Pet(other) {}
 
 template <class Derived>
 struct Registrar
