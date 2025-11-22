@@ -260,3 +260,19 @@ public:
     Skunk(const Skunk& other);                              // 新增拷贝构造函数
     ~Skunk() = default;
 };
+
+class IronCow : public Pet
+{
+public:
+    IronCow(int hp = 0, int attack = 0, int ownerPlayer = 0, int tier = 1000);
+    IronCow(const IronCow& other);                              // 新增拷贝构造函数
+    ~IronCow() = default;
+};
+
+class Cultivated : public Pet
+{
+public:
+    Cultivated(int hp = 1, int attack = 7, int ownerPlayer = 0, int tier = 999);
+    Cultivated(const Cultivated& other);                              // 新增拷贝构造函数
+    ~Cultivated() = default;
+};

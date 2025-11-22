@@ -236,9 +236,9 @@ void BattleEngine::_applyDamage(
     defender->triggerOnDealDamage(attacker, damage2, this);
 
     if (defender->isDead())
-        _handlePetDeath(defenderIdx, true);
+        _handlePetDeath(defenderIdx, false);
     if (attacker->isDead())
-        _handlePetDeath(attackerIdx, false);
+        _handlePetDeath(attackerIdx, true);
 }
 
 /* ======================== 死亡处理 ======================== */

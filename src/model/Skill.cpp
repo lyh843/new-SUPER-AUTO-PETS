@@ -1,9 +1,10 @@
 #include "Skill.hpp"
-#include "Pet.hpp"
-#include "../engine/BattleEngine.hpp"
-#include <random>
-#include <algorithm>
 #include <Qstring>
+#include <algorithm>
+#include <chrono>
+#include <random>
+#include "../engine/BattleEngine.hpp"
+#include "Pet.hpp"
 
 /* ---------------- Ant ----------------
    死亡时：随机一个友军 +2 HP +1 ATK
@@ -111,7 +112,7 @@ void SkillDodo::onPreBattle(Pet* self, BattleEngine* engine) {
     // 前面最近队友是 pos-1
     Pet* friendPet = team[pos - 1].get();
     if (!friendPet) return;
-    int bonus = friendPet->getAttack() / 2;
+    int bonus = friendPet->getAttack() / 2 + friendPet->getAttack() % 2;
     friendPet->setAttack(friendPet->getAttack() + bonus);
     // engine->emitEvent({BattleEventType::SkillTrigger,
     //     QString("%1 战斗开始，给予前方最近队友 +%1 攻击（50%）")
@@ -179,6 +180,15 @@ void SkillKangaroo::onPreBattle(Pet* self, BattleEngine* engine) {
     // engine->emitEvent({BattleEventType::SkillTrigger,
     //     QString("%1 战斗开始，给予前方友军 +1/+1").arg(QString::fromStdString(self->getName())),
     //     -1, -1, 0, engine->_player1Turn});
+}
+
+void SkillCultivated::onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* engine)
+{
+    std::mt19937 engine_t(std::chrono::system_clock::now().time_since_epoch().count());
+    std::uniform_real_distribution<double> dist(0.0, 1.0);
+    double p = dist(engine_t);
+
+    if (p <= 0.3) self->setHP(self->getHP() + damage);
 }
 
 

@@ -115,3 +115,8 @@ public:
         // Duck 无战斗技能（出售时给玩家宠物+1HP 归商店逻辑）
     }
 };
+
+class SkillCultivated : public Skill {
+public:
+    void onHurt(Pet* self, Pet* attacker, int damage, BattleEngine* engine) override;
+};
