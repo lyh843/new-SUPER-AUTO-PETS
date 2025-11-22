@@ -116,30 +116,41 @@ void BattleEngine::_executeTurn()
 {
     if (_isBattleOver()) {return;}
 
-    int attackerIdx = _getFirstAlivePet( _player1Team);
-    int defenderIdx = _getFirstAlivePet(_player2Team);
+    int attacker_1_Idx = _getFirstAlivePet( _player1Team);
+    int attacker_2_Idx = _getFirstAlivePet(_player2Team);
 
-    if (attackerIdx == -1 || defenderIdx == -1)
+    if (attacker_1_Idx == -1 || attacker_2_Idx == -1)
         return;
 
-    auto &attackerTeam = _player1Team;
-    auto &defenderTeam = _player2Team;
+    auto &attacker_1_Team = _player1Team;
+    auto &attacker_2_Team = _player2Team;
 
-    Pet* attacker = attackerTeam[attackerIdx].get();
-    Pet* defender = defenderTeam[defenderIdx].get();
+    Pet* attacker_1 = attacker_1_Team[attacker_1_Idx].get();
+    Pet* attacker_2 = attacker_2_Team[attacker_2_Idx].get();
 
     _triggerEvent({
         BattleEventType::TurnStart,
         QString("%1 准备攻击 %2！")
-            .arg(QString::fromStdString(attacker->getName()))
-            .arg(QString::fromStdString(defender->getName())),
-        attackerIdx, defenderIdx, 0, _player1Turn
+            .arg(QString::fromStdString(attacker_1->getName()))
+            .arg(QString::fromStdString(attacker_2->getName())),
+        attacker_1_Idx, attacker_2_Idx, 0, _player1Turn
     });
 
     /* ===== 攻击前技能 ===== */
-    attacker->triggerOnAttack(defender, this);
+    attacker_1->triggerOnAttack(attacker_2, this);
 
-    _applyDamage(attacker, attackerIdx, defender, defenderIdx);
+    _triggerEvent({
+        BattleEventType::Attack,
+        QString("%1 与 %2 发起对撞！")
+            .arg(QString::fromStdString(attacker_1->getName()))
+            .arg(QString::fromStdString(attacker_2->getName())),
+        attacker_1_Idx,           // 攻击方（当前回合）的队伍索引
+        attacker_2_Idx,           // 防御方（当前回合）的队伍索引
+        0,                     // 伤害值设为 0，因为 TakeDamage 报告伤害
+        true          // 攻击方是否为 Player1
+    });
+
+    _applyDamage(attacker_1, attacker_1_Idx, attacker_2, attacker_2_Idx);
 
     _cleanupDeadPets();
 
@@ -194,6 +205,26 @@ void BattleEngine::_applyDamage(
     //         .arg(defender->getHP()),
     //     attackerIdx, defenderIdx, damage, isPlayer1Attacking
     // });
+
+    // 触发 Defender 受伤事件
+    _triggerEvent({
+        BattleEventType::TakeDamage,
+        QString("%1 受到 %2 点伤害，剩余生命：%3")
+            .arg(QString::fromStdString(defender->getName()))
+            .arg(damage1)
+            .arg(defender->getHP()),
+        attackerIdx, defenderIdx, damage1, !_player1Turn // _player1Turn 是 Attacker 的阵营，取反是 Defender 阵营
+    });
+
+    // 触发 Attacker 受伤事件 (自伤)
+    _triggerEvent({
+        BattleEventType::TakeDamage,
+        QString("%1 受到 %2 点伤害，剩余生命：%3")
+            .arg(QString::fromStdString(attacker->getName()))
+            .arg(damage2)
+            .arg(attacker->getHP()),
+        defenderIdx, attackerIdx, damage2, _player1Turn // _player1Turn 是 Att击者阵营
+    });
 
     /* ===== 攻击者造成伤害技能 ===== */
     attacker->triggerOnDealDamage(defender, damage1, this);

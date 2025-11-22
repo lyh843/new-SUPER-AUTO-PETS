@@ -1,7 +1,10 @@
 #include "qtshopview.h"
 #include <qcontainerfwd.h>
+#include <qcoreevent.h>
 #include <qdebug.h>
+#include <qevent.h>
 #include <qfont.h>
+#include <qgraphicseffect.h>
 #include <qicon.h>
 #include <qimage.h>
 #include <qlabel.h>
@@ -14,6 +17,7 @@
 #include <memory>
 #include "model/Pet.hpp"
 #include "model/Player.hpp"
+#include "ui/BattleView.hpp"
 #include "ui_qtshopview.h"
 
 QtPet::QtPet(QPushButton* petPushButton,
@@ -23,6 +27,7 @@ QtPet::QtPet(QPushButton* petPushButton,
              QLabel* petInfoCoin,
              QLabel* petInfoCoinIndex,
              QLabel* petInfoLevel,
+             QLabel* petFreeze,
              int index,
              bool isPlayerPet)
     : _petPushButton(petPushButton)
@@ -32,9 +37,27 @@ QtPet::QtPet(QPushButton* petPushButton,
     , _petInfoCoin(petInfoCoin)
     , _petInfoCoinIndex(petInfoCoinIndex)
     , _petInfoLevel(petInfoLevel)
+    , _petFreeze(petFreeze)
     , _index(index)
     , _isPlayerPet(isPlayerPet)
-{}
+{
+    _petPushButton->installEventFilter(this);
+    _isFreeze = false;
+}
+
+bool QtPet::eventFilter(QObject* obj, QEvent *event){
+    if (obj == _petPushButton){
+        if(event->type() == QEvent::MouseButtonPress){
+            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+            if(mouseEvent->button() == Qt::RightButton){
+                emit freezeClicked(_index);
+                return true;
+            }
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
+
 
 void QtPet::updatePet(Pet* pet)
 {
@@ -72,6 +95,18 @@ void QtPet::updatePet(Pet* pet)
                 _petInfoLevel->setPixmap(QPixmap(QString(":/else/photo/petLevel3.png")));
             }
         }
+        if(_petFreeze != nullptr){
+            _petFreeze->setAttribute(Qt::WA_TransparentForMouseEvents);
+            if(_isFreeze){
+                QGraphicsOpacityEffect* effect = new QGraphicsOpacityEffect(_petFreeze);
+                effect->setOpacity(0.75);
+                _petFreeze->setGraphicsEffect(effect);
+                _petFreeze->show();
+            }
+            else{
+                _petFreeze->hide();
+            }
+        }
     }
     else
     {
@@ -94,6 +129,10 @@ void QtPet::clear()
     if(_petInfoLevel != nullptr){
         _petInfoLevel->hide();
     }
+    if(_petFreeze != nullptr){
+        _isFreeze = false;
+        _petFreeze->hide();
+    }
 }
 
 QPushButton* QtPet::getPushButton()
@@ -101,12 +140,16 @@ QPushButton* QtPet::getPushButton()
     return _petPushButton;
 }
 
-QtFood::QtFood(QPushButton* foodPushButton, QLabel* foodInfoCoin, QLabel* foodInfoCoinIndex, int index)
-    : _foodPushButton(foodPushButton), _index(index), _foodInfoCoin(foodInfoCoin), _foodInfoCoinIndex(foodInfoCoinIndex)
-{}
+QtFood::QtFood(QPushButton* foodPushButton, QLabel* foodInfoCoin, QLabel* foodInfoCoinIndex, QLabel* foodFreeze, int index)
+    : _foodPushButton(foodPushButton), _index(index), _foodInfoCoin(foodInfoCoin), _foodFreeze(foodFreeze) ,_foodInfoCoinIndex(foodInfoCoinIndex)
+{
+    _isFreeze = false;
+    _foodPushButton->installEventFilter(this);
+}
 
 void QtFood::updateFood(Food* food)
 {
+    _food = food;
     if (food)
     {
         _foodPushButton->setIcon(QIcon(QString(":/Food/photo/Food/%1.png").arg(food->getName())));
@@ -117,12 +160,40 @@ void QtFood::updateFood(Food* food)
         QString tip = QString("<b>%1</b><br>%2").arg(QString::fromStdString(food->getChineseName()))
         .arg(QString::fromStdString(food->getIntroSkills()));
         _foodPushButton->setToolTip(tip);
+        if(_isFreeze){
+            QGraphicsOpacityEffect* effect = new QGraphicsOpacityEffect(_foodFreeze);
+            effect->setOpacity(0.75);
+            _foodFreeze->setGraphicsEffect(effect);
+            _foodFreeze->setAttribute(Qt::WA_TransparentForMouseEvents);
+            _foodFreeze->show();
+        }
+        else{
+            _foodFreeze->hide();
+        }
     }
     else
     {
         clear();
     }
 }
+
+bool QtFood::eventFilter(QObject *obj, QEvent *event){
+    if (obj == _foodPushButton && event->type() == QEvent::MouseButtonPress) {
+        QMouseEvent* mouse = static_cast<QMouseEvent*>(event);
+        if (mouse->button() == Qt::RightButton) {
+            emit freezeClicked(_index);
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
+
+void QtShopview::onFoodFreezeClicked(int index)
+{
+    _shop->toggleFoodFreeze(index);
+    updateUI();
+}
+
 
 void QtFood::clear()
 {
@@ -153,15 +224,15 @@ void QtShopview::setupUI()
     ui->prizeIndex->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     QtPet* playerPet1 = new QtPet(ui->playAnimals1, ui->playPetInfo1, ui->playPetInfo1_attack, ui->playPetInfo1_heart,
-                                  nullptr, nullptr, ui->playPetLevel1, 0, true);
+                                  nullptr, nullptr, ui->playPetLevel1, nullptr, 0, true);
     QtPet* playerPet2 = new QtPet(ui->playAnimals2, ui->playPetInfo2, ui->playPetInfo2_attack, ui->playPetInfo2_heart,
-                                  nullptr, nullptr, ui->playPetLevel2, 1, true);
+                                  nullptr, nullptr, ui->playPetLevel2, nullptr, 1, true);
     QtPet* playerPet3 = new QtPet(ui->playAnimals3, ui->playPetInfo3, ui->playPetInfo3_attack, ui->playPetInfo3_heart,
-                                  nullptr, nullptr, ui->playPetLevel3, 2, true);
+                                  nullptr, nullptr, ui->playPetLevel3, nullptr, 2, true);
     QtPet* playerPet4 = new QtPet(ui->playAnimals4, ui->playPetInfo4, ui->playPetInfo4_attack, ui->playPetInfo4_heart,
-                                  nullptr, nullptr, ui->playPetLevel4, 3, true);
+                                  nullptr, nullptr, ui->playPetLevel4, nullptr, 3, true);
     QtPet* playerPet5 = new QtPet(ui->playAnimals5, ui->playPetInfo5, ui->playPetInfo5_attack, ui->playPetInfo5_heart,
-                                  nullptr, nullptr, ui->playPetLevel5, 4, true);
+                                  nullptr, nullptr, ui->playPetLevel5, nullptr, 4, true);
     _playerPets.push_back(playerPet5);
     _playerPets.push_back(playerPet4);
     _playerPets.push_back(playerPet3);
@@ -169,28 +240,34 @@ void QtShopview::setupUI()
     _playerPets.push_back(playerPet1);
 
     QtPet* shopPet1 = new QtPet(ui->shopAnimals1, ui->shopPetInfo1, ui->shopPetInfo1_attack, ui->shopPetInfo1_heart,
-                                ui->shopPetCoin1, ui->shopPetCoin1_index, nullptr, 0, false);
+                                ui->shopPetCoin1, ui->shopPetCoin1_index, nullptr, ui->shopPetFreeze1, 0, false);
     QtPet* shopPet2 = new QtPet(ui->shopAnimals2, ui->shopPetInfo2, ui->shopPetInfo2_attack, ui->shopPetInfo2_heart,
-                                ui->shopPetCoin2, ui->shopPetCoin2_index, nullptr, 1, false);
+                                ui->shopPetCoin2, ui->shopPetCoin2_index, nullptr, ui->shopPetFreeze2, 1, false);
     QtPet* shopPet3 = new QtPet(ui->shopAnimals3, ui->shopPetInfo3, ui->shopPetInfo3_attack, ui->shopPetInfo3_heart,
-                                ui->shopPetCoin3, ui->shopPetCoin3_index, nullptr, 2, false);
+                                ui->shopPetCoin3, ui->shopPetCoin3_index, nullptr, ui->shopPetFreeze3, 2, false);
     QtPet* shopPet4 = new QtPet(ui->shopAnimals4, ui->shopPetInfo4, ui->shopPetInfo4_attack, ui->shopPetInfo4_heart,
-                                ui->shopPetCoin4, ui->shopPetCoin4_index, nullptr, 3, false);
+                                ui->shopPetCoin4, ui->shopPetCoin4_index, nullptr, ui->shopPetFreeze4, 3, false);
     QtPet* shopPet5 = new QtPet(ui->shopAnimals5, ui->shopPetInfo5, ui->shopPetInfo5_attack, ui->shopPetInfo5_heart,
-                                ui->shopPetCoin5, ui->shopPetCoin5_index, nullptr, 4, false);
+                                ui->shopPetCoin5, ui->shopPetCoin5_index, nullptr, ui->shopPetFreeze5, 4, false);
     QtPet* shopPet6 = new QtPet(ui->shopAnimals6, ui->shopPetInfo6, ui->shopPetInfo6_attack, ui->shopPetInfo6_heart,
-                                ui->shopPetCoin6, ui->shopPetCoin6_index, nullptr, 5, false);
+                                ui->shopPetCoin6, ui->shopPetCoin6_index, nullptr, ui->shopPetFreeze6, 5, false);
     _shopPets.push_back(shopPet1);
     _shopPets.push_back(shopPet2);
     _shopPets.push_back(shopPet3);
     _shopPets.push_back(shopPet4);
     _shopPets.push_back(shopPet5);
     _shopPets.push_back(shopPet6);
+    for(auto i : _shopPets){
+        connect(i, &QtPet::freezeClicked, this, &QtShopview::onPetFreezeClicked);
+    }
 
-    QtFood* shopFood1 = new QtFood(ui->shopFood1, ui->shopFoodCoin1, ui->shopFoodCoin1_index, 0);
-    QtFood* shopFood2 = new QtFood(ui->shopFood2, ui->shopFoodCoin2, ui->shopFoodCoin2_index, 1);
+    QtFood* shopFood1 = new QtFood(ui->shopFood1, ui->shopFoodCoin1, ui->shopFoodCoin1_index, ui->shopFoodFreeze1, 0);
+    QtFood* shopFood2 = new QtFood(ui->shopFood2, ui->shopFoodCoin2, ui->shopFoodCoin2_index, ui->shopFoodFreeze2, 1);
     _shopFoods.push_back(shopFood1);
     _shopFoods.push_back(shopFood2);
+    for(auto i : _shopFoods){
+        connect(i, &QtFood::freezeClicked, this, &QtShopview::onFoodFreezeClicked);
+    }
 
     connect(ui->refreshButton, &QPushButton::clicked, this, &QtShopview::onRefreshClicked);
     connect(ui->frightButton, &QPushButton::clicked, this, &QtShopview::onEndTurnClicked);
@@ -258,14 +335,16 @@ void QtShopview::updatePlayerPets()
 void QtShopview::updateShopPets()
 {
     // 商店只有3个宠物槽位（PET_SHOP_SIZE = 3）
-    for (int i = 0; i < 3 && i < static_cast<int>(_shopPets.size()); i++)
+    for (int i = 0; i < _shop->getPetShopSize(); i++)
     {
         Pet* pet = _shop->getPet(i);
+        bool frozen = _shop->isPetFrozen(i);
+        _shopPets[i]->setFreeze(frozen);
         _shopPets[i]->updatePet(pet);
         _shopPets[i]->getPushButton()->setEnabled(pet != nullptr);
     }
     // 隐藏多余的宠物槽位
-    for (int i = 3; i < static_cast<int>(_shopPets.size()); i++)
+    for (int i = _shop->getPetShopSize(); i < static_cast<int>(_shopPets.size()); i++)
     {
         _shopPets[i]->clear();
     }
@@ -276,6 +355,8 @@ void QtShopview::updateShopFoods()
     for (int i = 0; i < 2; i++)
     {
         Food* food = _shop->getFood(i);
+        bool frozen = _shop->isFoodFrozen(i);
+        _shopFoods[i]->setFreeze(frozen);
         _shopFoods[i]->updateFood(food);
     }
 }
@@ -310,7 +391,7 @@ void QtShopview::onEndTurnClicked()
 void QtShopview::onShopPetClicked(int index, bool isPlayerPet)
 {
     // 检查索引有效性（商店只有3个宠物槽位）
-    if (index < 0 || index >= 3)
+    if (index < 0 || index >= _shop->getPetShopSize())
     {
         return;
     }
@@ -490,7 +571,7 @@ void QtShopview::onFoodClicked(int index)
     msgBox.setText("请选择要喂食的宠物：");
 
     QVector<QPushButton*> petButtons;
-    for (int i = 0; i < 5; ++i)
+    for (int i = 4; i >= 0; i--)
     {
         Pet* pet = _player->getPetAt(i);
         if (pet)
@@ -543,22 +624,17 @@ void QtShopview::onFoodClicked(int index)
         }
     }
 }
-
 void QtShopview::onPetFreezeClicked(int index)
 {
     _shop->togglePetFreeze(index);
     updateUI();
 }
 
-void QtShopview::onFoodFreezeClicked(int index)
-{
-    _shop->toggleFoodFreeze(index);
-    updateUI();
-}
-
 void QtShopview::resetShop()
 {
-    _shop = std::make_unique<Shop>(_player);
+    // _shop = std::make_unique<Shop>(_player);
+    _shop->refresh();
+    _player->addCoin();
     updateUI();
 }
 

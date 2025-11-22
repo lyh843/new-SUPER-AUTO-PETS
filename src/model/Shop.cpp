@@ -7,13 +7,14 @@ Shop::Shop(Player* player)
     : _player(player)
     , _rng(std::chrono::steady_clock::now().time_since_epoch().count())
 {
-    _petShopList.resize(PET_SHOP_SIZE);
+    petShopSize = 3;
+    _petShopList.resize(6);
     _foodShopList.resize(FOOD_SHOP_SIZE);
-    _petFrozen.resize(PET_SHOP_SIZE, false);
+    _petFrozen.resize(petShopSize, false);
     _foodFrozen.resize(FOOD_SHOP_SIZE, false);
 
     // 初始化商店
-    for (int i = 0; i < PET_SHOP_SIZE; ++i)
+    for (int i = 0; i < petShopSize; ++i)
     {
         _petShopList[i] = generateRandomPet();
     }
@@ -60,8 +61,17 @@ bool Shop::refresh()
     if (!_player->decreaseCoin(REFRESH_COST))
         return false;
 
+    if(_player->getRound() == 3){
+        petShopSize = 4;
+    }
+    else if(_player->getRound() == 6){
+        petShopSize = 5;
+    }
+    else if(_player->getRound() == 8){
+        petShopSize = 6;
+    }
     // 刷新未冻结的宠物
-    for (int i = 0; i < PET_SHOP_SIZE; ++i)
+    for (int i = 0; i < petShopSize; ++i)
     {
         if (!_petFrozen[i])
         {
@@ -119,7 +129,7 @@ bool Shop::buyFood(int foodIndex, int targetPetIndex)
 bool Shop::buyPet(int petIndex, int targetPetIndex)
 {
     // 验证索引
-    if (petIndex < 0 || petIndex >= PET_SHOP_SIZE)
+    if (petIndex < 0 || petIndex >= petShopSize)
         return false;
     
     if (!_petShopList[petIndex])
@@ -168,7 +178,7 @@ bool Shop::sell(int targetPetIndex)
 
 void Shop::togglePetFreeze(int index)
 {
-    if (index >= 0 && index < PET_SHOP_SIZE)
+    if (index >= 0 && index < petShopSize)
     {
         _petFrozen[index] = !_petFrozen[index];
     }
@@ -184,7 +194,7 @@ void Shop::toggleFoodFreeze(int index)
 
 Pet* Shop::getPet(int index) const
 {
-    if (index < 0 || index >= PET_SHOP_SIZE)
+    if (index < 0 || index >= petShopSize)
         return nullptr;
     return _petShopList[index].get();
 }
@@ -198,7 +208,7 @@ Food* Shop::getFood(int index) const
 
 bool Shop::isPetFrozen(int index) const
 {
-    if (index < 0 || index >= PET_SHOP_SIZE)
+    if (index < 0 || index >= petShopSize)
         return false;
     return _petFrozen[index];
 }
