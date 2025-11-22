@@ -40,13 +40,13 @@ std::unique_ptr<Food> Shop::generateRandomFood()
     // 创建食物类型列表
     std::vector<std::function<std::unique_ptr<Food>()>> foodCreators = {
         Food::createApple,
-        Food::createHoney,
+        // Food::createHoney,
         Food::createMeatBone,
         Food::createGarlic,
         Food::createSalad,
         Food::createCannedFood,
-        Food::createMelon,
-        Food::createMushroom,
+        // Food::createMelon,
+        // Food::createMushroom,
         Food::createPear
     };
 

@@ -64,7 +64,7 @@ set(UI_FILES
 )
 
 add_executable(${PROJECT_NAME}
-        WIN32 # If you need a terminal for debug, please comment this statement
+        # WIN32 # If you need a terminal for debug, please comment this statement
         ${SOURCES}
         ${HEADERS}
         ${UI_FILES}
