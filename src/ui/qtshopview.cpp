@@ -571,6 +571,7 @@ void QtShopview::onFoodClicked(int index)
     msgBox.setText("请选择要喂食的宠物：");
 
     QVector<QPushButton*> petButtons;
+    QVector<int> petIndex;
     for (int i = 4; i >= 0; i--)
     {
         Pet* pet = _player->getPetAt(i);
@@ -578,6 +579,7 @@ void QtShopview::onFoodClicked(int index)
         {
             auto* btn = msgBox.addButton(QString::fromStdString(pet->getChineseName()), QMessageBox::ActionRole);
             petButtons.append(btn);
+            petIndex.append(i);
         }
     }
 
@@ -596,18 +598,11 @@ void QtShopview::onFoodClicked(int index)
 
     // 找到选择的宠物索引
     int targetPetIndex = -1;
-    int buttonIndex    = 0;
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < petButtons.size(); ++i)
     {
-        Pet* pet = _player->getPetAt(i);
-        if (pet)
-        {
-            if (buttonIndex < petButtons.size() && clickedBtn == petButtons[buttonIndex])
-            {
-                targetPetIndex = i;
-                break;
-            }
-            buttonIndex++;
+        if(clickedBtn == petButtons[i]){
+            targetPetIndex = petIndex[i];
+            break;
         }
     }
 

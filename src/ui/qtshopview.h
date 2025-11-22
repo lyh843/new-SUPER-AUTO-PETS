@@ -1,7 +1,6 @@
 #ifndef QTSHOPVIEW_H
 #define QTSHOPVIEW_H
 
-#include <qlabel.h>
 #include <qobject.h>
 #include <qtmetamacros.h>
 #include "../model/Player.hpp"

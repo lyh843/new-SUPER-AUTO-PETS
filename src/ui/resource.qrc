@@ -72,6 +72,9 @@
         <file>photo/Pet/Whale.png</file>
         <file>photo/Pet/Wolverine.png</file>
         <file>photo/Pet/Worm.png</file>
+        <file>photo/Pet/IronCow.png</file>
+        <file>photo/Pet/Qie.png</file>
+        <file>photo/Food/Cake.png</file>
     </qresource>
     <qresource prefix="/else">
         <file>photo/Bars.png</file>
@@ -129,7 +132,6 @@
         <file>photo/Food/Apple.png</file>
         <file>photo/Food/Bacon.png</file>
         <file>photo/Food/Baguette.png</file>
-        <file>photo/Food/BirthdayCake.png</file>
         <file>photo/Food/Bread.png</file>
         <file>photo/Food/Burger.png</file>
         <file>photo/Food/Burn.png</file>
