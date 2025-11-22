@@ -8,7 +8,7 @@ Shop::Shop(Player* player)
     , _rng(std::chrono::steady_clock::now().time_since_epoch().count())
 {
     petShopSize = 3;
-    _petShopList.resize(petShopSize);
+    _petShopList.resize(6);
     _foodShopList.resize(FOOD_SHOP_SIZE);
     _petFrozen.resize(petShopSize, false);
     _foodFrozen.resize(FOOD_SHOP_SIZE, false);

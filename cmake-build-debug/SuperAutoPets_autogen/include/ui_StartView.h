@@ -48,6 +48,7 @@ public:
         playButton = new QPushButton(StartView);
         playButton->setObjectName("playButton");
         playButton->setGeometry(QRect(430, 90, 570, 210));
+        playButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         playButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: transparent;\n"
 "    border: none;\n"
@@ -60,6 +61,7 @@ public:
         encyclopediaButton = new QPushButton(StartView);
         encyclopediaButton->setObjectName("encyclopediaButton");
         encyclopediaButton->setGeometry(QRect(430, 330, 570, 100));
+        encyclopediaButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         encyclopediaButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: transparent;\n"
 "    border: none;\n"
@@ -70,6 +72,7 @@ public:
         recordsButton = new QPushButton(StartView);
         recordsButton->setObjectName("recordsButton");
         recordsButton->setGeometry(QRect(430, 470, 570, 100));
+        recordsButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         recordsButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    background-color: transparent;\n"
 "    border: none;\n"
