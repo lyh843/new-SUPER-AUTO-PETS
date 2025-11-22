@@ -49,6 +49,12 @@ private:
     // 宠物显示组件 - 存储指向UI中QLabel的指针
     QVector<QLabel*> _playerPetLabels;    // 玩家宠物显示标签
     QVector<QLabel*> _aiPetLabels;        // AI宠物显示标签
+    QVector<QLabel*> _playerPetStatusLabels;    // 玩家宠物状态背景/图标标签
+    QVector<QLabel*> _aiPetsStatusLabels;       // AI宠物状态背景/图标标签
+    QVector<QLabel*> _playerAttackLabels;       // 玩家攻击力数值标签
+    QVector<QLabel*> _playerHPLabels;           // 玩家生命值数值标签
+    QVector<QLabel*> _aiAttackLabels;           // AI攻击力数值标签
+    QVector<QLabel*> _aiHPLabels;               // AI生命值数值标签
 
     // 状态
     bool _battleStarted;
