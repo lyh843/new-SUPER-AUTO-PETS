@@ -38,7 +38,7 @@ Pet::Pet(const Pet& other)
 {}
 
 // 实现升级逻辑
-void Pet::levelUp()
+void Pet::levelUp(int hp, int atk)
 {
     if (_level >= 3)
         return;  // 已达最高等级
@@ -47,8 +47,8 @@ void Pet::levelUp()
 
 
     // 升级时提升属性：每级增长50%的基础属性
-    int hpBonus     = _baseHP / 2 + _baseHP % 2;
-    int attackBonus = _baseAttack / 2 + _baseAttack % 2;
+    int hpBonus     = hp / 2 + hp % 2;
+    int attackBonus = atk / 2 + atk % 2;
 
     _hp += hpBonus;
     _damage += attackBonus;
@@ -68,7 +68,7 @@ void Pet::gainExperience(int amount)
     // 如果目标等级大于当前等级，则升级
     while (_level < targetLevel)
     {
-        levelUp();
+        levelUp(_hp, _damage);
     }
 }
 

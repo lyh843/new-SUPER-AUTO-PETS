@@ -522,7 +522,7 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
         for(int i = 0; i < _player->getPetCount(); i++){
             if(i == index) continue;
             selectedPet = _player->getPetAt(i);
-            if(selectedPet && selectedPet->getName() == pet->getName()){
+            if(selectedPet && selectedPet->getName() == pet->getName() && selectedPet->getLevel() < 3){
                 samePetIndex = i;
                 break;
             }
@@ -530,9 +530,9 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
 
         if(samePetIndex != -1 && selectedPet->getLevel() < 3){
             if(selectedPet->getLevel() + pet->getLevel() >= 3){
-                pet->levelUp();
+                pet->levelUp(selectedPet->getHP(), selectedPet->getAttack());
                 if(pet->getLevel() != 3){
-                    pet->levelUp();
+                    pet->levelUp(selectedPet->getHP(), selectedPet->getAttack());
                 }
                 _player->removePet(samePetIndex);
                 fishskill(_player,pet);
@@ -540,7 +540,7 @@ void QtShopview::onPlayerPetClicked(int index, bool isPlayerPet)
                 QMessageBox::information(this, "升级成功", "宠物已升级！");
             }
             else if(selectedPet->getLevel() + pet->getLevel() < 3){
-                pet->levelUp();
+                pet->levelUp(selectedPet->getHP(), selectedPet->getAttack());
                 _player->removePet(samePetIndex);
                 fishskill(_player,pet);
                 updateUI();

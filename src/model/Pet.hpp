@@ -80,7 +80,7 @@ public:
     int getExp() const { return _exp; };
     int getTier() const { return _tier; };
 
-    virtual void levelUp();
+    virtual void levelUp(int hp, int atk);
 
     // 获得经验并自动升级
     void gainExperience(int amount);
