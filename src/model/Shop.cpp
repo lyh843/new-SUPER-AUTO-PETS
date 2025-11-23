@@ -64,6 +64,7 @@ bool Shop::refresh()
     if (!_player->decreaseCoin(REFRESH_COST))
         return false;
 
+    int oldPetShopSize = petShopSize;
     if(_player->getRound() == 3){
         petShopSize = 4;
     }
@@ -76,7 +77,8 @@ bool Shop::refresh()
     // 刷新未冻结的宠物
     for (int i = 0; i < petShopSize; ++i)
     {
-        if (!_petFrozen[i])
+        // 如果是新增的位置（扩容后），或者位置为空且未冻结，或者未冻结的旧位置，都需要初始化/刷新
+        if (i >= oldPetShopSize || !_petFrozen[i])
         {
             _petShopList[i] = generateRandomPet();
         }
