@@ -26,11 +26,11 @@ bool Food::applyToPet(Pet* pet)
         pet->setAttack(pet->getAttack() + 3);
         break;
 
-    // case FoodPerkType::Garlic:
-    //     // 大蒜：+2生命，添加护甲效果（这里先简单增加生命，后续可以扩展护甲机制）
-    //     pet->setHP(pet->getHP() + 2);
-    //     // TODO: 添加护甲标记
-    //     break;
+    case FoodPerkType::Garlic:
+        // 大蒜：+2生命，添加护甲效果（这里先简单增加生命，后续可以扩展护甲机制）
+        pet->setHP(pet->getHP() + 2);
+        // TODO: 添加护甲标记
+        break;
 
     case FoodPerkType::Salad:
         // 色拉：+1攻击 +2生命

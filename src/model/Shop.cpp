@@ -48,7 +48,8 @@ std::unique_ptr<Food> Shop::generateRandomFood()
         Food::createCannedFood,
         // Food::createMelon,
         // Food::createMushroom,
-        Food::createPear
+        Food::createPear,
+        Food::createCake
     };
 
     std::uniform_int_distribution<size_t> dist(0, foodCreators.size() - 1);
@@ -61,7 +62,7 @@ bool Shop::refresh()
     if (!_player->decreaseCoin(REFRESH_COST))
         return false;
 
-    if(_player->getRound() == 3){
+    if(_player->getRound() == 4){
         petShopSize = 4;
     }
     else if(_player->getRound() == 6){
@@ -78,12 +79,12 @@ bool Shop::refresh()
             _petShopList[i] = generateRandomPet();
         }
     }
-    if (_player->getRound() == 5)
+    if (_player->getRound() == 6)
     {
         std::unique_ptr<Cultivated> uptr = std::make_unique<Cultivated>();
         _petShopList[petShopSize] = std::move(uptr);
     }
-    if (_player->getRound() == 7)
+    if (_player->getRound() == 8)
     {
         std::unique_ptr<IronCow> uptr = std::make_unique<IronCow>();
         _petShopList[petShopSize] = std::move(uptr);
@@ -133,6 +134,12 @@ bool Shop::buyFood(int foodIndex, int targetPetIndex)
     _foodFrozen[foodIndex] = false;
 
     return true;
+}
+
+void Shop::deleteFood(int foodIndex){
+        // 移除食物（已消耗）
+    _foodShopList[foodIndex] = nullptr;
+    _foodFrozen[foodIndex] = false;
 }
 
 bool Shop::buyPet(int petIndex, int targetPetIndex)

@@ -5,7 +5,7 @@
 #include "Pet.hpp"
 
 constexpr int Max_round = 10;
-constexpr int Max_prize = 5;
+constexpr int Max_prize = 10;
 
 class Player
 {

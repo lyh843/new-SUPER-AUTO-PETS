@@ -76,6 +76,7 @@ public:
     bool eventFilter(QObject* obj, QEvent *event) override;
     void setFreeze(bool freeze){_isFreeze = freeze;}
     bool isFreeze() const {return isFreeze();}
+    Food getFood() {return *_food;}
 signals:
     void freezeClicked(int index);
 };

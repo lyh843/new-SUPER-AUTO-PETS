@@ -52,6 +52,8 @@ public:
     // 冻结/解冻食物
     void toggleFoodFreeze(int index);
 
+    void deleteFood(int index);
+
     // 获取商店宠物
     Pet* getPet(int index) const;
 

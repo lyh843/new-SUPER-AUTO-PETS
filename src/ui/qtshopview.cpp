@@ -565,6 +565,21 @@ void QtShopview::onFoodClicked(int index)
         return;
     }
 
+    if(_shopFoods[index]->getFood().getName() == "Cake"){
+        if(_player->getCoin() >= 1){
+            _player->decreaseCoin(1);
+            QMessageBox::warning(this, "", "The cake is a lie.");
+            _player->decreaseLives(1);
+            _shop->deleteFood(index);
+            updateUI();
+            return;
+        }
+        else{
+            QMessageBox::warning(this, "购买失败", "金币不足或无法使用该食物！");
+            return;
+        }
+    }
+
     // 让用户选择目标宠物
     QMessageBox msgBox(this);
     msgBox.setWindowTitle("选择目标宠物");

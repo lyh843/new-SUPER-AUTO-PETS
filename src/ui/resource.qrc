@@ -73,8 +73,7 @@
         <file>photo/Pet/Wolverine.png</file>
         <file>photo/Pet/Worm.png</file>
         <file>photo/Pet/IronCow.png</file>
-        <file>photo/Pet/Qie.png</file>
-        <file>photo/Food/Cake.png</file>
+        <file>photo/Pet/Cultivated.png</file>
     </qresource>
     <qresource prefix="/else">
         <file>photo/Bars.png</file>
@@ -166,5 +165,6 @@
         <file>photo/Food/SoftIce.png</file>
         <file>photo/Food/Steak.png</file>
         <file>photo/Food/Strawberry.png</file>
+        <file>photo/Food/Cake.png</file>
     </qresource>
 </RCC>
