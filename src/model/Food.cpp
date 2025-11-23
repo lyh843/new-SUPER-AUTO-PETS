@@ -131,5 +131,5 @@ std::unique_ptr<Food> Food::createPear()
 
 std::unique_ptr<Food> Food::createCake()
 {
-    return std::make_unique<Food>("Cake", "蛋糕", "", 1, 1, FoodPerkType::Cake, 0, 0);
+    return std::make_unique<Food>("Cake", "蛋糕", "来自G姐的馈赠", 1, 1, FoodPerkType::Cake, 0, 0);
 }
