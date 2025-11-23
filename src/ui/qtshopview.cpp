@@ -418,6 +418,13 @@ void QtShopview::onShopPetClicked(int index, bool isPlayerPet)
         return;
     }
 
+    // 检查是否被冻结
+    if (_shop->isPetFrozen(index))
+    {
+        QMessageBox::warning(this, "无法购买", "该宠物已被冻结，无法购买！\n请先解冻（右键点击）后再购买。");
+        return;
+    }
+
     if (_shop->buyPet(index, emptySlot))
     {
         updateUI();
@@ -623,6 +630,13 @@ void QtShopview::onFoodClicked(int index)
 
     if (targetPetIndex >= 0)
     {
+        // 检查是否被冻结
+        if (_shop->isFoodFrozen(index))
+        {
+            QMessageBox::warning(this, "无法购买", "该食物已被冻结，无法购买！\n请先解冻（右键点击）后再购买。");
+            return;
+        }
+
         if (_shop->buyFood(index, targetPetIndex))
         {
             updateUI();

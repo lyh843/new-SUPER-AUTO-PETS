@@ -116,6 +116,10 @@ bool Shop::buyFood(int foodIndex, int targetPetIndex)
     if (!_foodShopList[foodIndex])
         return false;
 
+    // 检查是否被冻结
+    if (_foodFrozen[foodIndex])
+        return false;
+
     // 检查玩家金币
     if (!_player->decreaseCoin(_foodShopList[foodIndex]->getCost()))
         return false;
@@ -155,6 +159,10 @@ bool Shop::buyPet(int petIndex, int targetPetIndex)
         return false;
     
     if (!_petShopList[petIndex])
+        return false;
+
+    // 检查是否被冻结
+    if (_petFrozen[petIndex])
         return false;
 
     // 检查玩家金币
