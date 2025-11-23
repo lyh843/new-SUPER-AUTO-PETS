@@ -189,6 +189,8 @@ private slots:
 
     void onRecordsClicked()
     {
+        // 刷新战绩数据
+        _recordsView->refreshRecords();
         _stackedWidget->setCurrentWidget(_recordsView);
         setWindowTitle("Super Auto Pets - 战绩");
     }
@@ -353,6 +355,9 @@ private slots:
         }
             });
 
+            // 保存战绩
+            _recordsView->addRecord(_player->getRound(), _player->getPrize(), _player->getPrize());
+            
             QMessageBox::information(this, "游戏结束",
                                    QString("游戏结束！\n\n"
                                           "最终成绩：\n"
@@ -401,6 +406,9 @@ private slots:
 
         if (_player->getPrize() >= Max_prize)
         {
+            // 保存战绩
+            _recordsView->addRecord(_player->getRound(), _player->getPrize(), _player->getPrize());
+            
             QMessageBox::information(this, "游戏胜利！",
                                    QString("恭喜！你赢得了游戏！\n\n"
                                           "最终成绩：\n"

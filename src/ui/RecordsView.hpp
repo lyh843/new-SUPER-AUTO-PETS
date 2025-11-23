@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPixmap>
+#include <vector>
 
 class RecordsView : public QWidget
 {
@@ -19,6 +20,14 @@ private:
     QLabel* _statsLabel;
     QPixmap _bgPixmap;
 
+    // 静态存储战绩数据
+    struct RecordData {
+        int round;
+        int wins;
+        int trophies;
+    };
+    static std::vector<RecordData> _allRecords;
+
     void setupUI();
     void loadRecords();
     void updateStats();
@@ -28,6 +37,7 @@ public:
     ~RecordsView() = default;
 
     void addRecord(int round, int wins, int trophies);
+    void refreshRecords();  // 刷新战绩显示
 
 signals:
     void backClicked();  // 返回主菜单

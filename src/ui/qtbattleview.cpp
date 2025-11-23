@@ -596,9 +596,12 @@ void QtBattleView::on_forward_button_clicked()
 
     // 执行单步战斗，这会触发事件链，包括 BattleEnd
     _battleEngine.executeSingleStep();
-
-    // 【重要！】请移除所有此处对 _battleEngine.isInBattle() 的检查和操作，
-    // 这些操作将由 handleBattleEndActions() 在动画完成后执行。
+    
+    // 如果战斗已经结束且没有动画在播放，立即处理结束逻辑
+    if (!_battleEngine.isInBattle() && _activeAnimationCount == 0)
+    {
+        handleBattleEndActions();
+    }
 }
 
 void QtBattleView::handleBattleEndActions()
@@ -609,32 +612,55 @@ void QtBattleView::handleBattleEndActions()
     // 清除标记，表示战斗结束逻辑已开始执行
     _pendingBattleEnd = false;
 
-    //检测是否已经结束
-    bool hasMore = _battleEngine.executeSingleStep();
-
-    if (!hasMore)
+    // 检查战斗是否真的结束了
+    if (!_battleEngine.isInBattle())
     {
-        // 战斗结束
+        // 战斗结束，获取结果并发出信号
         BattleResult result = _battleEngine.getResult();
         emit battleFinished(result);
 
+        // 禁用所有战斗控制按钮
         ui->auto_play_button->setEnabled(false);
         ui->auto_play_button->setCursor(Qt::ArrowCursor);
         ui->forward_button->setEnabled(false);
         ui->forward_button->setCursor(Qt::ArrowCursor);
+        
+        // 停止自动战斗
+        if (_autoBattle) {
+            _autoTimer->stop();
+            _autoBattle = false;
+        }
     }
-
 }
 
 //实现自动执行
 void QtBattleView::onAutoStep()
 {
-    on_forward_button_clicked();
-
+    // 如果战斗已经结束，停止自动战斗
     if (!_battleEngine.isInBattle())
     {
         _autoTimer->stop();
         _autoBattle = false;
+        // 如果战斗结束且没有动画在播放，处理结束逻辑
+        if (_activeAnimationCount == 0)
+        {
+            handleBattleEndActions();
+        }
+        return;
+    }
+
+    on_forward_button_clicked();
+
+    // 再次检查战斗是否结束（可能在执行单步后结束）
+    if (!_battleEngine.isInBattle())
+    {
+        _autoTimer->stop();
+        _autoBattle = false;
+        // 如果战斗结束且没有动画在播放，处理结束逻辑
+        if (_activeAnimationCount == 0)
+        {
+            handleBattleEndActions();
+        }
     }
 }
 

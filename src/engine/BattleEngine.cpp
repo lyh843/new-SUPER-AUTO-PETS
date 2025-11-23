@@ -119,13 +119,27 @@ void BattleEngine::_executePreBattleSkills()
 
 void BattleEngine::_executeTurn()
 {
-    if (_isBattleOver()) {return;}
+    if (_isBattleOver()) {
+        // 如果战斗已经结束，触发结束事件
+        if (_inBattle) {
+            _finishBattle();
+            _inBattle = false;
+        }
+        return;
+    }
 
     int attacker_1_Idx = _getFirstAlivePet( _player1Team);
     int attacker_2_Idx = _getFirstAlivePet(_player2Team);
 
     if (attacker_1_Idx == -1 || attacker_2_Idx == -1)
+    {
+        // 如果找不到存活的宠物，战斗结束
+        if (_inBattle) {
+            _finishBattle();
+            _inBattle = false;
+        }
         return;
+    }
 
     auto &attacker_1_Team = _player1Team;
     auto &attacker_2_Team = _player2Team;
@@ -158,6 +172,13 @@ void BattleEngine::_executeTurn()
     _applyDamage(attacker_1, attacker_1_Idx, attacker_2, attacker_2_Idx);
 
     _cleanupDeadPets();
+
+    // 检查战斗是否在本次攻击后结束
+    if (_isBattleOver() && _inBattle) {
+        _finishBattle();
+        _inBattle = false;
+        return;
+    }
 
     _player1Turn = !_player1Turn;
 }
