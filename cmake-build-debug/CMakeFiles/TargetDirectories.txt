@@ -1,5 +1,5 @@
-D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets.dir
-D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen_timestamp_deps.dir
-D:/yh/university/class/sophomore/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir
+D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets.dir
+D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen_timestamp_deps.dir
+D:/new-SUPER-AUTO-PETS/cmake-build-debug/CMakeFiles/SuperAutoPets_autogen.dir

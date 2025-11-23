@@ -232,8 +232,8 @@ void BattleEngine::_applyDamage(
     });
 
     /* ===== 攻击者造成伤害技能 ===== */
-    attacker->triggerOnDealDamage(defender, damage1, this);
-    defender->triggerOnDealDamage(attacker, damage2, this);
+    if (!attacker->isDead()) attacker->triggerOnDealDamage(defender, damage1, this);
+    if (!defender->isDead()) defender->triggerOnDealDamage(attacker, damage2, this);
 
     if (defender->isDead())
         _handlePetDeath(defenderIdx, false);
