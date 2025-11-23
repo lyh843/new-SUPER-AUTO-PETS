@@ -10,8 +10,10 @@ Shop::Shop(Player* player)
     petShopSize = 3;
     _petShopList.resize(6);
     _foodShopList.resize(FOOD_SHOP_SIZE);
-    _petFrozen.resize(petShopSize, false);
+    _petFrozen.resize(6, false);
     _foodFrozen.resize(FOOD_SHOP_SIZE, false);
+    refreshCow = false;
+    refreshCultivated = false;
 
     // 初始化商店
     for (int i = 0; i < petShopSize; ++i)
@@ -62,10 +64,10 @@ bool Shop::refresh()
     if (!_player->decreaseCoin(REFRESH_COST))
         return false;
 
-    if(_player->getRound() == 4){
+    if(_player->getRound() == 3){
         petShopSize = 4;
     }
-    else if(_player->getRound() == 6){
+    else if(_player->getRound() == 5){
         petShopSize = 5;
     }
     else if(_player->getRound() == 8){
@@ -79,15 +81,17 @@ bool Shop::refresh()
             _petShopList[i] = generateRandomPet();
         }
     }
-    if (_player->getRound() == 6)
+    if (_player->getRound() == 5 && !refreshCultivated)
     {
         std::unique_ptr<Cultivated> uptr = std::make_unique<Cultivated>();
-        _petShopList[petShopSize] = std::move(uptr);
+        _petShopList[petShopSize - 1] = std::move(uptr);
+        refreshCultivated = true;
     }
-    if (_player->getRound() == 8)
+    if (_player->getRound() == 8 && !refreshCow)
     {
         std::unique_ptr<IronCow> uptr = std::make_unique<IronCow>();
-        _petShopList[petShopSize] = std::move(uptr);
+        _petShopList[petShopSize - 1] = std::move(uptr);
+        refreshCow = true;
     }
     // 刷新未冻结的食物
     for (int i = 0; i < FOOD_SHOP_SIZE; ++i)
@@ -157,6 +161,11 @@ bool Shop::buyPet(int petIndex, int targetPetIndex)
 
     // 尝试添加宠物
     auto pet = std::move(_petShopList[petIndex]);
+    bool isIronCow = false;
+    if(pet->getName() == "IronCow")
+    {
+        isIronCow = true;
+    }
     if (!_player->addPet(std::move(pet), targetPetIndex))
     {
         _player->addCoin(PET_COST);  // 退还金币
@@ -165,11 +174,11 @@ bool Shop::buyPet(int petIndex, int targetPetIndex)
     }
 
     //实现铁牛技能
-    if (dynamic_cast<IronCow*>(_petShopList[petIndex].get()))
+    if (isIronCow)
     {
         for (int i = 0;i < _player->getPetCount(); i++)
         {
-            if (!dynamic_cast<IronCow*>(_petShopList[petIndex].get()))
+            if (_player->getPets()[i].get() && _player->getPets()[i].get()->getName() != "IronCow")
             {
                 _player->getPetAt(i)->addHP(2);
                 _player->getPetAt(i)->addAttack(2);

@@ -29,6 +29,8 @@ private:
     
     // 生成随机食物
     std::unique_ptr<Food> generateRandomFood();
+    bool refreshCow;
+    bool refreshCultivated;
 
 public:
     // 构造函数：传入玩家引用

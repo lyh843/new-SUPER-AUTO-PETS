@@ -388,7 +388,7 @@ void BattleEngine::FlamingoSkill()
     }
     for (int i = _player->getPets().size() - 1; i >= 0 && count > 0; i--)
     {
-        if (_player->getPets()[i].get()->getName() == "Flamingo")
+        if (_player->getPets()[i].get() && _player->getPets()[i].get()->getName() == "Flamingo")
         {
             _player->getPets()[i].get()->setAttack(_player->getPets()[i].get()->getAttack()+2);
             count--;
