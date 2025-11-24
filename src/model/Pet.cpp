@@ -175,7 +175,7 @@ Swan::Swan(int hp, int attack, int ownerPlayer, int tier)
 }
 
 Flamingo::Flamingo(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("Flamingo", "火烈鸟", "战斗结束时如果存活获得+2ATK", hp, attack, ownerPlayer, tier)
+    : Pet("Flamingo", "火烈鸟", "战斗结束时如果存活获得+2HP/+2ATK", hp, attack, ownerPlayer, tier)
 {
     setSkill(std::make_unique<SkillFlamingo>());
 }

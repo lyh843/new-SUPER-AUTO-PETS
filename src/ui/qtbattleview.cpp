@@ -140,15 +140,18 @@ void QtBattleView::generateAITeam(int difficulty)
             }
 
         // 根据难度提升属性
-        int levelBonus = difficulty / 3;
-        for (int j = 0; j < levelBonus; ++j)
+        int levelBonus = difficulty;
+        for (int j = 0; j < (levelBonus - 1) * 4; ++j)
         {
-            pet->gainExperience(2);
+        int num = std::uniform_int_distribution<>(0, 1)(gen);
+            switch (num) {
+            case 0: pet->addAttack(1);break;
+            default: pet->addHP(1);break;
+            }
         }
 
         _aiTeam.push_back(std::move(pet));
     }
-
 }
 
 // 建立展示宠物的容器
@@ -330,10 +333,6 @@ void QtBattleView::updateBattleDisplay()
 void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
                                        int defenderIdx, bool isPlayerDefender)
 {
-    // [修复: 统一标签获取逻辑]
-    // 统一将第一个索引视为 P1 宠物的索引，第二个索引视为 P2 宠物的索引
-    // 这与 BattleEngine 中固定的索引发送方式 (P1, P2, true) 保持一致。
-
     QLabel* playerPetLabel = nullptr;
     QLabel* aiPetLabel = nullptr;
 
@@ -350,13 +349,25 @@ void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
         aiPetLabel = _aiPetLabels[p2PetIdx];
     }
 
-    // 检查标签有效性 (其余代码保持不变)
+    // 检查标签有效性
     if (!playerPetLabel || !aiPetLabel || playerPetLabel->isHidden() || aiPetLabel->isHidden()) {
         qDebug() << "Attack animation skipped: Pet labels not found or hidden.";
+        if (_activeAnimationCount == 0 && !_autoBattle) {
+            ui->forward_button->setEnabled(true);
+            ui->forward_button->setCursor(Qt::PointingHandCursor);
+        }
         return;
     }
 
-    // 使用 geometry() 获取位置和大小，更可靠
+    if (!_autoBattle) {
+        ui->forward_button->setEnabled(false);
+        ui->forward_button->setCursor(Qt::ArrowCursor);
+    }
+    // 确保在手动模式下，动画期间无法启动自动播放，防止冲突
+    ui->auto_play_button->setEnabled(false);
+    ui->auto_play_button->setCursor(Qt::ArrowCursor);
+
+    // 使用 geometry() 获取位置和大小
     QRect p1Rect = playerPetLabel->geometry();
     QRect p2Rect = aiPetLabel->geometry();
 
@@ -432,16 +443,26 @@ void QtBattleView::playAttackAnimation(int attackerIdx, bool isPlayerAttacker,
 
     // 播放动画并在完成后自动清理和更新显示
     connect(parallelGroup, &QParallelAnimationGroup::finished, this, [this, parallelGroup]() {
-        // [关键代码] 完成时减少计数并检查是否需要更新显示
+        // 完成时减少计数并检查是否需要更新显示
         _activeAnimationCount--;
         if (_activeAnimationCount == 0) {
+
+            // 如果不是自动播放模式，恢复单步执行按钮
+            if (!_autoBattle) {
+                ui->forward_button->setEnabled(true);
+                ui->forward_button->setCursor(Qt::PointingHandCursor);
+            }
+            // 始终恢复自动播放按钮（它在BattleEnd时会被再次禁用）
+            ui->auto_play_button->setEnabled(true);
+            ui->auto_play_button->setCursor(Qt::PointingHandCursor);
+
             if (_pendingDisplayUpdate) {
                 // 清除标记，执行显示更新（死亡宠物消失，新宠物顶上）
                 _pendingDisplayUpdate = false;
                 updateBattleDisplay();
             }
 
-            // 【关键修改】在动画结束并显示更新后，检查并处理战斗结束逻辑
+            // 在动画结束并显示更新后，检查并处理战斗结束逻辑
             handleBattleEndActions();
         }
         parallelGroup->deleteLater();
@@ -589,7 +610,7 @@ void QtBattleView::on_auto_play_button_clicked()
 //按单步执行按钮
 void QtBattleView::on_forward_button_clicked()
 {
-    if (!_battleEngine.isInBattle())
+    if (!_battleEngine.isInBattle() || _activeAnimationCount > 0)
         return;
 
     clearHighlights();
@@ -703,19 +724,18 @@ void QtBattleView::onBattleEvent(const BattleEvent& event)
 
     if (shouldMarkUpdate)
     {
-        // 3. 标记需要更新（供动画结束回调使用）
+        // 标记需要更新（供动画结束回调使用）
         _pendingDisplayUpdate = true;
 
-        // 4. 如果当前没有动画在播放，则立即更新显示。
+        // 如果当前没有动画在播放，则立即更新显示。
         if (_activeAnimationCount == 0)
         {
             // 清除标记，并执行更新
             _pendingDisplayUpdate = false;
             updateBattleDisplay();
-            // 【关键修改】在 UI 更新后，检查并处理战斗结束逻辑
+            // 在 UI 更新后，检查并处理战斗结束逻辑
             handleBattleEndActions();
         }
-        // 否则，更新将被延迟，等待 playAttackAnimation 中的回调函数执行。
     }
 
 }

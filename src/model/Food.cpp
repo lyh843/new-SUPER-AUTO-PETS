@@ -86,7 +86,7 @@ bool Food::applyToPet(Pet* pet)
 // 工厂方法：创建各种食物
 std::unique_ptr<Food> Food::createApple()
 {
-    return std::make_unique<Food>("Apple", "苹果", "最普通的水果，带来均衡加成\n攻击力：+1\n生命值：+1", 1, 3, FoodPerkType::Apple, 1, 1);
+    return std::make_unique<Food>("Apple", "苹果", "最普通的水果，带来均衡加成\n攻击力：+1\n生命值：+1", 1, 2, FoodPerkType::Apple, 1, 1);
 }
 
 // std::unique_ptr<Food> Food::createHoney()
@@ -101,17 +101,17 @@ std::unique_ptr<Food> Food::createMeatBone()
 
 std::unique_ptr<Food> Food::createGarlic()
 {
-    return std::make_unique<Food>("Garlic", "大蒜", "生命值：+2", 2, 6, FoodPerkType::Garlic, 2, 0);
+    return std::make_unique<Food>("Garlic", "大蒜", "生命值：+2", 2, 2, FoodPerkType::Garlic, 2, 0);
 }
 
 std::unique_ptr<Food> Food::createSalad()
 {
-    return std::make_unique<Food>("Salad", "色拉", "攻击力：+1\n生命值：+2", 2, 6, FoodPerkType::Salad, 2, 1);
+    return std::make_unique<Food>("Salad", "色拉", "攻击力：+1\n生命值：+2", 2, 3, FoodPerkType::Salad, 2, 1);
 }
 
 std::unique_ptr<Food> Food::createCannedFood()
 {
-    return std::make_unique<Food>("CannedFood", "罐头", "攻击力：+2\n生命值：+2",2, 6, FoodPerkType::CannedFood, 2, 2);
+    return std::make_unique<Food>("CannedFood", "罐头", "攻击力：+2\n生命值：+2",2, 3, FoodPerkType::CannedFood, 2, 2);
 }
 
 // std::unique_ptr<Food> Food::createMelon()
