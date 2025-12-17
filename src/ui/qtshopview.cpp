@@ -17,7 +17,6 @@
 #include <memory>
 #include "model/Pet.hpp"
 #include "model/Player.hpp"
-#include "ui/BattleView.hpp"
 #include "ui_qtshopview.h"
 
 QtPet::QtPet(QPushButton* petPushButton,

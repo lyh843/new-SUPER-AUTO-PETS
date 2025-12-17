@@ -1,7 +1,6 @@
 #include "resultturn.h"
 #include "ui_resultturn.h"
 #include <QPixmap>
-#include "BattleView.hpp"
 #include <QResizeEvent>  // 添加这个头文件
 
 #include "ui/StartView.hpp"

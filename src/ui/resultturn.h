@@ -2,7 +2,6 @@
 #define RESULTTURN_H
 
 #include <QWidget>
-#include "BattleView.hpp"
 
 #include "ui/StartView.hpp"
 #include "ui/QtShopview.h"

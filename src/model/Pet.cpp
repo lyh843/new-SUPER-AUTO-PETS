@@ -223,7 +223,7 @@ Skunk::Skunk(int hp, int attack, int ownerPlayer, int tier)
 }
 
 IronCow::IronCow(int hp, int attack, int ownerPlayer, int tier)
-    : Pet("IronCow", "铁牛", "购买时，铁牛展现博爱胸怀，友方所有单位+2HP/+2ATK", hp, attack, ownerPlayer, tier){}
+    : Pet("IronCow", "铁牛", "购买时，铁牛展现博爱胸怀，友方所有单位+3HP/+3ATK", hp, attack, ownerPlayer, tier){}
 
 Cultivated::Cultivated(int hp, int attack, int ownerPlayer, int tier)
     : Pet("Cultivated", "高雅人士", "高雅人士品鉴战斗中，30%概率闪避伤害", hp, attack, ownerPlayer, tier)

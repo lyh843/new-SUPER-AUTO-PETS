@@ -272,7 +272,7 @@ public:
 class Cultivated : public Pet
 {
 public:
-    Cultivated(int hp = 1, int attack = 7, int ownerPlayer = 0, int tier = 999);
+    Cultivated(int hp = 1, int attack = 20, int ownerPlayer = 0, int tier = 999);
     Cultivated(const Cultivated& other);                              // 新增拷贝构造函数
     ~Cultivated() = default;
 };

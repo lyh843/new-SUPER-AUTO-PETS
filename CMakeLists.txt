@@ -33,8 +33,6 @@ set(SOURCES
         src/model/Food.cpp
         src/model/Skill.cpp
         src/ui/StartView.cpp
-        src/ui/ShopView.cpp
-        src/ui/BattleView.cpp
         src/ui/PetEncyclopediaView.cpp
         src/ui/RecordsView.cpp
         src/engine/BattleEngine.cpp
@@ -49,8 +47,6 @@ set(HEADERS
         src/model/Food.hpp
         src/model/Skill.hpp
         src/ui/StartView.hpp
-        src/ui/ShopView.hpp
-        src/ui/BattleView.hpp
         src/ui/PetEncyclopediaView.hpp
         src/ui/RecordsView.hpp
         src/engine/BattleEngine.hpp

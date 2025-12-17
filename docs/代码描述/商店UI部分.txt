@@ -1,0 +1,2 @@
+商店UI部分：
+采用QtCreator进行商店部分的可视化设计，采用了大量的QLabel和QPushButto。

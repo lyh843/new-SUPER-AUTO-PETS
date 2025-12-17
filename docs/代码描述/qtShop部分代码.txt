@@ -1,0 +1,3 @@
+QtShopView.hpp/cpp：
+定义了新的QtPet和QtFood类，与Pet/Food类极其相关Qt控件之间是类的聚合关系。实现了Pet/Food与UI控件的绑定。
+还定义了QtShopView类，实现商店页面各类事件的检测与事件实现。
